@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal Ejemplo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<button id="openModal">Abrir Modal</button>
+
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Este es un Modal</h2>
+        <p>¡Hola! Este es un contenido del modal.</p>
+    </div>
+</div>
+
+<script src="script.js"></script>
+
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+}
+
+.modal {
+    display: none; /* Ocultar el modal por defecto */
+    position: fixed; /* Mantener el modal en su lugar */
+    z-index: 1; /* Asegurar que esté en la parte superior */
+    left: 0;
+    top: 0;
+    width: 100%; /* Ancho completo */
+    height: 100%; /* Altura completa */
+    overflow: auto; /* Habilitar desplazamiento si es necesario */
+    background-color: rgba(0, 0, 0, 0.4); /* Fondo oscuro con opacidad */
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto; /* Centrar el modal */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Ancho del modal */
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+</style>
+
+<script>
+    // Obtener elementos
+const modal = document.getElementById("myModal");
+const btn = document.getElementById("openModal");
+const span = document.getElementsByClassName("close")[0];
+
+// Abrir el modal al hacer clic en el botón
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// Cerrar el modal al hacer clic en la "x"
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// Cerrar el modal al hacer clic fuera de él
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+</script>
+
+</body>
+</html>

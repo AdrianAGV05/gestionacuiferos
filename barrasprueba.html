@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pestaña Desplegable Informativa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .tab {
+            background-color: #f1f1f1;
+            cursor: pointer;
+            padding: 10px;
+            border: none;
+            text-align: left;
+            outline: none;
+            transition: 0.4s;
+            width: 100%;
+            font-size: 16px;
+            margin: 5px 0;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-top: none;
+            background-color: #fff;
+        }
+
+        .active {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Pestañas Informativas</h2>
+
+    <button class="tab" onclick="toggleTab(this)">Información sobre HTML</button>
+    <div class="tab-content">
+        <p>HTML (HyperText Markup Language) es el lenguaje de marcado estándar para crear páginas web. Se utiliza para estructurar el contenido en la web.</p>
+    </div>
+
+    <button class="tab" onclick="toggleTab(this)">Información sobre CSS</button>
+    <div class="tab-content">
+        <p>CSS (Cascading Style Sheets) es un lenguaje de estilo que se utiliza para describir la presentación de un documento escrito en HTML. Permite el diseño y la maquetación de las páginas web.</p>
+    </div>
+
+    <button class="tab" onclick="toggleTab(this)">Información sobre JavaScript</button>
+    <div class="tab-content">
+        <p>JavaScript es un lenguaje de programación que permite implementar funciones complejas en las páginas web. Se utiliza para crear contenido dinámico e interactivo.</p>
+    </div>
+
+    <script>
+        function toggleTab(button) {
+            const content = button.nextElementSibling;
+            const allContents = document.querySelectorAll('.tab-content');
+
+            // Ocultar todos los contenidos
+            allContents.forEach((item) => {
+                item.style.display = 'none';
+            });
+
+            // Mostrar/ocultar el contenido de la pestaña activa
+            content.style.display = content.style.display === 'block' ? 'none' : 'block';
+            button.classList.toggle('active');
+        }
+    </script>
+
+</body>
+</html>
+

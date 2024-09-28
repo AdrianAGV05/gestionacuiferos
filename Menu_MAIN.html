@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+        <link rel="stylesheet" href="CSS/Menu_MAIN.css">
+    <title></title>
+</head>
+<body>
+    <div class="menu-header">
+
+    <ul class="menu">
+        <ul>
+            <li>
+                <a><h2> Menú</h2></a>
+                <ul>
+                    <li>
+                        <a>Gestión de pozos</a>
+                    <ul>
+                        <li>
+                            <a href="Listado_pozos.html">Listado de pozos</a>
+                        </li>
+                    </ul>
+                    </li>
+                    <!--Generar una lista desplegable con el contenido de cada apartado-->
+                    <li>
+                        <a>Gestión de captura</a>
+                        <ul>
+                            <li>
+                                <a href="Listado_operadores.html">Operadores</a>
+                            </li>
+                            <li>
+                                <a href="Gestion_de_Operacion.html">Operación</a>
+                            </li>
+                            <li>
+                                <a href="Gestion_de_mtto.html">Mantenimiento</a>
+                            </li>
+                            <li>
+                                <a href="Gestion_de_alerta.html">Alertas</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="">Gestión de procesamiento</a>
+                    </li>
+                    <li>
+                        <a href="">Gestión de visualzación</a>
+                    </li>
+            </ul>
+            </li>
+        </ul>
+        
+    <!--Incluir un dentro de notificaciones-->
+    <!--Desarrollar opción para editar/precargar datos en la BD-->
+    <!--Dar la opción para importar datos masivos-->
+    </div>
+
+    <!--Cololocar en la parte derecha de la pantalla burbujas con una breve explicación del contenido de cada aprtado del menú-->
+   
+
+        <a href="index.html">
+            <button>Cerrar sesión</button></a>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div class="container">
+              <div class="barra">
+                <b>Gestion de Pozos</b>
+                  <img src="img/lista1.png" alt="Gestion de Pozos" >
+                  <p>Visualiza y edita los pozos del Organismo Operador.</p>
+              </div>
+              <div class="barra">
+                <b>Gestion de Captura</b>
+                  <img src="img/celularcap.png" alt="Gestion de Captura">
+                  <p>Administra la información enviada por los operadores.</p>
+              </div>
+              <div class="barra">
+                <b>Gestion de procesamiento</b>
+                  <img src="img/procesamiento-de-datos.png" alt="Gestion de procesamiento">
+                  <p>Genera indicadores.</p>
+              </div>
+              <div class="barra">
+                <b>Gestion de Visualización</b>
+                  <img src="img/data-visualization.png" alt="Gestion de Visualización">
+                  <p>Visualiza datos:
+                    <br>
+                    -Tabulares
+                    <br>
+                    -Gráficos
+                    <br>
+                    -Cartográficos
+                  </p>
+              </div>
+              <style>
+              .container {
+                  font-family: Arial, sans-serif;
+                  display: flex;
+                  justify-content: center;
+                  align-items: flex-start;
+                  height: 100vh;
+                  margin: 0;
+                  background-color: rgb(157, 249, 247);
+              }
+              
+              .container {
+                  display: flex;
+                  gap: 20px; /* Espacio entre las barras */
+              }
+              
+              .barra {
+                  background-color: #fff;
+                  border: 1px solid #ddd;
+                  border-radius: 5px;
+                  padding: 10px;
+                  text-align: center;
+                  width: 150px; /* Ancho de las barras */
+              }
+              
+              .barra img {
+                  max-width: 100%; /* Ajustar imagen al ancho de la barra */
+                  height: auto; /* Mantener la relación de aspecto */
+                  border-radius: 5px 5px 0 0; /* Esquinas redondeadas en la parte superior */
+              }
+              
+              .barra p {
+                  margin: 10px 0 0; /* Margen superior en el texto */
+              }
+          </style>
+          </div>
+          
+          <footer>
+            <small>
+              <div class="leyenda"> &copy; Software desarrollado por el Intituto Interamericano de Tecnología y Ciencias del Agua.</span>
+            </small>
+        </footer>
+            <!--Colocar el texto centrado y en la parte inferior de la pantlla-->
+</body>
+</html>
