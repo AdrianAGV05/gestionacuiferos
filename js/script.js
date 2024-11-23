@@ -36,10 +36,18 @@ function saludos(){
   })
 }
 
-function hola(){
+function confirmacion(){
   Swal.fire({
     title:'Datos enviados para almacenamiento',
     icon:'success',
-    timer:1500
+    timer:2500
+  })
+}
+
+function confirmacion2(){
+  Swal.fire({
+    title:'Datos enviados y en espera, la confirmación puede tardar entre uno y tres días hábiles',
+    icon:'success',
+    timer:2500
   })
 }

@@ -6,17 +6,35 @@
     <link rel="stylesheet" href="CSS/Menu_MAIN.css"> 
     <title>Index</title>
     <script src="js/script.js"></script>
+    <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+  <script src="https://kit.fontawesome.com/7f2bc339d8.js" crossorigin="anonymous"></script>
+
 
 </head>
 <body>
     <header class="header-index">
-        <h1>Bienvenido a Sistema gestor de información</h1> 
+        <h1 class="h1-custome ">Bienvenido a Sistema gestor de información</h1> 
 </header>
 <div class="section-botones">
-<a href="Inicio_sesion.html"> <button class="btn-main">Acceder</button></a>
-<a href="Nuevo_usuario.html"><button class="btn">Registrate</button></a>
-</div>
+ <a href="Inicio_sesion.html"> 
+   <button class="button is-info is-responsive">
+    <span class="icon is-small">
+     <i class="fas fa-check"></i>
+    </span>
+    <span>Acceder</span>
+  </button>
+</a>
 
+<a href="Nuevo_usuario.html">
+  <button class="button is-info is-responsive">
+    <span class="icon is-small">
+      <i class="fa-solid fa-pencil"></i>     
+    </span>
+     <span>Registrate</span>
+  </button>
+</a>
                 <!--Pestaña desplegable "nosotros" con una breve explicación del propósito del software-->
                 <!--Pestaña desplegable con un enlace al manual de usuario o tutorial-->
                 <!--Alineación a la derecha-->
@@ -25,13 +43,12 @@
 
 <main>
   <section class="banner">
-   <label id="openModal" style="cursor: pointer; color: #fff; font-size: 28px;">Nosotros</label> 
-
+    <span id="openModal" class="tag is-info" style="cursor: pointer;">Nosotros</span>
 <div id="myModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
-        <h2>Conoce el sistema gestor de Informaión</h2>
-        <p>¡Hola! Este es un contenido del modal.</p>
+        <h2><FONT color="black">Conoce el sistema gestor de Informaión</h2>
+        <p>¡Hola! </FONT></p>
     </div>
 </div>
 
@@ -105,17 +122,17 @@ window.onclick = function(event) {
  
 <!--Modal 2-->
 
-<label id="openModal2" style="cursor: pointer; color: #eaecf1; font-size: 26px;">Contactanos</label> 
+<label id="openModal2" class="tag is-info" style="cursor: pointer; "> Contactanos</label> 
 
 <div id="myModal2" class="modal2">
     <div class="modal-content2">
         <span class="close2">&times;</span>
-        <h2>Información de Contacto</h2>
+        <h2><FONT color= "black">Información de Contacto</h2>
         <p>Mtro. Jimmy Gonzalez Becerril.
           <br>
           Tel. 712 178 5135
           <br>
-          Correo: jgonzalesb011@alumno.uaemex.mx
+         Correo: jgonzalesb011@alumno.uaemex.mx</FONT>
         </p>
     </div>
 </div>
@@ -262,7 +279,7 @@ window.onclick = function(event) {
     <footer>
 
     <small>
-        &copy; Software desarrollado por el Intituto Interamericano de Tecnología y Ciencias del Agua.</span>
+       <FONT color="black"> &copy; Software desarrollado por el Intituto Interamericano de Tecnología y Ciencias del Agua.</FONT></span>
     </small>
 </footer>
     <!--Colocar el texto centrado y en la parte inferior de la pantlla-->
