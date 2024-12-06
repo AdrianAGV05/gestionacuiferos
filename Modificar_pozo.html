@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="CSS/Menu_MAIN.css"
-    <title></title>
+    <link rel="stylesheet" href="CSS/Menu_MAIN.css">
+    <script src="https://unpkg.com/sweetalert2@9.5.3/dist/sweetalert2.all.min.js"></script> 
+    <script src="js/script.js"></script>
+    <title>Modificar datos de pozo</title>
 </head>
+<header></header>
 <body>
     <table border="1" cellpadding="15" class="tabla">
         <caption> <h2>Modificar datos de pozo</h2> </caption>
@@ -14,8 +17,9 @@
                 <th>Clave de pozo</th>
                 <th>Nombre del pozo</th>
                 <th>Ubicación</th>
-                <th>Profundidad del tiro</th>
-                <th>Diámetro del tiro</th>
+                <th>Profundidad de perforación</th>
+                <th>Diámetro de perforación</th>
+                <th>Diámetro de ADEME</th>
                 <th>Documentos del pozo</th>
             </tr>
         </thead>
@@ -23,7 +27,30 @@
         <tbody>
             <tr>
                 <td>
-                    <input type="text" name="" id="">
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                            // Llamada a la API REST para obtener los datos
+                            fetch('http://localhost:8080/api/lista_pozos')
+                                .then(response => response.json())
+                                .then(data => {
+                                    const dropdown = document.getElementById("dropdown");
+                                    dropdown.innerHTML = ''; // Limpiar opciones anteriores
+                                    data.forEach(item => {
+                                        const option = document.createElement("option");
+                                        option.value = item.l_poz_clave;
+                                        option.textContent = item.l_poz_clave;
+                                        dropdown.appendChild(option);
+                                    });
+                                })
+                                .catch(error => console.error('Error al cargar datos:', error));
+                        });
+                    </script>
+                    <form>
+                        <label for="dropdown"></label>
+                        <select id="dropdown" name="dropdown">
+                            <option value=""></option>
+                        </select>
+                    </form>
                 </td>
 
                 <td>
@@ -39,10 +66,61 @@
                     </article>
                 </td>
                 <td>
-                    <input type="number">
+                    <h4>Metros:</h4>
+    
+                        <input type="range" min="30" max="250" value="50" class="slider" id="myRange">
+                        <p>Valor seleccionado: <span id="valor">50</span></p>
+
+                        <script>
+                            const sliderProfundidadPerforacion = document.getElementById("myRange");
+                            const outputProfundidadPerforacion = document.getElementById("valor");
+
+                            // Mostrar el valor inicial
+                            outputProfundidadPerforacion.textContent = sliderProfundidadPerforacion.value;
+
+                            // Actualizar el valor en tiempo real
+                            sliderProfundidadPerforacion.oninput = function() {
+                                outputProfundidadPerforacion.textContent = this.value;
+                            }
+                        </script>
                 </td>
                 <td>
-                    <input type="number">
+                    <h4>Pulgadas:</h4>
+    
+                        <input type="range" min="10" max="40" value="20" class="slider" id="myRange1">
+                        <p>Valor seleccionado: <span id="valor1">20</span></p>
+
+                        <script>
+                            const sliderDiametroPerforacion = document.getElementById("myRange1");
+                            const outputDiametroPerforacion = document.getElementById("valor1");
+
+                            // Mostrar el valor inicial
+                            outputDiametroPerforacion.textContent = sliderDiametroPerforacion.value;
+
+                            // Actualizar el valor en tiempo real
+                            sliderDiametroPerforacion.oninput = function() {
+                                outputDiametroPerforacion.textContent = this.value;
+                            }
+                        </script>
+                </td>
+                <td>
+                    <h4>Pulgadas:</h4>
+    
+                        <input type="range" min="10" max="40" value="20" class="slider" id="myRange2">
+                        <p>Valor seleccionado: <span id="valor2">20</span></p>
+
+                        <script>
+                            const sliderDiametroAdeme = document.getElementById("myRange2");
+                            const outputDiametroAdeme = document.getElementById("valor2");
+
+                            // Mostrar el valor inicial
+                            outputDiametroAdeme.textContent = sliderDiametroAdeme.value;
+
+                            // Actualizar el valor en tiempo real
+                            sliderDiametroAdeme.oninput = function() {
+                                outputDiametroAdeme.textContent = this.value;
+                            }
+                        </script>
                 </td>
                 <td>
                     <article>
@@ -64,7 +142,16 @@
     </table>
     <section class="botones">
         <a href="Listado_pozos.html"><img src="img/Boton atras.png" width="50"></a>
-        <a href="Aceptar_cambios_pozos.html"><img src="img/Boton siguiente.png" width="50"></a>
+        <img  src="img/Boton siguiente.png" Width="50" onclick="confirmacion()">
     </section>
+
+    <footer>
+      <small>
+        <div class="leyenda"> &copy; Software desarrollado por el Intituto Interamericano de Tecnología y Ciencias del Agua.</span>
+      </small>
+  </footer>
+      <!--Colocar el texto centrado y en la parte inferior de la pantlla-->
+
+
 </body>
 </html>

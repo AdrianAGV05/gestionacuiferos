@@ -1,14 +1,15 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
-        <link rel="stylesheet" href="CSS/tablas.css">
-    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/Menu_MAIN.css">
+    <title>Ingresar Datos de Operador</title>
 </head>
+<header></header>
 <body>
     
-    <table border=""1" cellpadding="15" class="tabla">
+    <table border="1" cellpadding="15" class="tabla">
         <caption><h2>Ingresar datos de operador</h2></caption>
         <thead>
             <tr>
@@ -18,30 +19,68 @@
                 <th>Número de teléfono</th>
             </tr>
         </thead>
-        
         <tbody>
             <tr>
                 <td>
-                    <input type="text">
+                    <input type="text" id="nombre" name="nombre" required>
                 </td>
                 <td>
-                    <input type="email">
+                    <input type="email" id="correo" name="correo" required>
                 </td>
                 <td>
-                    <input type="text">
+                    <input type="password" id="contrasena" name="contrasena" required>
                 </td>
                 <td>
-                    <input type="text">
+                    <input type="text" id="telefono" name="telefono" required>
                 </td>
-               
+            </tr>
         </tbody>
     </table>
+
     <section class="botones">
         <a href="Listado_operadores.html"><img src="img/Boton atras.png" width="50"></a>
-        <a href="operador_agregado.html"><img src="img/Boton siguiente.png" width="50"></a>
+        <img src="img/Boton siguiente.png" width="50" onclick="guardarOperador()">
     </section>
-        
-        
     
+    <script>
+        function guardarOperador() {
+            // Obtener los valores de los campos
+            const nombre = document.getElementById('nombre').value;
+            const correo = document.getElementById('correo').value;
+            const contrasena = document.getElementById('contrasena').value;
+            const telefono = document.getElementById('telefono').value;
+            
+            // Crear el objeto con los datos
+            const nuevoOperador = {
+                o_nombre: nombre,
+                o_correo: correo,
+                o_contrasena: contrasena,
+                o_telefono: telefono
+            };
+
+            // Enviar los datos al servidor utilizando una solicitud POST
+            fetch('http://localhost:8080/api/operadores', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(nuevoOperador)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Operador agregado con éxito');
+                // Redirigir a otra página si es necesario
+                window.location.href = 'operador_agregado.html';
+            })
+            .catch(error => console.error('Error al insertar datos:', error));
+        }
+    </script>
+     <footer>
+      <small>
+        <div class="leyenda"> &copy; Software desarrollado por el Intituto Interamericano de Tecnología y Ciencias del Agua.</span>
+      </small>
+  </footer>
+      <!--Colocar el texto centrado y en la parte inferior de la pantlla-->
+
 </body>
 </html>

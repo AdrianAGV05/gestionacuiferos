@@ -5,62 +5,138 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="CSS/Menu_MAIN.css">
     <script src="https://unpkg.com/sweetalert2@9.5.3/dist/sweetalert2.all.min.js"></script> 
-
     <script src="js/script.js"></script>
-    <title></title>
+    <title>Agregar Nuevo Pozo</title>
 </head>
+
+<header></header>
+
 <body>
+
     <table border="1" cellpadding="15" class="tabla">
         <caption> <h2>Agregar nuevo pozo</h2> </caption>
         <thead>
             <tr>
                 <th>Clave de pozo</th>
                 <th>Nombre del pozo</th>
-                <th>Ubicación</th>
-                <th>Profundidad del tiro</th>
-                <th>Diámetro del tiro</th>
-                <th>Documentos del pozo</th>
+                <th>Profundidad de perforación</th>
+                <th>Diámetro de perforación</th>
+                <th>Diámetro de ADEME</th>
             </tr>
         </thead>
 
         <tbody>
             <tr>
                 <td>
-                    <input type="text" name="" id="">
+                    <input type="text" id="clavePozo" required>
                 </td>
 
                 <td>
-                    <input type="text">
+                    <input type="text" id="nombrePozo" required>
                 </td>
                 <td>
-                    <input type="file">
-                    <!-- ! breve explicaciópn del tipo de documento-->
+                    <h4>Metros:</h4>
+                    <input type="range" min="30" max="250" value="50" class="slider" id="profundidad">
+                    <p>Valor seleccionado: <span id="valorProfundidad">50</span></p>
                 </td>
                 <td>
-                    <input type="number">
+                    <h4>Pulgadas:</h4>
+                    <input type="range" min="10" max="40" value="20" class="slider" id="diametroPerforacion">
+                    <p>Valor seleccionado: <span id="valorDiametroPerforacion">20</span></p>
                 </td>
                 <td>
-                    <input type="number">
-                </td>
-                <td>
-                    <article>
-                        <input type="file">
-                        <!-- ! Ingrese documentos históricos del pozo en formato PDF o TXT-->
-                    </article>
-                    <article>
-                        <label>Descripción</label>
-                        <textarea placeholder="Describa brevemente el contenido del documento"></textarea>
-                    </article>
-
-                        <a href=""><img src="img/Agregar_documento.png" width="50"></a>
-
+                    <h4>Pulgadas:</h4>
+                    <input type="range" min="10" max="40" value="20" class="slider" id="diametroADEME">
+                    <p>Valor seleccionado: <span id="valorDiametroADEME">20</span></p>
                 </td>
             </tr>
         </tbody>
     </table>
-    <section class="botones" >
+
+    <section class="botones">
         <a href="Listado_pozos.html"><img src="img/Boton atras.png" width="50"></a>
-        <img  src="img/Boton siguiente.png" Width="50" onclick="hola()">
+        <img src="img/Boton siguiente.png" width="50" onclick="guardarPozo()">
     </section>
+
+    <script>
+        // Actualizar el valor de los sliders en tiempo real
+        function actualizarValorSlider(sliderId, valorId) {
+            const slider = document.getElementById(sliderId);
+            const valor = document.getElementById(valorId);
+            valor.textContent = slider.value;
+
+            slider.oninput = function() {
+                valor.textContent = this.value;
+            };
+        }
+
+        // Llamar a la función para cada slider
+        actualizarValorSlider('profundidad', 'valorProfundidad');
+        actualizarValorSlider('diametroPerforacion', 'valorDiametroPerforacion');
+        actualizarValorSlider('diametroADEME', 'valorDiametroADEME');
+
+        // Función para guardar el nuevo pozo
+        function guardarPozo() {
+            // Obtener los valores del formulario
+            const clavePozo = document.getElementById('clavePozo').value;
+            const nombrePozo = document.getElementById('nombrePozo').value;
+            const profundidad = document.getElementById('profundidad').value;
+            const diametroPerforacion = document.getElementById('diametroPerforacion').value;
+            const diametroADEME = document.getElementById('diametroADEME').value;
+
+            // Validar campos obligatorios
+            if (!clavePozo || !nombrePozo) {
+                Swal.fire({
+                    icon: 'error',
+                    title: '¡Error!',
+                    text: 'Por favor, complete todos los campos obligatorios.',
+                });
+                return;
+            }
+
+            // Crear el objeto de datos a enviar
+            const pozoData = {
+                l_poz_clave: clavePozo,
+                lp_Nombre: nombrePozo,
+                lp_Profundidad_perforación: parseInt(profundidad),
+                lp_Diámetro_perforación: parseInt(diametroPerforacion),
+                lp_Diámetro_ADEME: parseInt(diametroADEME)
+            };
+
+            // Enviar los datos al servidor
+            fetch('http://localhost:8080/api/lista_pozos', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(pozoData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Mostrar mensaje de éxito
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Éxito!',
+                    text: 'El pozo se ha guardado correctamente.',
+                });
+            })
+            .catch(error => {
+                console.error('Error al guardar el pozo:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: '¡Error!',
+                    text: 'Hubo un problema al guardar el pozo.',
+                });
+            });
+        }
+    </script>
+
+<footer>
+  <small>
+    <div class="leyenda"> &copy; Software desarrollado por el Intituto Interamericano de Tecnología y Ciencias del Agua.</span>
+  </small>
+</footer>
+  <!--Colocar el texto centrado y en la parte inferior de la pantlla-->
+
 </body>
-</html> 
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/Menu_MAIN.css">
+    <script src="https://unpkg.com/sweetalert2@9.5.3/dist/sweetalert2.all.min.js"></script> 
+    <script src="js/script.js"></script>
+    <title>Formulario de Registro</title>
+</head>
+<header></header>
+<body>
+    <!-- Formulario con los datos a registrar -->
+    <table border="1" cellpadding="15" class="tabla">
+        <caption><h2>Modificar datos</h2></caption>
+        <thead>
+            <tr>
+                <th>Concepto</th>
+                <th>Datos capturados</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Cada campo tiene un id específico para recoger su valor -->
+            <tr>
+                <td>Clave de pozo</td>
+                <td>
+                    <select id="mttodd" name="mttodd"></select>
+                </td>
+            </tr>
+            <tr>
+                <td>Tipo de motor</td>
+                <td>
+                    <select id="tipoMotor" name="tipoMotor">
+                        <option value="Sumergible">Sumergible</option>
+                        <option value="Convencional">Convencional</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Hp de motor</td>
+                <td>
+                    <input type="range" min="15" max="250" value="15" class="slider" id="hpMotor">
+                    <p>Valor seleccionado: <span id="valorHpMotor">15</span></p>
+                </td>
+            </tr>
+            <tr>
+                <td>Kw de motor</td>
+                <td>
+                    <input type="range" min="10" max="250" value="10" class="slider" id="kwMotor">
+                    <p>Valor seleccionado: <span id="valorKwMotor">10</span></p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Eficiencia del motor
+                </td>
+                <td>
+                    <input type="range" min="0" max="100" value="0" class="slider" id="eficienciaMotor">
+                    <p>Valor seleccionado: <span id="valorEficienciaMotor">0</span></p>
+            </tr>
+            <tr>
+                <td>
+                    Tipo de tablero
+                </td>
+                <td>
+                    <select id="opciones" name="opciones">
+                        <option value="opcion1">Monofásico</option>
+                        <option value="opcion2">Bifásico</option>
+                        <option value="opcion3">Trifásico</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Capacidad de tablero (amp)
+                </td>
+                <td>
+                    <input type="range" min="18" max="250" value="18" class="slider" id="capacidadTablero">
+                    <p>Valor seleccionado: <span id="valorCapacidadTablero">18</span></p>
+            </tr>
+            <tr>
+                <td>Tipo de transformador</td>
+                <td>
+                    <select id="opciones" name="opciones">
+                        <option value="opcion1">Poste</option>
+                        <option value="opcion2">Pedestal</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Capacidad de transformador (kVA)</td>
+                <td>
+                    <input type="range" min="100" max="350" value="100" class="slider" id="capacidadTransformador">
+                    <p>Valor seleccionado: <span id="valorCapacidadTransformador">100</span></p>
+                </td>
+            </tr>
+            <tr>
+                <td>Calibre de cable sumergible</td>
+                <td>
+                
+                    <input type="range" min="0" max="2" value="0" class="slider" id="calibreCable" step="1">
+                <p>Valor seleccionado: <span id="valorCalibreCable">0</span></p>
+                
+                </td>
+            </tr>
+            <tr>
+                <td>Longitud de cable sumergible (metros)</td>
+                <td>
+                    <input type="range" min="0" max="250" value="0" class="slider" id="longitudCable">
+                    <p>Valor seleccionado: <span id="valorLongitudCable">0</span></p>
+                </td>
+                </tr>
+                <tr>
+                    <td>Diámetro de tubería (")</td>
+                    <td>
+                        <input type="range" min="4" max="12" value="4" class="slider" id="diametroTuberia">
+                        <p>Valor seleccionado: <span id="valorDiametroTuberia">4</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Longitud de tubería (metros)</td>
+                    <td>
+                        <input type="range" min="6" max="250" value="6" class="slider" id="longitudTuberia">
+                        <p>Valor seleccionado: <span id="valorLongitudTuberia">6</span></p>
+                    </td>
+                </tr>
+                       
+            <!-- Agrega más campos de la misma manera -->
+            <tr>
+                <td>Observaciones</td>
+                <td><textarea id="observaciones" cols="10" rows="4"></textarea></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <section class="botones"> 
+        <a href="Gestion_de_mtto.html"><img src="img/Boton atras.png" width="50"></a>
+        <img src="img/Boton siguiente.png" width="50" onclick="guardarRegistro()">     
+    </section>
+
+    <script>
+        // Cargar opciones para el campo "Clave de Pozo" al cargar la página
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('http://localhost:8080/api/mantenimiento')
+                .then(response => response.json())
+                .then(data => {
+                    const mttodd = document.getElementById("mttodd");
+                    mttodd.innerHTML = '';
+                    data.forEach(item => {
+                        const option = document.createElement("option");
+                        option.value = item.mtto_clave_pozo;
+                        option.textContent = item.mtto_clave_pozo;
+                        mttodd.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error al cargar datos:', error));
+
+            // Actualizar el valor de cada slider en tiempo real
+            const sliders = [
+                { sliderId: "hpMotor", outputId: "valorHpMotor" },
+                { sliderId: "kwMotor", outputId: "valorKwMotor" },
+                { sliderId: "eficienciaMotor", outputId: "valorEficienciaMotor" },
+                { sliderId: "capacidadTablero", outputId: "valorCapacidadTablero" },
+                { sliderId: "capacidadTransformador", outputId: "valorCapacidadTransformador" },
+                { sliderId: "calibreCable", outputId: "valorCalibreCable" },
+                
+                { sliderId: "longitudCable", outputId: "valorLongitudCable" },
+                { sliderId: "diametroTuberia", outputId: "valorDiametroTuberia" },
+                { sliderId: "longitudTuberia", outputId: "valorLongitudTuberia" },
+
+
+                // Agrega los demás sliders aquí
+            ];
+            sliders.forEach(s => actualizarValorSlider(s.sliderId, s.outputId));
+        });
+
+        // Actualizar valor de sliders
+        function actualizarValorSlider(sliderId, valorId) {
+            const slider = document.getElementById(sliderId);
+            const valor = document.getElementById(valorId);
+            valor.textContent = slider.value;
+            slider.oninput = function() {
+                valor.textContent = this.value;
+            };
+        }
+
+        // Función para guardar el registro
+        function guardarRegistro() { 
+            // Crear objeto con los valores del formulario
+            const registroData = {
+                mtto_clave_pozo: document.getElementById('mttodd').value,
+                mtto_motor_tipo: document.getElementById('tipoMotor').value,
+                mtto_motor_hp: parseInt(document.getElementById('hpMotor').value),
+                mtto_motor_kw: parseInt(document.getElementById('kwMotor').value),
+                mtto_motor_eficiencia: parseInt(document.getElementById('eficienciaMotor').value),
+                mtto_tablero_tipo: parseInt(document.getElementById('tipoTablero').value),
+                mtto_tablero_capacidad: parseInt(document.getElementById('capacidadTablero').value),
+                mtto_transformador_tipo: parseInt(document.getElementById('tipoTransformador').value),
+                mtto_transformador_capacidad: parseInt(document.getElementById('capacidadTransformador').value),
+                mtto_cable_calibre: parseInt(document.getElementById('calibreCable').value),
+                mtto_cable_longitud: parseInt(document.getElementById('longitudCable').value),
+                mtto_tuberia_diametro: parseInt(document.getElementById('diametroTuberia').value),
+                mtto_tuberia_longitud: parseInt(document.getElementById('longitudTuberia').value),
+                // Agrega aquí más campos del formulario
+                mtto_observaciones: document.getElementById('observaciones').value
+            };
+
+            // Validar campos obligatorios
+            if (!registroData.mttodd || !registroData.tipoMotor || !registroData.hpMotor || !registroData.kwMotor) {
+                Swal.fire({
+                    icon: 'error',
+                    title: '¡Error!',
+                    text: 'Por favor, complete todos los campos obligatorios.',
+                });
+                return;
+            }
+
+            // Enviar datos al servidor
+            fetch('http://localhost:8080/api/mantenimiento', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(registroData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Éxito!',
+                    text: 'Los datos se han guardado correctamente.',
+                });
+            })
+            .catch(error => {
+                console.error('Error al guardar los datos:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: '¡Error!',
+                    text: 'Hubo un problema al guardar los datos.',
+                });
+            });
+        }
+    </script>
+
+<footer>
+  <small>
+    <div class="leyenda"> &copy; Software desarrollado por el Intituto Interamericano de Tecnología y Ciencias del Agua.</span>
+  </small>
+</footer>
+  <!--Colocar el texto centrado y en la parte inferior de la pantlla-->
+
+
+</body>
+</html>

@@ -1,12 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="CSS/Menu_MAIN.css">
-    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="CSS/Menu_MAIN.css"> 
+    <title>Página Web del Agua</title>
+    <script src="js/script.js"></script>
+    <script src="https://kit.fontawesome.com/7f2bc339d8.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e0f7fa; /* Color de fondo azul claro */
+            color: #01579b; /* Color de texto azul más oscuro */
+            line-height: 1.6;
+        }
+        header {
+            background-color: #0288d1; /* Azul intenso para el encabezado */
+            color: white;
+            text-align: center;
+            padding: 20px;
+            width: 100%;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            
+
+        }
+        nav {
+            text-align: center;
+            margin: 20px 0;
+        }
+        nav a {
+            text-decoration: none;
+            color: #0288d1;
+            margin: 0 15px;
+            font-size: 1.2em;
+        }
+        nav a:hover {
+            color: #01579b;
+        }
+        section {
+            padding: 20px;
+            margin: 0 10%;
+        }
+        footer {
+            background-color: #0288d1;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .highlight {
+            color: #00bcd4; /* Un tono azul claro para destacar */
+            font-weight: bold;
+        }
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
 </head>
 <body>
+
+<header>
+</header>
 
     <table  cellpadding="15" class="tabla">
         <caption> <h2>Seleccionar acuífero y organismo operador</h2></caption>
@@ -20,17 +87,60 @@
         <tbody>
             <tr>
                 <td>
-                    <label>Seleccionar</label>
-                    <input type="text">
-                    <!--Lista desplegable con pos acuíferos precargados-->
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                            // Llamada a la API REST para obtener los datos de la tabla acuifero
+                            fetch('http://localhost:8080/api/acuifero')
+                                .then(response => response.json())
+                                .then(data => {
+                                    const Acudd = document.getElementById("Acudd");
+                                    Acudd.innerHTML = ''; // Limpiar opciones anteriores
+                                    data.forEach(item => {
+                                        const option = document.createElement("option");
+                                        option.value = item.acu_nombre;
+                                        option.textContent = item.acu_nombre;
+                                        Acudd.appendChild(option);
+                                    });
+                                })
+                                .catch(error => console.error('Error al cargar datos:', error));
+                        });
+                    </script>
+                    
+                    <form>
+                        <label for="lblacudd">Selecciona</label>
+                        <select id="Acudd" name="Acudd">
+                            <option value=""></option>
+                        </select>
+                    </form>
                     <div>
                         <a href="Captura_de_acuifero.html"><img src="img/Agregar_nuevo.png" width="50"></a>
                     </div>
                 </td>
                 <td>
-                    <label>Seleccionar</label>
-                    <input type="text">
-                    <!--Lista desplegable con los OP precargados-->
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                            // Llamada a la API REST para obtener los datos de la tabla acuifero
+                            fetch('http://localhost:8080/api/oo')
+                                .then(response => response.json())
+                                .then(data => {
+                                    const oodd = document.getElementById("oodd");
+                                    oodd.innerHTML = ''; // Limpiar opciones anteriores
+                                    data.forEach(item => {
+                                        const option = document.createElement("option");
+                                        option.value = item.oo_nombre;
+                                        option.textContent = item.oo_nombre;
+                                        oodd.appendChild(option);
+                                    });
+                                })
+                                .catch(error => console.error('Error al cargar datos:', error));
+                        });
+                    </script>
+                    
+                    <form>
+                        <label for="lbloodd">Selecciona</label>
+                        <select id="oodd" name="oodd">
+                            <option value=""></option>
+                        </select>
                     <div>
                         <a href="Captura_de_OP.html"><img src="img/Agregar_nuevo.png" width="50"></a>
                     </div>

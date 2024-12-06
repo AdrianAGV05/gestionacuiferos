@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/Menu_MAIN.css">
+    <script src="https://unpkg.com/sweetalert2@9.5.3/dist/sweetalert2.all.min.js"></script> 
+    <script src="js/script.js"></script>
+    <title>Agregar Nuevo Pozo</title>
+</head>
+<header></header>
+<body>
+
+    <table border="1" cellpadding="15" class="tabla">
+        <caption><h2>Agregar nuevo pozo</h2></caption>
+        <thead>
+            <tr>
+                <th>Clave de pozo</th>
+                <th>Nombre del pozo</th>
+                <th>Ubicación</th>
+                <th>Profundidad de perforación</th>
+                <th>Diámetro de perforación</th>
+                <th>Diámetro de ADEME</th>
+                <th>Documentos del pozo</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>
+                    <input type="text" id="l_poz_clave" required>
+                </td>
+
+                <td>
+                    <input type="text" id="nombre_pozos" required>
+                </td>
+                <td>
+                    <input type="text" id="ubicacion" required>
+                </td>
+                <td>
+                    <input type="range" min="30" max="250" value="30" class="slider" id="profundidad" required>
+                    <p>Valor seleccionado: <span id="valorProfundidad">30</span></p>
+                </td>
+                <td>
+                    <input type="range" min="10" max="40" value="10" class="slider" id="diametro_perforacion" required>
+                    <p>Valor seleccionado: <span id="valorDiametro">10</span></p>
+                </td>
+                <td>
+                    <input type="range" min="10" max="40" value="10" class="slider" id="diametro_ade" required>
+                    <p>Valor seleccionado: <span id="valorDiametroADE">10</span></p>
+                </td>
+                <td>
+                    <input type="file" id="documento_pozo" required>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <section class="botones">
+        <a href="Listado_pozos.html"><img src="img/Boton atras.png" width="50"></a>
+        <img src="img/Boton siguiente.png" width="50" onclick="guardarDatos()">
+    </section>
+
+    <script>
+        // Función para mostrar el valor de los sliders
+        function actualizarValorSlider(sliderId, valorId) {
+            const slider = document.getElementById(sliderId);
+            const valor = document.getElementById(valorId);
+            valor.textContent = slider.value;
+
+            slider.oninput = function() {
+                valor.textContent = this.value;
+            };
+        }
+
+        // Actualizar los valores de los sliders
+        actualizarValorSlider('profundidad', 'valorProfundidad');
+        actualizarValorSlider('diametro_perforacion', 'valorDiametro');
+        actualizarValorSlider('diametro_ade', 'valorDiametroADE');
+
+         // Función para guardar los datos
+         function guardarDatos() {
+            // Obtener los valores del formulario
+            const l_poz_clave = document.getElementById('l_poz_clave').value;
+            const nombre_pozos = document.getElementById('lp_Nombre').value;
+            const ubicacion = document.getElementById('lp_ubicación').value;
+            const profundidad = document.getElementById('lp_Profundidad_Perforación').value;
+            const diametro_perforacion = document.getElementById('lp_Diámetro_perforación').value;
+            const diametro_ade = document.getElementById('lp_Diámetro_ADEME').value;
+            const documento_pozo = document.getElementById('documento_pozo').files[0];
+
+
+            // Verificar que todos los campos estén completos
+            if (!l_poz_clave || !lp_Nombre|| !lp_ubicación || !lp_Profundidad_perforación || !lp_Diámetro_perforación || !lp_Diámetro_ADEME || !lp_documentos) {
+                Swal.fire({
+                    icon: 'error',
+                    title: '¡Error!',
+                    text: 'Por favor, completa todos los campos.',
+                });
+                return;
+            }
+
+            // Crear un objeto con los datos a insertar
+            const formData = new FormData();
+            formData.append('l_poz_clave', l_poz_clave);
+            formData.append('lp_Nombre', lp_Nombre);
+            formData.append('lp_ubicación', lp_ubicación);
+            formData.append('lp_Profundidad_perforación', lp_Profundidad_perforación);
+            formData.append('lp_Diametro_perforación', lp_Diametro_perforación);
+            formData.append('lp_Diámetro_ADEME', lp_Diámetro_ADEME);
+            formData.append('lp_documentos', lp_documentos);
+
+
+            // Enviar los datos al servidor utilizando una solicitud POST
+            fetch('http://localhost:8080/api/lista_pozos', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Éxito!',
+                    text: 'Los datos se han guardado correctamente.',
+                });
+            })
+            .catch(error => {
+                console.error('Error al guardar los datos:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: '¡Error!',
+                    text: 'Hubo un problema al guardar los datos.',
+                });
+            });
+        }
+    </script>
+
+<footer>
+  <small>
+    <div class="leyenda"> &copy; Software desarrollado por el Intituto Interamericano de Tecnología y Ciencias del Agua.</span>
+  </small>
+</footer>
+  <!--Colocar el texto centrado y en la parte inferior de la pantlla-->
+
+
+</body>
+</html>

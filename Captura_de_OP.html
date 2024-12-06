@@ -1,54 +1,97 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel=" stylesheet" href="CSS/Menu_MAIN.css">
-    <title></title>
+    <link rel="stylesheet" href="CSS/Menu_MAIN.css">
+    <script src="https://unpkg.com/sweetalert2@9.5.3/dist/sweetalert2.all.min.js"></script> 
+    <title>Ingresar Datos de Organismo Operador</title>
 </head>
+<header></header>
 <body>
 <main>
-    <table border=""1" cellpadding="15" class="tabla">
-    <caption><h2>Ingresar datos de organismo operador</h2></caption>
-    <thead>
+    <table border="1" cellpadding="15" class="tabla">
+        <caption><h2>Ingresar datos de organismo operador</h2></caption>
+        <thead>
             <tr>
-                <th>Nombre</th>
+                <th>Clave de acuífero</th>
+                <th>Nombre de organismo operador</th>
                 <th>Descripción</th>
-                <th>Documentos</th>
-
             </tr>
         </thead>
 
         <tbody>
             <tr>
-                <td>
-                    <input type="text">
-                </td>
-
-                <td>
-                    <textarea name="" id="" cols="20" rows="5"></textarea>
-                    <!--"!" explicando brevemente cómo llenar el textarea-->
-                </td>
-                <td>
-                    <input type="file">
-                    <!-- "!" descripción del tipo de datos-->
-                    <article>
-                            <label>Descripción</label>
-                            <textarea name="" id="" cols="10" rows="2"></textarea>
-                            <!--"!" describiendo cómo llenar el textearea-->
-                    </article>
-                    <article>
-                        <a href=""><img src="img/Agregar_documento.png" width="50"></a>
-                        <!--Duplicar las opciones para  argar datos-->
-                    </article>
-                </td>
+                <td><input type="text" id="claveAcuifero" required></td>
+                <td><input type="text" id="nombreOrganismo" required></td>
+                <td><textarea id="descripcionOrganismo" cols="20" rows="5" required></textarea></td>
             </tr>
         </tbody>
     </table>
 </main>
+
 <section class="botones">
-        <a href="Selec_acu_y_op.html"> <img src="img/Boton atras.png" width="50"></a>
-        <a href="Datos_enviados.html"> <img src="img/Boton siguiente.png" width="50"></a>
-</section>    
+    <a href="Sel_acu_y_OP_nvo_usuario.html"><img src="img/Boton atras.png" width="50"></a>
+    <img src="img/Boton siguiente.png" width="50" onclick="guardarOrganismo()">
+</section>
+
+<script>
+    function guardarOrganismo() {
+        // Obtener valores de los campos
+        const claveAcuifero = document.getElementById('claveAcuifero').value;
+        const nombreOrganismo = document.getElementById('nombreOrganismo').value;
+        const descripcionOrganismo = document.getElementById('descripcionOrganismo').value;
+
+        // Validar que los campos estén llenos
+        if (!claveAcuifero || !nombreOrganismo || !descripcionOrganismo) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Por favor, complete todos los campos.',
+            });
+            return;
+        }
+
+        // Crear un objeto con los datos
+        const organismoData = {
+            oo_acu_clave: claveAcuifero,
+            oo_nombre: nombreOrganismo,
+            oo_descripcion: descripcionOrganismo
+        };
+
+        // Enviar datos al servidor
+        fetch('http://localhost:8080/api/oo', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(organismoData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            Swal.fire({
+                icon: 'success',
+                title: 'Éxito',
+                text: 'El organismo operador ha sido guardado correctamente.',
+            });
+        })
+        .catch(error => {
+            console.error('Error al guardar el organismo:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Hubo un problema al guardar el organismo.',
+            });
+        });
+    }
+</script>
+
+<footer>
+  <small>
+    <div class="leyenda"> &copy; Software desarrollado por el Intituto Interamericano de Tecnología y Ciencias del Agua.</span>
+  </small>
+</footer>
+  <!--Colocar el texto centrado y en la parte inferior de la pantlla-->
+
 </body>
 </html>

@@ -4,79 +4,95 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="CSS/Menu_MAIN.css">
-    <title></title>
+    <script src="https://unpkg.com/sweetalert2@9.5.3/dist/sweetalert2.all.min.js"></script> 
+    <title>Ingresar Datos de Acuífero</title>
 </head>
+<header></header>
+
 <body>
    
-        <table border=""1" cellpadding="15" class="tabla">
-            <caption><h2>Ingresar Datos de acuífero</h2></caption>
+    <table border="1" cellpadding="15" class="tabla">
+        <caption><h2>Ingresar Datos de Acuífero</h2></caption>
         <thead>
             <tr>
                 <th>Clave de acuífero</th>
                 <th>Nombre de acuífero</th>
                 <th>Descripción</th>
-                <th>Límites</th>
-                <th>Documentos</th>
-                <th>Organismos operadores</th>
             </tr>
         </thead>
 
         <tbody>
             <tr>
-                <td>
-                    <input type="text">
-                </td>
-                <td>
-                    <input type="text">
-                </td>
-                <td>
-                    <textarea name="" id="" cols="20" rows="5"></textarea>
-                </td>
-                <td>
-                    <input type="file">
-                    <!--Agregar "!" con la descripción del tipo de datos a cargar-->
-
-                    <div>
-                        <label>Descripción</label>
-                        <textarea name="" id="" cols="10" rows="2"></textarea>
-                        <!--"!" con una  breve explicación de como llenar el textarea-->
-                    </div>
-                </td>
-                <td>
-                    <input type="file">
-                    <!--Agregar "!" con la descripción del tipo de datos a cargar-->
-                    <article>
-                            <label>Descripción</label>
-                            <textarea name="" id="" cols="10" rows="2"></textarea>
-                            <!--"!" con una  breve explicación de como llenar el textarea-->
-                    </article>
-                    <article>
-                        <a href=""><img src="img/Agregar_documento.png" width="50"></a>
-                        <!--Al agregar otro se duplican los espacios para cargar un nuevo documento junto con su descripción-->
-                    </article>
-                </td>
-                <td>
-                    <label>Seleccionar organismo operador</label>
-                    <input type="text">
-                    <!--en una lista desplegable mostrar los OP que se sencuentren precargados en el acuífero seleccionado-->
-                    <article>
-                            <label>Descripción</label>
-                            <textarea name="" id="" cols="10" rows="2"></textarea>
-                            <!--"!" con una  breve explicación de como llenar el textarea-->
-                    </article>
-                    <article>
-                        <a href="Captura_de_OP.html"><img src="img/+.png" width="50"></a>
-                        <!--Al agregar otro se duplican los espacios para cargar un nuevo documento junto con su descripción-->
-                    </article>
-                </td>
-                
+                <td><input type="text" id="claveAcuifero" required></td>
+                <td><input type="text" id="nombreAcuifero" required></td>
+                <td><textarea id="descripcionAcuifero" cols="20" rows="5" required></textarea></td>
             </tr>
-
         </tbody>
     </table>
+
     <section class="botones">
-        <a href="Selec_acu_y_op.html"> <img src="img/Boton atras.png" width="50"></a>
-        <a href="Datos_enviados.html"> <img src="img/Boton siguiente.png" width="50"></a>
-    </section>   
+        <a href="Sel_acu_y_OP_nvo_usuario.html"><img src="img/Boton atras.png" width="50"></a>
+        <img src="img/Boton siguiente.png" width="50" onclick="guardarAcuifero()">
+    </section>
+
+    <script>
+        function guardarAcuifero() {
+            // Obtener valores de los campos
+            const claveAcuifero = document.getElementById('claveAcuifero').value;
+            const nombreAcuifero = document.getElementById('nombreAcuifero').value;
+            const descripcionAcuifero = document.getElementById('descripcionAcuifero').value;
+
+            // Validar campos obligatorios
+            if (!claveAcuifero || !nombreAcuifero || !descripcionAcuifero) {
+                Swal.fire({
+                    icon: 'error',
+                    title: '¡Error!',
+                    text: 'Por favor, complete todos los campos obligatorios.',
+                });
+                return;
+            }
+
+            // Crear objeto de datos
+            const acuiferoData = {
+                acu_clave: claveAcuifero,
+                acu_nombre: nombreAcuifero,
+                acu_descripcion: descripcionAcuifero
+            };
+
+            // Enviar datos al servidor
+            fetch('http://localhost:8080/api/acuifero', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(acuiferoData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Mostrar mensaje de éxito
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Éxito!',
+                    text: 'El acuífero se ha guardado correctamente.',
+                });
+            })
+            .catch(error => {
+                console.error('Error al guardar el acuífero:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: '¡Error!',
+                    text: 'Hubo un problema al guardar el acuífero.',
+                });
+            });
+        }
+    </script>
+
+<footer>
+  <small>
+    <div class="leyenda"> &copy; Software desarrollado por el Intituto Interamericano de Tecnología y Ciencias del Agua.</span>
+  </small>
+</footer>
+  <!--Colocar el texto centrado y en la parte inferior de la pantlla-->
+
 </body>
 </html>
