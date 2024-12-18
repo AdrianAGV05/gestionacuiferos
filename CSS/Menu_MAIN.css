@@ -147,7 +147,9 @@ footer {
 
 
 .tabla-nvousuario{
-  text-align: center;
+  margin-left:580px;
+  padding: 20px;
+  justify-content: center;
 }
 
 
