@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Botones de Regresar y Avanzar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .btn:focus {
+            outline: none;
+        }
+
+        .btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="button-container">
+        <!-- Botón de Regresar -->
+        <button class="btn" onclick="history.back()" id="backBtn">
+            Regresar
+        </button>
+
+        <!-- Botón de Avanzar -->
+        <button class="btn" onclick="history.forward()" id="forwardBtn">
+            Avanzar
+        </button>
+    </div>
+
+    <script>
+        // Deshabilitar el botón de "Avanzar" si no hay más páginas en el historial
+        if (window.history.forward(1) === null) {
+            document.getElementById('forwardBtn').disabled = true;
+        }
+        
+        // Deshabilitar el botón de "Regresar" si no hay páginas anteriores en el historial
+        if (window.history.back() === null) {
+            document.getElementById('backBtn').disabled = true;
+        }
+    </script>
+</body>
+</html>

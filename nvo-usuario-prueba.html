@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Nuevo Usuario</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa; 
+            margin: 0;
+            padding: 0;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            
+            margin-top: 75px;
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            margin-left: 380px;
+            max-width: 500px;
+        }
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        .form-container input,
+        .form-container select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .form-container input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .form-container input[type="submit"]:hover {
+            background-color: #007bff;
+        }
+        footer {
+      background-color: #0288d1;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+  }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Crear Nuevo Usuario</h2>
+        <form action="/crear-usuario" method="POST">
+            <label for="nombre">Nombre Completo:</label>
+            <input type="text" id="nombre" name="nombre" required placeholder="Ingresa tu nombre completo">
+
+            <label for="email">Correo Electrónico:</label>
+            <input type="email" id="email" name="email" required placeholder="ejemplo@dominio.com">
+
+            <label for="contraseña">Contraseña:</label>
+            <input type="password" id="contraseña" name="contraseña" required placeholder="Ingresa tu contraseña">
+
+            <label for="telefono">Número de Teléfono:</label>
+            <input type="tel" id="telefono" name="telefono" required pattern="[0-9]{10}" placeholder="1234567890">
+
+            <label for="tipoUsuario">Tipo de Usuario:</label>
+            <select id="tipoUsuario" name="tipoUsuario" required>
+                <option value="admin">Administrador</option>
+                <option value="usuario">Usuario Regular</option>
+                <option value="invitado">Invitado</option>
+            </select>
+
+            <input type="submit" value="Crear Cuenta">
+        </form>
+    </div>
+    
+    <footer>
+         &copy; Software desarrollado por el Intituto Interamericano de Tecnología y Ciencias del Agua.
+    </footer>
+</body>
+</html>

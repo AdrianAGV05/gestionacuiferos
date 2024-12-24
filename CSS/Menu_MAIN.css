@@ -170,7 +170,7 @@ ul,ol{
     list-style: none;
 }  
 .menu ul li a{
-    background-color: rgb(66, 65, 65);
+    background-color: rgb(38, 85, 226);
     color: rgb(251, 250, 248);
     text-decoration: none;
     padding: 10px 15px;
@@ -178,7 +178,7 @@ ul,ol{
 }
 
 .menu li a:hover {
-background-color: rgb(119, 117, 117);
+background-color: rgb(21, 129, 206);
 
 }
 .menu > li{
@@ -351,7 +351,7 @@ text-align: center;
     font-family: Arial, Helvetica, sans-serif;
 }
 .menu-nosotros ul li a{
-  background-color: rgba(130, 126, 126, 0.058);
+  background-color: rgb(16, 66, 205);
   color: rgb(251, 250, 248);
   text-decoration: none;
   padding: 10px 15px;
@@ -360,7 +360,7 @@ text-align: center;
 }
 
 .menu-nosotros li a:hover {
-background-color: rgba(213, 29, 29, 0);
+background-color: rgb(16, 66, 205);
 
 }
 .menu-nosotros > li{
@@ -373,7 +373,7 @@ background-color: rgba(213, 29, 29, 0);
 }
 .menu-nosotros li:hover > ul {
   display: block;
-  background-color: gray;
+  background-color: rgb(24, 134, 185);
   width: 90%;
 }
 .menu-nosotros li ul li {
@@ -416,7 +416,7 @@ background-color: rgba(213, 29, 29, 0);
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 5px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 8px rgb(16, 66, 205);
   z-index: 1;
   }
 .notification-dropdown.active {
@@ -446,6 +446,7 @@ background-color: rgba(213, 29, 29, 0);
   }
 #btn-modal{
   background-color: #165dc0
+  
   }
    
   /*Estilo Adrian*/

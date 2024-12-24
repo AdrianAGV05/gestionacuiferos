@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">  
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de Sesión</title>
+
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+            margin-left: 560px;
+            margin-top: 100px;
+        }
+
+        .login-container h2 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .input-field:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .btn-login:hover {
+            background-color: #0056b3;
+        }
+
+        .forgot-password {
+            display: block;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+<style>
+
+  body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #e0f7fa; /* Color de fondo azul claro */
+      color: #01579b; /* Color de texto azul más oscuro */
+      line-height: 1.6;
+  }
+  header {
+      background-color: #0288d1; /* Azul intenso para el encabezado */
+      color: white;
+      text-align: center;
+      padding: 20px;
+      width: 100%;
+  }
+  header h1 {
+      margin: 0;
+      font-size: 2.5em;
+      
+
+  }
+  nav {
+      text-align: center;
+      margin: 20px 0;
+  }
+  nav a {
+      text-decoration: none;
+      color: #0288d1;
+      margin: 0 15px;
+      font-size: 1.2em;
+  }
+  nav a:hover {
+      color: #01579b;
+  }
+  section {
+      padding: 20px;
+      margin: 0 10%;
+  }
+  footer {
+      background-color: #0288d1;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+  }
+  .highlight {
+      color: #00bcd4; /* Un tono azul claro para destacar */
+      font-weight: bold;
+  }
+  .image-container {
+      text-align: center;
+      margin: 20px 0;
+  }
+  .image-container img {
+      max-width: 100%;
+      height: auto;
+  }
+
+
+  /*Botones estilo prueba*/
+
+  .button-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .btn:focus {
+            outline: none;
+        }
+
+        .btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+</style>
+
+
+
+
+
+</head>
+
+
+<body>
+
+    <div class="login-container">
+        <h2>Iniciar sesión</h2>
+        <form action="#" method="POST">
+            <input type="text" class="input-field" placeholder="Usuario" required>
+            <input type="password" class="input-field" placeholder="Contraseña" required>
+            <button type="submit" class="btn-login">Iniciar sesión</button>
+        </form>
+        <a href="Recuperar_contrasena.html" class="forgot-password">¿Olvidaste tu contraseña?</a>
+    </div>
+
+    <section class="botones">
+      <a href="index.html"><img src="img/Boton atras.png" Width="50"></a>
+      <a href="Selec_acu_y_op.html"><img src="img/Boton siguiente.png" Width="50"></a>
+  </section>
+
+  <div class="button-container">
+    <!-- Botón de Regresar -->
+    <button class="btn" onclick="history.back()" id="backBtn" href="index.html">
+      
+        Regresar
+    </button>
+
+    <!-- Botón de Avanzar -->
+    <button class="btn" onclick="history.forward()" id="forwardBtn" href="Selec_acu_y_op.html">
+        Avanzar
+    </button>
+</div>
+
+<script>
+    // Deshabilitar el botón de "Avanzar" si no hay más páginas en el historial
+    if (window.history.forward(1) === null) {
+        document.getElementById('forwardBtn').disabled = true;
+    }
+    
+    // Deshabilitar el botón de "Regresar" si no hay páginas anteriores en el historial
+    if (window.history.back() === null) {
+        document.getElementById('backBtn').disabled = true;
+    }
+</script>
+
+
+    <footer>
+      <small>
+        <div class="leyenda"> &copy; Software desarrollado por el Intituto Interamericano de Tecnología y Ciencias del Agua.</span>
+      </small>
+    </footer>
+
+    
+</body>
+
+
+</html>
