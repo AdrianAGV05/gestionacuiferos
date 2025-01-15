@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="CSS/Menu_MAIN.css"> 
+    
     <title>Crear Nuevo Usuario</title>
+   
+   
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -58,8 +61,10 @@
     </style>
 </head>
 
-<body>
 
+
+<body>
+ 
     <div class="form-container">
         <h2>Crear Nuevo Usuario</h2>
         <form action="/crear-usuario" method="POST">
@@ -86,18 +91,15 @@
         </form>
     </div>
 
-    <div class="button-container">
-      <!-- Botón de Regresar -->
-      <button class="btn" onclick="history.back()" id="backBtn" href="index.html">
-        
-          Regresar
-      </button>
-  
-      <!-- Botón de Avanzar -->
-      <button class="btn" onclick="history.forward()" id="forwardBtn" href="Sel_acu_y_OP_nvo_usuario.html">
-          Avanzar
-      </button>
-  </div>
+    <section class="botones">
+      <a href="index.html"><img src="img/Boton atras.png" Width="50"></a>
+      <a href="Sel_acu_y_OP_nvo_usuario.html"><img src="img/Boton siguiente.png" Width="50"></a>
+  </section>
+
+    
+
+ 
+
     
     <footer>
          &copy; Software desarrollado por el Intituto Interamericano de Tecnología y Ciencias del Agua.
