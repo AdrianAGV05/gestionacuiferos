@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/Menu_MAIN.css"> 
     <title>Crear Nuevo Usuario</title>
     <style>
         body {
@@ -16,13 +17,14 @@
             
             margin-top: 75px;
         }
+        
         .form-container {
             background-color: #fff;
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             width: 100%;
-            margin-left: 380px;
+            margin-left: 480px;
             max-width: 500px;
         }
         .form-container h2 {
@@ -52,17 +54,10 @@
         .form-container input[type="submit"]:hover {
             background-color: #007bff;
         }
-        footer {
-      background-color: #0288d1;
-      color: white;
-      text-align: center;
-      padding: 10px;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-  }
+       
     </style>
 </head>
+
 <body>
 
     <div class="form-container">
@@ -90,6 +85,19 @@
             <input type="submit" value="Crear Cuenta">
         </form>
     </div>
+
+    <div class="button-container">
+      <!-- Botón de Regresar -->
+      <button class="btn" onclick="history.back()" id="backBtn" href="index.html">
+        
+          Regresar
+      </button>
+  
+      <!-- Botón de Avanzar -->
+      <button class="btn" onclick="history.forward()" id="forwardBtn" href="Sel_acu_y_OP_nvo_usuario.html">
+          Avanzar
+      </button>
+  </div>
     
     <footer>
          &copy; Software desarrollado por el Intituto Interamericano de Tecnología y Ciencias del Agua.

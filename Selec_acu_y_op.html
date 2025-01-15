@@ -73,7 +73,14 @@
 <body>
 
 <header>
+  <div style="text-align: right; ">
+    <a href="index.html">
+      <i class="fa-solid fa-house" style="color: aliceblue;" ></i>
+    </a>
+  
+</div>
 </header>
+
 
     <table  cellpadding="15" class="tabla">
         <caption> <h2>Seleccionar acuífero y organismo operador</h2></caption>
@@ -141,17 +148,29 @@
                         <select id="oodd" name="oodd">
                             <option value=""></option>
                         </select>
-                    <div>
+                      <div>
                         <a href="Captura_de_OP.html"><img src="img/Agregar_nuevo.png" width="50"></a>
-                    </div>
+                      </div>
+                    </form>
                 </td>
 
         </tbody>
     </table>
-    <section class="botones">
-        <a href="Inicio_sesion.html"><img src="img/Boton atras.png" Width="50"></a>
-        <a href="Menu_MAIN.html"><img src="img/Boton siguiente.png" Width="50"></a>
-    </section>
+    
+
+    <div class="button-container">
+      <!-- Botón de Regresar -->
+      <button class="btn" onclick="irIniSesion()" id="backBtn" >
+        
+          Regresar
+      </button>
+  
+      <!-- Botón de Avanzar -->
+      <button class="btn" onclick="history.forward()" id="forwardBtn" href="Menu_MAIN.html">
+          Avanzar
+      </button>
+  </div>
+  <br>
 
     <div class="sacmex1">
       <img src="img/sacmex1.png">

@@ -51,3 +51,9 @@ function confirmacion2(){
     timer:2500
   })
 }
+
+function irIniSesion(){
+  
+  document.location = 'inisio-sesion-prueba.html';
+  
+}

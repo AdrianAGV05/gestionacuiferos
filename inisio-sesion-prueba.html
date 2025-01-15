@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/Menu_MAIN.css"> 
     <title>Inicio de Sesión</title>
 
     
@@ -138,40 +139,69 @@
 
 
   /*Botones estilo prueba*/
-
-  .button-container {
-            display: flex;
-            gap: 20px;
-        }
-
-        .btn {
-            background-color: #007bff;
-            color: white;
-            padding: 12px 20px;
-            font-size: 18px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            
-        }
-
-        .btn:hover {
-            background-color: #0056b3;
-        }
-
-        .btn:focus {
-            outline: none;
-        }
-
-        .btn:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
+  
 </style>
 
+
+
+<style>
+.recovery-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px hsl(217, 92%, 45%);
+    width: 320px;
+    text-align: center;
+    margin-left: 560px;
+    margin-top: 100px;
+}
+
+.recovery-container h2 {
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.input-field:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.btn-recover {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-recover:hover {
+    background-color: #0056b3;
+}
+
+.back-to-login {
+    display: block;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.back-to-login:hover {
+    text-decoration: underline;
+}
+</style>
 
 
 
@@ -188,38 +218,14 @@
             <input type="password" class="input-field" placeholder="Contraseña" required>
             <button type="submit" class="btn-login">Iniciar sesión</button>
         </form>
-        <a href="Recuperar_contrasena.html" class="forgot-password">¿Olvidaste tu contraseña?</a>
+        <a href="rec.contra-prueba.html" class="forgot-password">¿Olvidaste tu contraseña?</a>
     </div>
 
-    <section class="botones">
-      <a href="index.html"><img src="img/Boton atras.png" Width="50"></a>
-      <a href="Selec_acu_y_op.html"><img src="img/Boton siguiente.png" Width="50"></a>
-  </section>
 
   <div class="button-container">
     <!-- Botón de Regresar -->
-    <button class="btn" onclick="history.back()" id="backBtn" href="index.html">
-      
-        Regresar
-    </button>
-
-    <!-- Botón de Avanzar -->
-    <button class="btn" onclick="history.forward()" id="forwardBtn" href="Selec_acu_y_op.html">
-        Avanzar
-    </button>
-</div>
-
-<script>
-    // Deshabilitar el botón de "Avanzar" si no hay más páginas en el historial
-    if (window.history.forward(1) === null) {
-        document.getElementById('forwardBtn').disabled = true;
-    }
     
-    // Deshabilitar el botón de "Regresar" si no hay páginas anteriores en el historial
-    if (window.history.back() === null) {
-        document.getElementById('backBtn').disabled = true;
-    }
-</script>
+</div>
 
 
     <footer>
