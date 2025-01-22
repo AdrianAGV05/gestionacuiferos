@@ -37,23 +37,25 @@
         </tbody>
     </table>
 
-    <section class="botones">
-        <a href="Sel_acu_y_OP_nvo_usuario.html"><img src="img/Boton atras.png" width="50"></a>
-        <img src="img/Boton siguiente.png" width="50" onclick="guardarAcuifero()">
-    </section>
-
-    <div class="button-container">
+    <br>
+    <div class="button-container1">
       <!-- Botón de Regresar -->
-      <button class="btn" onclick="history.back()" id="backBtn" href="Sel_acu_y_OP_nvo_usuario.html">
-        
-          Regresar
-      </button>
-  
+      <button class="btn" onclick="selectacuyop()" id="backBtn">
+        Regresar
+    </button>
+
       <!-- Botón de Avanzar -->
-      <button class="btn" onclick="guardarAcuifero()" id="forwardBtn" >
-          Siguiente
+      <button class="btn" onclick="guardarAcuifero()" id="forwardBtn">
+          Agregar
       </button>
   </div>
+
+    <section class="botones">
+        <a href="Selec_acu_y_op.html"><img src="img/Boton atras.png" width="50"></a>
+       
+    </section>
+
+    
 
     
     <script>
@@ -96,6 +98,9 @@
                     title: '¡Éxito!',
                     text: 'El acuífero se ha guardado correctamente.',
                 });
+                document.getElementById('claveAcuifero').value   = '';
+                document.getElementById('nombreAcuifero').value = '';
+                document.getElementById('descripcionAcuifero').value = '';
             })
             .catch(error => {
                 console.error('Error al guardar el acuífero:', error);

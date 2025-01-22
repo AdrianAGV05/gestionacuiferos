@@ -52,8 +52,33 @@ function confirmacion2(){
   })
 }
 
-function irIniSesion(){
+function iraSelectAcuyOp(){
   
-  document.location = 'inisio-sesion-prueba.html';
+  document.location = 'Selec_acu_y_op.html';
+  
+}
+
+function inisesionprueba(){
+  
+  document.location = 'inicio-sesion-prueba.html';
+  
+}
+
+function menumain(){
+  
+  document.location = 'Menu_MAIN.html';
+  
+}
+
+
+function crearcuenta(){
+  
+  document.location = 'inicio-sesion-prueba.html';
+  
+}
+
+function cselectacuyop(){
+  
+  document.location = 'Selec_acu_y_op.html';
   
 }
