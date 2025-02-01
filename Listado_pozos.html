@@ -5,20 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="CSS/Menu_MAIN.css">
     <script src="https://kit.fontawesome.com/7f2bc339d8.js" crossorigin="anonymous"></script>
-
+<script src="js/script.js"></script>
     <title>Listado de Pozos</title>
 </head>
 <header>
   <div >
-    <a href="index.html">
-      <i class="fa-solid fa-house" style="color: aliceblue; margin-left: 1300px" ></i>
+    <a href="Menu_MAIN.html">
+      <i class="fa-solid fa-house" style="color: aliceblue; margin-left: 1200px" ></i>
     </a>
+    inicio
+    <a >   
+      <i class="fa-solid fa-right-from-bracket"></i>
+    </a>
+    Salir
   </div>
 </header>
 <body>
-    <table border="1" cellpadding="15" class="tabla">
-        <caption><h2>Listado de pozos</h2></caption>
-        <thead>
+<table style=" width: 80%; margin: auto; ">
+  <colgroup>
+  <col width="90%">
+  <col width="10%">
+  </colgroup>
+  <tr>
+    <td style="text-align: center;">
+      <h2>Listado de pozos</h2>
+    </td>
+    <td style="text-align: right;">
+      Agregar pozo
+      <a href="Nuevo_pozo.html"><i class="fa-regular fa-square-plus" style="color: rgb(27, 91, 227);"></i></a>
+    </td>
+  </tr>
+</table>
+
+    <table  cellpadding="15" class="tabla">
+      <thead>
             <tr>
                 <th>Clave de pozo</th>
                 <th>Nombre del pozo</th>
@@ -28,25 +48,32 @@
                 <th>Acciones</th>
             </tr>
         </thead>
-        <tbody id="pozosTableBody">
-            <!-- Las filas de datos se insertarán aquí dinámicamente -->
-        </tbody>
+        <!--AGREGAR COLUMNA CON NOMBRE DE RAMAL AMBOS
+        FALTA AGRAGR FILTROS  PARA GESTION DE VISUALIZACION (BSUQUEDA)-->
     </table>
+    <div style="height: 400px; overflow: auto; width: 80%;margin: auto;">
+      <table style="width: 100%;">
+        <colgroup>
+        <col width="10%"/>
+        <col width="12%"/>
+        <col width="25%"/>
+        <col width="24%"/>
+        <col width="22%"/>
+        <col width="7%"/>
+        </colgroup>
+        <tbody id="pozosTableBody">
+        <!-- Las filas de datos se insertarán aquí dinámicamente -->
+        </tbody>
+      </table>
+    </div>
 
     <div class="button-container1">
       <!-- Botón de Regresar -->
-      <button class="btn" onclick="inisesionprueba()" id="backBtn">
+      <button class="btn" onclick="menumain()" id="backBtn">
           Regresar
       </button>
-      
-    <section class="botones">
-        <article>
-            <a href="Menu_MAIN.html"><img src="img/Boton atras.png" width="50"></a>
-        </article>
-        <article>
-            <a href="Nuevo_pozo.html"><img src="img/Agregar.jpg" width="50"></a>
-        </article>
-    </section>
+
+    
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -63,12 +90,12 @@
                         
                         // Insertar las celdas en la fila con los datos correspondientes
                         row.innerHTML = `
-                            <td>${item.l_poz_clave}</td>
-                            <td>${item.lp_Nombre}</td>
-                            <td>${item.lp_Profundidad_perforación} m</td>
-                            <td>${item.lp_Diámetro_perforación} in</td>
-                            <td>${item.lp_Diámetro_ADEME} in</td>
-                            <td><a href="Modificar_pozo.html?id=${item.clave_pozo}"><img src="img/editar.jpg" width="50"></a></td>
+                            <td style="border-bottom: 1px solid black ;text-align:center">${item.l_poz_clave}</td>
+                            <td style="border-bottom: 1px solid black ;text-align:center">${item.lp_Nombre}</td>
+                            <td style="border-bottom: 1px solid black ; text-align:center">${item.lp_Profundidad_perforación} m</td>
+                            <td style="border-bottom: 1px solid black ;text-align:center">${item.lp_Diámetro_perforación} in</td>
+                            <td style="border-bottom: 1px solid black ;text-align:center">${item.lp_Diámetro_ADEME} in</td>
+                            <td style="text-align:center; border-bottom: 1px solid black ; text-align:center"><a href="Modificar_pozo.html?id=${item.clave_pozo}"><img src="img/editar.jpg" width="50"></a></td>
                         `;
 
                         // Añadir la fila al cuerpo de la tabla

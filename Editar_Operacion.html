@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="CSS/Menu_MAIN.css">
 <script src="https://unpkg.com/sweetalert2@9.5.3/dist/sweetalert2.all.min.js"></script> 
+<script src="https://kit.fontawesome.com/7f2bc339d8.js" crossorigin="anonymous"></script>
+
     <script src="js/script.js"></script>
     <title>Editar Operación</title>
     <style>
@@ -13,7 +15,17 @@
         }
     </style>
 </head>
-<header></header>
+<header>
+  <a href="Menu_MAIN.html">
+    <i class="fa-solid fa-house" style="color: aliceblue; margin-left: 1200px" ></i>
+  </a>
+  inicio
+  <a >   
+    <i class="fa-solid fa-right-from-bracket"></i>
+  </a>
+  Salir
+</div>
+</header>
 <body>   
 
     <table border="1" cellpadding="15" class="tabla">
@@ -169,11 +181,21 @@
         </tbody>
     </table>
     <!--Mostrar los datos enviados por el operador (placeholder)-->
-    <section class="botones">
-        <a href="Gestion_de_Operacion.html"><img src="img/Boton atras.png" width="50"></a>
-        <img  src="img/Boton siguiente.png" Width="50" onclick="confirmacion()">
-    </section>
     
+    
+    <br>
+    <div class="button-container1">
+      <!-- Botón de Regresar -->
+      <button class="btn" onclick="gestiondeOperacion()" id="backBtn">
+          Regresar
+      </button>
+      <br>
+        <!-- Botón de Regresar -->
+        <button class="btn" onclick="confirmacion()" id="backBtn">
+            Aceptar
+        </button>
+
+        
     <footer>
       <small>
         <div class="leyenda"> &copy; Software desarrollado por el Intituto Interamericano de Tecnología y Ciencias del Agua.</span>

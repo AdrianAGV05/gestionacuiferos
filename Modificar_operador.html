@@ -11,11 +11,15 @@
     <title>Modificar datos de operador</title>
 </head>
 <header>
-  <div >
-    <a href="index.html">
-      <i class="fa-solid fa-house" style="color: aliceblue; margin-left: 1300px" ></i>
-    </a>
-  </div>
+  <a href="Menu_MAIN.html">
+    <i class="fa-solid fa-house" style="color: aliceblue; margin-left: 1200px" ></i>
+  </a>
+  inicio
+  <a >   
+    <i class="fa-solid fa-right-from-bracket"></i>
+  </a>
+  Salir
+</div>
 </header>
 <body>
     <table border=""1" cellpadding="15" class="tabla">
@@ -46,10 +50,18 @@
                 <!--Mostrar (placeholder) los datos precargados del operador-->
         </tbody>
     </table>
-    <section class="botones">
-        <a href="Listado_operadores.html"><img src="img/Boton atras.png" width="50"></a>
-        <img  src="img/Boton siguiente.png" Width="50" onclick="confirmacion()">
-    </section>
+
+<br>
+    <div class="button-container1">
+      <!-- Botón de Regresar -->
+      <button class="btn" onclick="listadoOperadores()" id="backBtn">
+          Regresar
+      </button>
+    
+        <!-- Botón de Regresar -->
+        <button class="btn" onclick="confirmacion()" id="backBtn">
+            Aceptar
+        </button>
 
     <footer>
       <small>

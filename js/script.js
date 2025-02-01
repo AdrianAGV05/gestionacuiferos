@@ -77,7 +77,31 @@ function crearcuenta(){
   
 }
 
-function cselectacuyop(){
+function listadopozos(){
+  
+  document.location = 'Listado_pozos.html';
+  
+}
+
+function listadoOperadores(){
+  
+  document.location = 'Listado_operadores.html';
+  
+}
+
+function gestiondeOperacion(){
+  
+  document.location = 'Gestion_de_Operacion.html';
+  
+}
+
+function gestiondemtto(){
+  
+  document.location = 'Gestion_de_mtto.html';
+  
+}
+
+function selectacuyop(){
   
   document.location = 'Selec_acu_y_op.html';
   
