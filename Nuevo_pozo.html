@@ -12,9 +12,15 @@
 
 <header>
   <div >
-    <a href="index.html">
-      <i class="fa-solid fa-house" style="color: aliceblue; margin-left: 1300px" ></i>
+    
+    <a href="Menu_MAIN.html">
+      <i class="fa-solid fa-house" style="color: aliceblue; margin-left: 1200px" ></i>
     </a>
+    inicio
+    <a >   
+      <i class="fa-solid fa-right-from-bracket"></i>
+    </a>
+    Salir
   </div>
 </header>
 
@@ -60,10 +66,20 @@
         </tbody>
     </table>
 
-    <section class="botones">
-        <a href="Listado_pozos.html"><img src="img/Boton atras.png" width="50"></a>
-        <img src="img/Boton siguiente.png" width="50" onclick="guardarPozo()">
-    </section>
+    <br>
+    <div class="button-container1">
+      <!-- Botón de Regresar -->
+      <button class="btn" onclick="listadopozos()" id="backBtn">
+        Regresar
+    </button>
+    
+      <!-- Botón de Avanzar -->
+      <button class="btn" onclick="guardarPozo()" id="forwardBtn">
+          Agregar
+      </button>
+    </div>
+
+   
 
     <script>
         // Actualizar el valor de los sliders en tiempo real
@@ -90,6 +106,7 @@
             const profundidad = document.getElementById('profundidad').value;
             const diametroPerforacion = document.getElementById('diametroPerforacion').value;
             const diametroADEME = document.getElementById('diametroADEME').value;
+    
 
             // Validar campos obligatorios
             if (!clavePozo || !nombrePozo) {
@@ -126,6 +143,7 @@
                     title: '¡Éxito!',
                     text: 'El pozo se ha guardado correctamente.',
                 });
+                document.location = 'Listado_pozos.html'
             })
             .catch(error => {
                 console.error('Error al guardar el pozo:', error);

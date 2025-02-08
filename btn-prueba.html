@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/Menu_MAIN.css"> 
     <title>Botones de Regresar y Avanzar</title>
+    <script src="js/script.js"></script>
+    
+
+    <!-- 
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,7 +20,7 @@
             background-color: #f4f4f4;
         }
 
-        .button-container {
+        .button-container1 {
             display: flex;
             gap: 20px;
         }
@@ -46,30 +51,21 @@
             cursor: not-allowed;
         }
     </style>
+    -->
 </head>
 <body>
-    <div class="button-container">
+    <div class="button-container1">
         <!-- Botón de Regresar -->
         <button class="btn" onclick="history.back()" id="backBtn">
             Regresar
         </button>
 
         <!-- Botón de Avanzar -->
-        <button class="btn" onclick="history.forward()" id="forwardBtn">
+        <button class="btn" onclick="iraSelectAcuyOp()" id="forwardBtn">
             Avanzar
         </button>
     </div>
 
-    <script>
-        // Deshabilitar el botón de "Avanzar" si no hay más páginas en el historial
-        if (window.history.forward(1) === null) {
-            document.getElementById('forwardBtn').disabled = true;
-        }
-        
-        // Deshabilitar el botón de "Regresar" si no hay páginas anteriores en el historial
-        if (window.history.back() === null) {
-            document.getElementById('backBtn').disabled = true;
-        }
-    </script>
+
 </body>
 </html>
