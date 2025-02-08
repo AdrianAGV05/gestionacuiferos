@@ -182,7 +182,7 @@ background-color: rgb(21, 129, 206);
 
 }
 .menu > li{
-    float: left;
+    float: right;
 }
 .menu li ul {
     display: none;
@@ -199,6 +199,8 @@ background-color: rgb(21, 129, 206);
     right: -140px;
     top: 0px;
 }
+
+
 .leyenda{
   text-align: center;
 }

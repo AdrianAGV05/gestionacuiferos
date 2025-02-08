@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="CSS/Menu_MAIN.css">
+<script src="https://unpkg.com/sweetalert2@9.5.3/dist/sweetalert2.all.min.js"></script> 
+    <script src="js/script.js"></script>
+    <title>Editar Operación</title>
+    <style>
+        .slider {
+            width: 300px;
+        }
+    </style>
+</head>
+<header></header>
+<body>   
+
+    <table border="1" cellpadding="15" class="tabla">
+        <caption> <h2>Agregar nuevo registro</h2></caption>
+        <thead>
+            <tr>
+                <th>Concepto</th>
+                <th>Agregar datos</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            <tr>
+                <td>
+                    <div>
+                        <a>Clave de pozo</a>
+                    </div>
+                </td>
+                <td>
+
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                            // Llamada a la API REST para obtener los datos
+                            fetch('http://localhost:8080/api/lista_pozos')
+                                .then(response => response.json())
+                                .then(data => {
+                                    const dropdown = document.getElementById("dropdown");
+                                    dropdown.innerHTML = ''; // Limpiar opciones anteriores
+                                    data.forEach(item => {
+                                        const option = document.createElement("option");
+                                        option.value = item.l_poz_clave;
+                                        option.textContent = item.l_poz_clave;
+                                        dropdown.appendChild(option);
+                                    });
+                                })
+                                .catch(error => console.error('Error al cargar datos:', error));
+                        });
+                    </script>
+                    <form>
+                        <label for="dropdown"></label>
+                        <select id="dropdown" name="dropdown">
+                            <option value=""></option>
+                        </select>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a>Nivel estático</a>
+                </td>
+                <td>
+                    <h4>Profundidad en metros:</h4>
+    
+                        <input type="range" min="30" max="250" value="30" class="slider" id="myRange" required>                        <p>Valor seleccionado: <span id="valor">30</span></p>
+
+                        <script>
+                            const sliderNivelEstatico = document.getElementById("myRange");
+                            const outputNivelEstatico = document.getElementById("valor");
+
+                            // Mostrar el valor inicial
+                            outputNivelEstatico.textContent = sliderNivelEstatico.value;
+
+                            // Actualizar el valor en tiempo real
+                            sliderNivelEstatico.oninput = function() {
+                                outputNivelEstatico.textContent = this.value;
+                            }
+                        </script>
+              
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a>Nivel dinámico</a>
+                </td>
+                <td>
+                    <h4>Profundidad en metros:</h4>
+    
+                        <input type="range" min="30" max="250" value="30" class="slider" id="myRange1" required>
+                        <p>Valor seleccionado: <span id="valor1">50</span></p>
+
+                        <script>
+                            const sliderNivelDinamico = document.getElementById("myRange1");
+                            const outputNivelDinamico = document.getElementById("valor1");
+
+                            // Mostrar el valor inicial
+                            outputNivelDinamico.textContent = sliderNivelDinamico.value;
+
+                            // Actualizar el valor en tiempo real
+                            sliderNivelDinamico.oninput = function() {
+                                outputNivelDinamico.textContent = this.value;
+                            }
+                        </script>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a>Caudal extraido</a>
+                </td>
+                <td>
+                    <h4>Litros/segundo:</h4>
+    
+                    <input type="range" min="0" max="150" value="0" class="slider" id="myRange2" required>
+                    <p>Valor seleccionado: <span id="valor2">10</span></p>
+
+                    <script>
+                        const sliderCaudalExtraido = document.getElementById("myRange2");
+                        const outputCaudalExtraido = document.getElementById("valor2");
+
+                        // Mostrar el valor inicial
+                        outputCaudalExtraido.textContent = sliderCaudalExtraido.value;
+
+                        // Actualizar el valor en tiempo real
+                        sliderCaudalExtraido.oninput = function() {
+                            outputCaudalExtraido.textContent = this.value;
+                        }
+                    </script>
+                </td>
+            </tr>            
+            <tr>
+                <td>
+                    <a>Presión</a>
+                </td>
+                <td>
+                    <h4>kg/cm<sup>2</sup>:</h4>
+    
+                        <input type="range" min="0" max="40" value="0" class="slider" id="myRange3" required>
+                        <p>Valor seleccionado: <span id="valor3">1</span></p>
+
+                        <script>
+                            const sliderPresionPozo = document.getElementById("myRange3");
+                            const outputPresionPozo = document.getElementById("valor3");
+
+                            // Mostrar el valor inicial
+                            outputPresionPozo.textContent = sliderPresionPozo.value;
+
+                            // Actualizar el valor en tiempo real
+                            sliderPresionPozo.oninput = function() {
+                                outputPresionPozo.textContent = this.value;
+                            }
+                        </script>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a>Tiempo de operación</a>
+                </td>
+                <td>
+                    <h4>Horas</h4>
+                    <input type="text" id="tiempodeoperacion">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a>Observaciones</a>
+                </td>
+                <td>
+                    <input type="text" id="Observaciones">
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <section class="botones">
+        <a href="Gestion_de_Operacion.html"><img src="img/Boton atras.png" width="50"></a>
+        <img  src="img/Boton siguiente.png" Width="50" onclick="guardarPozo()">        
+    </section>
+    <script>
+        // Actualizar el valor de los sliders en tiempo real
+        function actualizarValorSlider(sliderId, valorId) {
+            const slider = document.getElementById(sliderId);
+            const valor = document.getElementById(valorId);
+            valor.textContent = slider.value;
+    
+            slider.oninput = function() {
+                valor.textContent = this.value;
+            };
+        }
+    
+        // Llamar a la función para cada slider
+        actualizarValorSlider('valor', 'valormyRange');
+        actualizarValorSlider('valor1', 'valormyRange1');
+        actualizarValorSlider('valor2', 'valormyRange2');
+        actualizarValorSlider('valor3', 'valormyRange3');
+    
+        // Función para guardar el nuevo pozo
+        function guardarPozo() {
+            // Obtener los valores del formulario
+            const clavePozo = document.getElementById('dropdown').value;
+            const nivelestatico = document.getElementById('myRange').value;
+            const niveldinamico = document.getElementById('myRange1').value;
+            const caudalextraido = document.getElementById('myRange2').value;
+            const presion = document.getElementById('myRange3').value;
+            const tiempodeoperacion = document.getElementById('tiempodeoperacion').value;
+            const Observaciones = document.getElementById('Observaciones').value;
+    
+            // Validar campos obligatorios
+            if (!clavePozo) {
+                Swal.fire({
+                    icon: 'error',
+                    title: '¡Error!',
+                    text: 'Por favor complete los campos requeridos.',
+                });
+                return;
+            }
+    
+            // Crear el objeto de datos a enviar
+            const pozoData = {
+                op_cpozo: clavePozo,
+                op_nestatico: parseInt(document.getElementById('myRange').value),
+                op_ndinamico: parseInt(document.getElementById('myRange1').value),
+                op_gasto: parseInt(document.getElementById('myRange2').value),
+                op_presion: parseInt(document.getElementById('myRange3').value),
+                op_tiempo_op: tiempodeoperacion,
+                op_observaciones: Observaciones
+            };
+    
+            // Enviar los datos al servidor
+            fetch('http://localhost:8080/api/operacion', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(pozoData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Mostrar mensaje de éxito
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Éxito!',
+                    text: 'El registro se guardó correctamente.',
+                });
+            })
+            .catch(error => {
+                console.error('Error al guardar el registro:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: '¡Error!',
+                    text: 'Hubo un problema al guardar el registro.',
+                });
+            });
+        }
+    </script>
+   
+    <footer>
+      <small>
+        <div class="leyenda"> &copy; Software desarrollado por el Intituto Interamericano de Tecnología y Ciencias del Agua.</span>
+      </small>
+  </footer>
+      <!--Colocar el texto centrado y en la parte inferior de la pantlla-->
+</body>
+</html>
