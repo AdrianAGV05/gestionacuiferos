@@ -13,8 +13,8 @@
     <a href="Menu_MAIN.html">
       <i class="fa-solid fa-house" style="color: aliceblue; margin-left: 1200px" ></i>
     </a>
-    inicio
-    <a >   
+    Inicio
+    <a href="index.html">   
       <i class="fa-solid fa-right-from-bracket"></i>
     </a>
     Salir
@@ -30,7 +30,7 @@
     <td style="text-align: center;">
       <h2>Listado de pozos</h2>
     </td>
-    <td style="text-align: right;">
+    <td style="text-align: center;">
       Agregar pozo
       <a href="Nuevo_pozo.html"><i class="fa-regular fa-square-plus" style="color: rgb(27, 91, 227);"></i></a>
     </td>
@@ -91,7 +91,7 @@
                         
                         // Insertar las celdas en la fila con los datos correspondientes
                         row.innerHTML = `
-<<<<<<< HEAD
+
                             <td>${item.l_poz_clave}</td>
                             <td>${item.lp_Nombre}</td>
                             <td>${item.lp_ramal}</td>
@@ -99,14 +99,7 @@
                             <td>${item.lp_Diámetro_perforación} in</td>
                             <td>${item.lp_Diámetro_ADEME} in</td>
                             <td><a href="Modificar_pozo.html?id=${item.clave_pozo}"><img src="img/editar.jpg" width="50"></a></td>
-=======
-                            <td style="border-bottom: 1px solid black ;text-align:center">${item.l_poz_clave}</td>
-                            <td style="border-bottom: 1px solid black ;text-align:center">${item.lp_Nombre}</td>
-                            <td style="border-bottom: 1px solid black ; text-align:center">${item.lp_Profundidad_perforación} m</td>
-                            <td style="border-bottom: 1px solid black ;text-align:center">${item.lp_Diámetro_perforación} in</td>
-                            <td style="border-bottom: 1px solid black ;text-align:center">${item.lp_Diámetro_ADEME} in</td>
-                            <td style="text-align:center; border-bottom: 1px solid black ; text-align:center"><a href="Modificar_pozo.html?id=${item.clave_pozo}"><img src="img/editar.jpg" width="50"></a></td>
->>>>>>> 0621d6c55aeda733f1a57a847d6645ec06d0a409
+
                         `;
 
                         // Añadir la fila al cuerpo de la tabla
@@ -119,10 +112,9 @@
 
 <footer>
   <small>
-    <div class="leyenda"> &copy; Software desarrollado por el Intituto Interamericano de Tecnología y Ciencias del Agua.</span>
+    <div class="leyenda"> &copy; Software desarrollado por el Instituto Interamericano de Tecnología y Ciencias del Agua.</span>
   </small>
 </footer>
-  <!--Colocar el texto centrado y en la parte inferior de la pantlla-->
   
 </body>
 </html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/Menu_MAIN.css">
+    <script src="https://kit.fontawesome.com/7f2bc339d8.js" crossorigin="anonymous"></script>
+<script src="js/script.js"></script>
+    <title>Tabla mantenimiento</title>
+</head>
+<header>
+  <div >
+    <a href="Menu_MAIN.html">
+      <i class="fa-solid fa-house" style="color: aliceblue; margin-left: 1200px" ></i>
+    </a>
+    Inicio
+    <a href="index.html">   
+      <i class="fa-solid fa-right-from-bracket"></i>
+    </a>
+    Salir
+  </div>
+</header>
+<body>
+<table style=" width: 80%; margin: auto; ">
+  <colgroup>
+  <col width="90%">
+  <col width="10%">
+  </colgroup>
+  <tr>
+    <td style="text-align: center;">
+      <h2>Contenido tabla mantenimiento</h2>
+    </td>
+    <td>
+      <div style="width: 80%; margin: auto; text-align: center;">
+        <label for="filtroGeneral">Buscar:</label>
+        <input type="text" id="filtroGeneral" oninput="filtrarTabla()" placeholder="Buscar en cualquier columna...">
+    </div>
+    </td>
+  </tr>
+</table>
+
+    <table  cellpadding="15" class="tabla">
+      <thead>
+            <tr>
+                <th>Clave de pozo</th>
+                <th>Fecha de captura</th>
+                <th>Tipo de motor</th>
+                <th>Hp de motor</th>
+                <th>Kw de motor</th>
+                <th>Eficiencia del motor</th>
+                <th>Tipo de tablero</th>
+                <th>Capacidad de tablero</th>
+                <th>Tipo de transformador</th>
+                <th>Capacidad de transformador</th>
+                <th>Calibre de cable sunergible</th>
+                <th>Longitud de cable sumergible</th>
+                <th>Diámetro de tubería</th>
+                <th>Longitud de tubería</th>
+                <th>Observaciones</th>
+            </tr>
+        </thead>
+        <!--AGREGAR COLUMNA CON NOMBRE DE RAMAL AMBOS
+        FALTA AGRAGR FILTROS  PARA GESTION DE VISUALIZACION (BSUQUEDA)-->
+    </table>
+    <div style="height: 400px; overflow: auto; width: 80%;margin: auto;">
+      <table style="width: 100%;">
+        <colgroup>
+        <col width="10%"/>
+        <col width="12%"/>
+        <col width="10%"/>
+        <col width="10%"/>
+        <col width="10%"/>
+        <col width="10%"/>
+        <col width="10%"/>
+        <col width="12%"/>
+        <col width="10%"/>
+        <col width="10%"/>
+        <col width="10%"/>
+        <col width="10%"/>
+        <col width="10%"/>
+        <col width="10%"/>
+        <col width="25%"/>
+        </colgroup>
+        <tbody id="mantenimiento">
+        <!-- Las filas de datos se insertarán aquí dinámicamente -->
+        </tbody>
+      </table>
+    </div>
+
+    <div class="button-container1">
+      <!-- Botón de Regresar -->
+      <button class="btn" onclick="menumain()" id="backBtn">
+          Regresar
+      </button>
+
+    
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Llamada a la API REST para obtener los datos
+            fetch('http://localhost:8080/api/mantenimiento')
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById("mantenimiento");
+                    tableBody.innerHTML = ''; // Limpiar cualquier dato anterior en la tabla
+                    
+                    data.forEach(item => {
+                        // Crear una fila para cada registro
+                        const row = document.createElement("tr");
+                        
+                        // Insertar las celdas en la fila con los datos correspondientes
+                        row.innerHTML = `
+
+                            <td>${item.mtto_clave_pozo}</td>
+                            <td>${item.mtto_fecha_captura}</td>
+                            <td>${item.mtto_motor_tipo}</td>
+                            <td>${item.mtto_motor_hp}/s</td>
+                            <td>${item.mtto_motor_kw}kw</td>
+                            <td>${item.mtto_motor_eficiencia}</td>
+                            <td>${item.mtto_tablero_tipo}</td>
+                            <td>${item.mtto_tablero_capacidad}</td>
+                            <td>${item.mtto_transformador_tipo}</td>
+                            <td>${item.mtto_transformador_capacidad}</td>
+                            <td>${item.mtto_cable_calibre}</td>
+                            <td>${item.mtto_cable_longitud}</td>
+                            <td>${item.mtto_tuberia_diametro}</td>
+                            <td>${item.mtto_tuberia_longitud}</td>
+                            <td>${item.mtto_observaciones}</td>
+
+                        `;
+
+                        // Añadir la fila al cuerpo de la tabla
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error(  'Error al cargar los datos:', error));
+        });
+        function filtrarTabla() {
+    const filtro = document.getElementById("filtroGeneral").value.toLowerCase();
+    const filas = document.querySelectorAll("#mantenimiento tr");
+
+    filas.forEach(fila => {
+        let mostrar = false;
+        fila.querySelectorAll("td").forEach(celda => {
+            if (celda.textContent.toLowerCase().includes(filtro)) {
+                mostrar = true;
+            }
+        });
+        fila.style.display = mostrar ? "" : "none";
+    });
+}
+    </script>
+
+<footer>
+  <small>
+    <div class="leyenda"> &copy; Software desarrollado por el Instituto Interamericano de Tecnología y Ciencias del Agua.</span>
+  </small>
+</footer>
+  <!--Colocar el texto centrado y en la parte inferior de la pantlla-->
+  
+</body>
+</html>
