@@ -106,3 +106,41 @@ function selectacuyop(){
   document.location = 'Selec_acu_y_op.html';
   
 }
+function listadopozo(){
+  
+  document.location = 'Listado_pozos.html';
+  
+}
+
+function borraoperador(idOperador){
+  Swal.fire({
+    title: "Estas seguro?",
+  text: "Esta acción no se podra revertir!",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonText: "Si, borrar!",
+  cancelButtonText: "No, cancelar!",
+  }).then((result) => {
+    console.table(result);
+    console.log(result.value);
+    if (result.value) {
+
+      Swal.fire("Borrado!"+idOperador, "", "success");
+
+    }
+  })
+}
+function modificaciondatos(){
+  Swal.fire({
+    title:'Datos modificados con exito',
+    icon:'success',
+    timer:2500
+  })
+}
+function modificacionoperador(){
+  Swal.fire({
+    title:'Datos modificados de operador',
+    icon:'success',
+    timer:2500
+  })
+}

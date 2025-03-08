@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="CSS/Menu_MAIN.css">
 <script src="https://unpkg.com/sweetalert2@9.5.3/dist/sweetalert2.all.min.js"></script> 
+<script src="https://kit.fontawesome.com/7f2bc339d8.js" crossorigin="anonymous"></script>
     <script src="js/script.js"></script>
     <title>Editar Operación</title>
     <style>
@@ -177,9 +178,20 @@
         </tbody>
     </table>
     <section class="botones">
-        <a href="Gestion_de_Operacion.html"><img src="img/Boton atras.png" width="50"></a>
-        <img  src="img/Boton siguiente.png" Width="50" onclick="guardarPozo()">        
+       
+        <div class="button-container1">
+          <!-- Botón de Regresar -->
+          <button class="btn" onclick="gestiondeOperacion()" id="backBtn">
+              Regresar
+          </button>
+    
+          <!-- Botón de Avanzar -->
+          <button class="btn" onclick="guardarPozo()" >
+              Aceptar
+          </button>    
     </section>
+
+    
     <script>
         // Actualizar el valor de los sliders en tiempo real
         function actualizarValorSlider(sliderId, valorId) {
