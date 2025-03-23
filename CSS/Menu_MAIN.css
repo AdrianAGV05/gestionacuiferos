@@ -221,6 +221,21 @@ background-color: rgb(21, 129, 206);
   padding: auto;
   margin: auto;
 line-height: 2;
+
+}
+.tabla-mtto{
+  background-color: rgb(163, 168, 167);
+  width: 98%;
+  text-align: center;
+  padding: auto;
+  margin: auto;
+line-height: 2;
+
+
+}
+.tabla-mtto thead{
+  background-color: rgb(163, 168, 167);
+  font-size: 12px;
 }
 .tabla caption {
   color:darkblue;
@@ -488,3 +503,15 @@ background-color: rgb(16, 66, 205);
     cursor: not-allowed;
 }
 
+.edit-operador{
+  
+}
+.icon-cog{
+  color:green
+}
+.iconn-cog{
+  color:red
+}
+.iconnn-cog{
+  color:black
+}

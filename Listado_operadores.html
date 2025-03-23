@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listado de Operadores</title>
     <script src="https://kit.fontawesome.com/7f2bc339d8.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert2@9.5.3/dist/sweetalert2.all.min.js"></script> 
+
     <link rel="stylesheet" href="css/Menu_MAIN.css">
     <script src="js/script.js"></script>
 
@@ -24,7 +26,12 @@
     
     <table border="1" cellpadding="15" class="tabla">
     <table border="1" cellpadding="15" class="tabla">
-        <caption><h2>Listado de operadores</h2></caption>
+        <caption><h2>Listado de operadores </h2> 
+          
+            Agregar Operador
+            <a href="Nuevo_operador.html"><i class="fa-solid fa-user-plus" style="color: rgb(27, 91, 227);"></i></a>
+            
+        </caption>
         <thead>
             <tr>
                 <th>Nombre</th>
@@ -42,13 +49,14 @@
     </table>
 
 
-    <section class="botones">
+   <!--<section class="botones">
         <article>
             <a href="Nuevo_operador.html"><img src="img/Nuevo_usuario.jpg" width="50"></a>
         </article>
         
     </section>
-
+--> 
+    <br>
     <div class="button-container1">
       <!-- Botón de Regresar -->
       <button class="btn" onclick="menumain()" id="backBtn">
@@ -75,11 +83,11 @@
                             <td>${operador.o_contrasena}</td>
                             <td>${operador.o_telefono}</td>
                             <td>
-                                <a href="Modificar_operador.html?id=${operador.id}">
-                                    <img src="img/edit_operador.png" width="50">
+                                <a href="Modificar_operador.html?id=${operador.id}" class="edit-operador">
+                                 <i class="fa-solid fa-user-pen"></i>
                                 </a>
-                                <a href="Eliminar_operador.html?id=${operador.id}">
-                                    <img src="img/Bote de basura.jpg" width="50">
+                                <a href="#" onclick="borraoperador(${operador.id})"">
+                                    <i class="fa-solid fa-trash"></i>
                                 </a>
                             </td>
                         `;

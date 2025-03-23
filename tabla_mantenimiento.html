@@ -30,6 +30,10 @@
     <td style="text-align: center;">
       <h2>Contenido tabla mantenimiento</h2>
     </td>
+    <td style="text-align: center;">
+      Agregar pozo
+      <a href="Nuevo_pozo.html"><i class="fa-regular fa-square-plus" style="color: rgb(27, 91, 227);"></i></a>
+    </td>
     <td>
       <div style="width: 80%; margin: auto; text-align: center;">
         <label for="filtroGeneral">Buscar:</label>
@@ -39,11 +43,28 @@
   </tr>
 </table>
 
-    <table  cellpadding="15" class="tabla">
+    <table  cellpadding="15" class="tabla-mtto">
+      <colgroup>
+        <col width="4%"/>
+        <col width="4%"/>
+        <col width="6%"/>
+        <col width="4%"/>
+        <col width="6%"/>
+        <col width="4%"/>
+        <col width="8%"/>
+        <col width="7%"/>
+        <col width="11%"/>
+        <col width="10%"/>
+        <col width="9%"/>
+        <col width="9%"/>
+        <col width="7%"/>
+        <col width="7%"/>
+        <col width="5%"/>
+        </colgroup>
       <thead>
             <tr>
-                <th>Clave de pozo</th>
-                <th>Fecha de captura</th>
+                <th >Cve pozo</th>
+                <th>Fec captura</th>
                 <th>Tipo de motor</th>
                 <th>Hp de motor</th>
                 <th>Kw de motor</th>
@@ -62,24 +83,24 @@
         <!--AGREGAR COLUMNA CON NOMBRE DE RAMAL AMBOS
         FALTA AGRAGR FILTROS  PARA GESTION DE VISUALIZACION (BSUQUEDA)-->
     </table>
-    <div style="height: 400px; overflow: auto; width: 80%;margin: auto;">
+    <div style="height: 400px; overflow: auto; width: 98%;margin: auto; font-size:80%;">
       <table style="width: 100%;">
         <colgroup>
+        <col width="4%"/>
+        <col width="4%"/>
+        <col width="6%"/>
+        <col width="4%"/>
+        <col width="6%"/>
+        <col width="4%"/>
+        <col width="8%"/>
+        <col width="7%"/>
+        <col width="11%"/>
         <col width="10%"/>
-        <col width="12%"/>
-        <col width="10%"/>
-        <col width="10%"/>
-        <col width="10%"/>
-        <col width="10%"/>
-        <col width="10%"/>
-        <col width="12%"/>
-        <col width="10%"/>
-        <col width="10%"/>
-        <col width="10%"/>
-        <col width="10%"/>
-        <col width="10%"/>
-        <col width="10%"/>
-        <col width="25%"/>
+        <col width="9%"/>
+        <col width="9%"/>
+        <col width="7%"/>
+        <col width="7%"/>
+        <col width="5%"/>
         </colgroup>
         <tbody id="mantenimiento">
         <!-- Las filas de datos se insertarán aquí dinámicamente -->
@@ -111,21 +132,21 @@
                         // Insertar las celdas en la fila con los datos correspondientes
                         row.innerHTML = `
 
-                            <td>${item.mtto_clave_pozo}</td>
-                            <td>${item.mtto_fecha_captura}</td>
-                            <td>${item.mtto_motor_tipo}</td>
-                            <td>${item.mtto_motor_hp}/s</td>
-                            <td>${item.mtto_motor_kw}kw</td>
-                            <td>${item.mtto_motor_eficiencia}</td>
-                            <td>${item.mtto_tablero_tipo}</td>
-                            <td>${item.mtto_tablero_capacidad}</td>
-                            <td>${item.mtto_transformador_tipo}</td>
-                            <td>${item.mtto_transformador_capacidad}</td>
-                            <td>${item.mtto_cable_calibre}</td>
-                            <td>${item.mtto_cable_longitud}</td>
-                            <td>${item.mtto_tuberia_diametro}</td>
-                            <td>${item.mtto_tuberia_longitud}</td>
-                            <td>${item.mtto_observaciones}</td>
+                            <td style="border:1px black solid">${item.mtto_clave_pozo}</td>
+                            <td style="border:1px black solid">${item.mtto_fecha_captura}</td>
+                            <td style="border:1px black solid">${item.mtto_motor_tipo}</td>
+                            <td style="border:1px black solid">${item.mtto_motor_hp}/s</td>
+                            <td style="border:1px black solid">${item.mtto_motor_kw}kw</td>
+                            <td style="border:1px black solid">${item.mtto_motor_eficiencia}</td>
+                            <td style="border:1px black solid">${item.mtto_tablero_tipo}</td>
+                            <td style="border:1px black solid">${item.mtto_tablero_capacidad}</td>
+                            <td style="border:1px black solid">${item.mtto_transformador_tipo}</td>
+                            <td style="border:1px black solid">${item.mtto_transformador_capacidad}</td>
+                            <td style="border:1px black solid">${item.mtto_cable_calibre}</td>
+                            <td style="border:1px black solid">${item.mtto_cable_longitud}</td>
+                            <td style="border:1px black solid">${item.mtto_tuberia_diametro}</td>
+                            <td style="border:1px black solid">${item.mtto_tuberia_longitud}</td>
+                            <td style="border:1px black solid">${item.mtto_observaciones}</td>
 
                         `;
 
