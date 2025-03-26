@@ -66,7 +66,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             // Llamada a la API REST para obtener los datos
-            fetch('http://localhost:8080/api/operadores')
+           fetch ('http://localhost:8080/api/operadores')
                 .then(response => response.json())
                 .then(data => {
                     const tablaOperadores = document.getElementById("tabla-operadores");
@@ -83,10 +83,10 @@
                             <td>${operador.o_contrasena}</td>
                             <td>${operador.o_telefono}</td>
                             <td>
-                                <a href="Modificar_operador.html?id=${operador.id}" class="edit-operador">
+                                <a href="Modificar_operador.html?id=${operador.id_o}" class="edit-operador">
                                  <i class="fa-solid fa-user-pen"></i>
                                 </a>
-                                <a href="#" onclick="borraoperador(${operador.id})"">
+                                <a href="#" onclick="borraoperador(${operador.id_o})"">
                                     <i class="fa-solid fa-trash"></i>
                                 </a>
                             </td>
