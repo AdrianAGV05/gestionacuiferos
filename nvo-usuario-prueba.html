@@ -7,7 +7,7 @@
     <script src="js/script.js"></script>
     <script src="https://kit.fontawesome.com/7f2bc339d8.js" crossorigin="anonymous"></script>
 
-    <title>Crear Nuevo Usuario</title>
+    <title>Crear nuevo usuario</title>
    
    
     <style>
@@ -74,7 +74,7 @@
 <body>
  
     <div class="form-container">
-        <h2>Crear Nuevo Usuario</h2>
+        <h2>Crear nuevo usuario</h2>
         <form action="/crear-usuario" method="POST">
             <label for="nombre">Nombre Completo:</label>
             <input type="text" id="nombre" name="nombre" required placeholder="Ingresa tu nombre completo">
@@ -83,16 +83,15 @@
             <input type="email" id="email" name="email" required placeholder="ejemplo@dominio.com">
 
             <label for="contraseña">Contraseña:</label>
-            <input type="password" id="contraseña" name="contraseña" required placeholder="Ingresa tu contraseña">
+            <input type="password" id="contraseña" name="contraseña" required placeholder="Ingresa contraseña">
 
             <label for="telefono">Número de Teléfono:</label>
-            <input type="tel" id="telefono" name="telefono" required pattern="[0-9]{10}" placeholder="1234567890">
+            <input type="tel" id="telefono" name="telefono" required pattern="[0-9]{10}" placeholder="Número de teléfono a 10 dígitos">
 
             <label for="tipoUsuario">Tipo de Usuario:</label>
             <select id="tipoUsuario" name="tipoUsuario" required>
                 <option value="admin">Administrador</option>
-                <option value="usuario">Usuario Regular</option>
-                <option value="invitado">Invitado</option>
+                <option value="invitado">Gestor</option>
             </select>
 
             <input type="submit" value="Crear Cuenta" onclick="crearcuenta()">
