@@ -37,26 +37,44 @@
   </tr>
 </table>
 
-    <table  cellpadding="15" class="tabla">
+    <table  cellpadding="15" class="tabla" style="width: 95%;">
+
+      <colgroup>
+        <col width="10%"/>
+        <col width="12%"/>
+        <col width="25%"/>
+        <col width="24%"/>
+        <col width="22%"/>
+        <col width="7%"/>
+        </colgroup>
       <thead>
+  
             <tr>
                 <th>Clave de pozo</th>
                 <th>Nombre del pozo</th>
                 <th>Ramal</th>
+<<<<<<< HEAD
+                <th>Profundidad de perforación
+                  <br>
+                   en metros</th>
+                <th>Diámetro de perforación en pulgadas</th>
+                <th>Diámetro de ADEME en pulgadas</th>
+=======
                 <th>Profundidad de perforación 
                   <br>en metros</th>
                 <th>Diámetro de perforación
                   <br>en pulgadas</th>
                 <th>Diámetro de ADEME
                   <br>en pulgadas</th>
+>>>>>>> 99e87597bc71c5a56fdf4d5b331b9a549c50fac1
                 <th>Acciones</th>
             </tr>
         </thead>
         <!--AGREGAR COLUMNA CON NOMBRE DE RAMAL AMBOS
         FALTA AGRAGR FILTROS  PARA GESTION DE VISUALIZACION (BSUQUEDA)-->
     </table>
-    <div style="height: 400px; overflow: auto; width: 80%;margin: auto;">
-      <table style="width: 100%;">
+    <div style="height: 400px; overflow: auto; width: 95%;margin: auto;">
+      <table style="width: 100%; ">
         <colgroup>
         <col width="10%"/>
         <col width="12%"/>
@@ -95,7 +113,7 @@
                         // Insertar las celdas en la fila con los datos correspondientes
                         row.innerHTML = `
 
-                            <td>${item.l_poz_clave}</td>
+                            <td style= "text-align:center">${item.l_poz_clave}</td>
                             <td>${item.lp_Nombre}</td>
                             <td>${item.lp_ramal}</td>
                             <td>${item.lp_Profundidad_perforación} m</td>

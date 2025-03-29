@@ -132,7 +132,8 @@ footer {
   border-radius: 5px;
   padding: 10px;
   text-align: center;
-  width: 150px; /* Ancho de las barras */
+  width: 250px; /* Ancho de las barras */
+  height: 600px;
 }
 
 .barra img {
