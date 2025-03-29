@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="js/script.js"></script>
+  <title>Menú Desplegable con Clic</title>
+</head>
+
+<style>
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body{
+    background: white;
+  }
+
+  .nav{
+    width: 300px;
+  }
+
+  .nav_link{
+    color: #303440;
+    display: block;
+    padding: 15px 0;
+    text-decoration: none ;
+  }
+
+  .nav_link--inside{
+    border-radius: 6px;
+    padding-left: 20px;
+
+  }
+
+  .nav_link--inside:hover{
+    background: white;
+  }
+
+
+  .list{
+    width: 100%;
+    height: 100vh;
+    direction: flex;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 0 16px 16px 0;
+    background: rgb(139, 215, 222);
+  }
+  .list_item{
+    list-style: none;
+    width: 100%;
+    text-align: center;
+    overflow: hidden; 
+  }
+  .list_item--click{
+    cursor: pointer;  
+  }
+  .list_button{
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    width: 70%;
+    margin: 0 auto;
+  }
+
+  .arrow .list_arrow{
+    transform: rotate(90deg);
+  }
+
+  .list_arrow{
+    margin-left: auto;
+    transition: transform .3s;
+  }
+ 
+  .list_show{
+    width: 80%;
+    margin-left: auto;
+    border-left: 2px solid #303440;
+    list-style: none;
+    transition: height .4s;
+    height: 0; 
+  }
+</style>
+
+<body onload="menu_desp()">
+
+    <nav class="nav">
+      <ul class="list">
+
+        <li class="list_item">
+          <div class="list_button">
+            <a href="#" class="nav_link">Inicio</a>
+          </div>
+        </li>
+
+        <li class="list_item list_item--click"> 
+          <div class="list_button list_button--click">
+            <a href="#" class="nav_link">Servicios</a>
+            <img src="assets/arrow.svg" class="list_arrow">
+          </div>
+
+          <ul class="list_show">
+            <li class="list_inside">
+              <a href="#" class="nav_link nav_link--inside">Estoy dentro</a>
+            </li>
+            <li class="list_inside">
+              <a href="#" class="nav_link nav_link--inside">Estoy dentro</a>
+            </li>
+           
+          </ul>
+        </li>
+
+
+        <li class="list_item">
+          <div class="list_button">
+            <a href="#" class="nav_link">Estadisticas </a>
+          </div>
+        </li>
+
+
+        <li class="list_item list_item--click"> 
+          <div class="list_button list_button--click">
+            <a href="#" class="nav_link">Notificaciones</a>
+            <img src="assets/arrow.svg" class="list_arrow">
+
+          </div>
+
+          <ul class="list_show">
+            <li class="list_inside">
+              <a href="#" class="nav_link nav_link--inside">Estoy dentro</a>
+            </li>
+            <li class="list_inside">
+              <a href="#" class="nav_link nav_link--inside">Estoy dentro</a>
+            </li>
+            <li class="list_inside">
+              <a href="#" class="nav_link nav_link--inside">Estoy dentro</a>
+            </li>
+          </ul>
+
+        </li>
+
+
+    
+
+      </ul>
+    </nav>
+
+    
+</body>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/Menu_MAIN.css">
+    <script src="https://unpkg.com/sweetalert2@9.5.3/dist/sweetalert2.all.min.js"></script> 
+    <script src="https://kit.fontawesome.com/7f2bc339d8.js" crossorigin="anonymous"></script>
+    <script src="js/script.js"></script>
+    <title>Editar Mtto</title>
+</head>
+<header>
+  <div >
+    <a href="Menu_MAIN.html">
+      <i class="fa-solid fa-house" style="color: aliceblue; margin-left: 1200px" ></i>
+    </a>
+    inicio
+    <a >   
+      <i class="fa-solid fa-right-from-bracket"></i>
+    </a>
+    Salir
+  </div>
+</header>
+
+<style>
+   .tabla-container {
+            display: flex;
+            justify-content: space-between;
+        }
+</style>
+
+<body>
+    <div class="tabla-container">
+        <!-- Tabla 1 -->
+        <table border="1" cellpadding="15" class="tabla">
+            <caption>
+                <h2>Modificar datos - Parte 1</h2>
+            </caption>
+            <thead>
+                <tr>
+                    <th>Concepto</th>
+                    <th>Datos capturados</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Clave de pozo</td>
+                    <td>
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function() {
+                                fetch('http://localhost:8080/api/lista_pozos')
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        const dropdown = document.getElementById("dropdown1");
+                                        dropdown.innerHTML = '';
+                                        data.forEach(item => {
+                                            const option = document.createElement("option");
+                                            option.value = item.l_poz_clave;
+                                            option.textContent = item.l_poz_clave;
+                                            dropdown.appendChild(option);
+                                        });
+                                    })
+                                    .catch(error => console.error('Error:', error));
+                            });
+                        </script>
+                        <form>
+                            <label for="dropdown1"></label>
+                            <select id="dropdown1" name="dropdown1">
+                                <option value=""></option>
+                            </select>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tipo de motor</td>
+                    <td>
+                        <select id="opciones1" name="opciones1">
+                            <option value="opcion1">Sumergible</option>
+                            <option value="opcion2">Convencional</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Hp de motor</td>
+                    <td>
+                        <input type="range" min="15" max="250" value="15" class="slider" id="myRange1">
+                        <p>Valor seleccionado: <span id="valor1">15</span></p>
+                        <script>
+                            const sliderHpMotor = document.getElementById("myRange1");
+                            const outputHpMotor = document.getElementById("valor1");
+                            sliderHpMotor.oninput = function() {
+                                outputHpMotor.textContent = this.value;
+                            }
+                        </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Kw de motor</td>
+                    <td>
+                        <input type="range" min="10" max="250" value="10" class="slider" id="myRange2">
+                        <p>Valor seleccionado: <span id="valor2">10</span></p>
+                        <script>
+                            const sliderKwMotor = document.getElementById("myRange2");
+                            const outputKwMotor = document.getElementById("valor2");
+                            sliderKwMotor.oninput = function() {
+                                outputKwMotor.textContent = this.value;
+                            }
+                        </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Eficiencia del motor</td>
+                    <td>
+                        <input type="range" min="0" max="100" value="0" class="slider" id="myRange3">
+                        <p>Valor seleccionado: <span id="valor3">0</span></p>
+                        <script>
+                            const sliderEficienciaMotor = document.getElementById("myRange3");
+                            const outputEficienciaMotor = document.getElementById("valor3");
+                            sliderEficienciaMotor.oninput = function() {
+                                outputEficienciaMotor.textContent = this.value;
+                            }
+                        </script>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Tabla 2 -->
+        <table border="1" cellpadding="15" class="tabla">
+            <caption>
+                <h2>Modificar datos - Parte 2</h2>
+            </caption>
+            <thead>
+                <tr>
+                    <th>Concepto</th>
+                    <th>Datos capturados</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Tipo de tablero</td>
+                    <td>
+                        <select id="opciones2" name="opciones2">
+                            <option value="opcion1">Monofásico</option>
+                            <option value="opcion2">Bifásico</option>
+                            <option value="opcion3">Trifásico</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Capacidad de tablero (amp)</td>
+                    <td>
+                        <input type="range" min="18" max="250" value="18" class="slider" id="myRange4">
+                        <p>Valor seleccionado: <span id="valor4">18</span></p>
+                        <script>
+                            const sliderCapacidadTablero = document.getElementById("myRange4");
+                            const outputCapacidadTablero = document.getElementById("valor4");
+                            sliderCapacidadTablero.oninput = function() {
+                                outputCapacidadTablero.textContent = this.value;
+                            }
+                        </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tipo de transformador</td>
+                    <td>
+                        <select id="opciones3" name="opciones3">
+                            <option value="opcion1">Poste</option>
+                            <option value="opcion2">Pedestal</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Capacidad de transformador (kVA)</td>
+                    <td>
+                        <input type="range" min="100" max="350" value="100" class="slider" id="myRange5">
+                        <p>Valor seleccionado: <span id="valor5">100</span></p>
+                        <script>
+                            const sliderCapacidadTransformador = document.getElementById("myRange5");
+                            const outputCapacidadTransformador = document.getElementById("valor5");
+                            sliderCapacidadTransformador.oninput = function() {
+                                outputCapacidadTransformador.textContent = this.value;
+                            }
+                        </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Calibre de cable sumergible</td>
+                    <td>
+                        <input type="range" min="0" max="2" value="0" class="slider" id="myRange6" step="1">
+                        <p>Valor seleccionado: <span id="valor6">0</span></p>
+                        <script>
+                            const sliderCalibreCable = document.getElementById("myRange6");
+                            const outputCalibreCable = document.getElementById("valor6");
+                            sliderCalibreCable.oninput = function() {
+                                outputCalibreCable.textContent = this.value;
+                            }
+                        </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Longitud de cable sumergible (metros)</td>
+                    <td>
+                        <input type="range" min="0" max="250" value="0" class="slider" id="myRange7">
+                        <p>Valor seleccionado: <span id="valor7">0</span></p>
+                        <script>
+                            const sliderLongitudCable = document.getElementById("myRange7");
+                            const outputLongitudCable = document.getElementById("valor7");
+                            sliderLongitudCable.oninput = function() {
+                                outputLongitudCable.textContent = this.value;
+                            }
+                        </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Observaciones</td>
+                    <td><textarea name="" id="" cols="10" rows="4"></textarea></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+<br>
+<br>
+
+    <div class="button-container1">
+      <!-- Botón de Regresar -->
+      <button class="btn" onclick="gestiondemtto()" id="backBtn">
+          Regresar
+      </button>
+        <!-- Botón de Regresar -->
+        <button class="btn" onclick="confirmacion()" id="backBtn">
+            Aceptar
+        </button>
+    </div>       
+<br>
+<br>
+    <footer>
+      <small>
+        <div class="leyenda"> &copy; Software desarrollado por el Intituto Interamericano de Tecnología y Ciencias del Agua.</span>
+      </small>
+  </footer>
+      <!--Colocar el texto centrado y en la parte inferior de la pantlla-->
+    
+</body>
+</html>

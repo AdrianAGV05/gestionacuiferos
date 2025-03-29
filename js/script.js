@@ -144,3 +144,44 @@ function modificacionoperador(){
     timer:2500
   })
 }
+function notfoperador(){
+  Swal.fire({
+    title:'Se envio una notificación al operador',
+    icon:'success',
+    timer: 3000
+  })
+  setTimeout(() => {
+    console.log("6 Segundo esperado")
+    document.location = "Gestion_de_Operacion.html";
+  }, 3500);
+}
+
+function notfoperadorr(){
+  Swal.fire({
+    title:'Se envio una notificación al operador',
+    icon:'success',
+    timer: 3000
+  })
+  setTimeout(() => {
+    console.log("6 Segundo esperado")
+    document.location = "Gestion_de_mtto.html";
+  }, 3500);
+}
+
+function menu_desp(){
+  let listElements = document.querySelectorAll('.list_button--click');
+
+  listElements.forEach(listElement => {
+    listElement.addEventListener('click', ()=>{
+  
+         listElement.classList.toggle('arrow');
+  
+         let height = 0;
+         let menu = listElement.nextElementSibling;
+         if(menu.clientHeight == "0"){
+          height=menu.scrollHeight;
+         }
+         menu.style.height = `${height}px`;
+    })
+  });
+}

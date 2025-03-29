@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menú Desplegable Jerárquico</title>
+  <style>
+    /* Estilo básico del cuerpo */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    /* Estilo del menú */
+    nav {
+      background-color: #0056b3; /* Azul moderno */
+      overflow: hidden;
+    }
+
+    /* Estilo de los elementos de lista */
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li {
+      display: inline-block;
+      position: relative;
+    }
+
+    /* Estilo de los enlaces del menú */
+    nav ul li a {
+      display: block;
+      padding: 15px 20px;
+      text-decoration: none;
+      color: white;
+      background-color: #0056b3;
+      transition: background-color 0.3s;
+    }
+
+    /* Cambio de color al pasar el mouse */
+    nav ul li a:hover {
+      background-color: #003c82;
+    }
+
+    /* Estilo para el menú desplegable */
+    nav ul li ul {
+      display: none;
+      position: absolute;
+      left: 0;
+      top: 100%;
+      background-color: #0056b3;
+      min-width: 180px;
+    }
+
+    /* Mostrar el menú desplegable al pasar el mouse */
+    nav ul li:hover > ul {
+      display: block;
+    }
+
+    /* Estilo de los enlaces del submenú */
+    nav ul li ul li a {
+      padding: 12px 20px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+    }
+
+    /* Cambio de color en los submenús al pasar el mouse */
+    nav ul li ul li a:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Menú de navegación -->
+  <nav>
+    <ul>
+      <li><a href="#">Inicio</a></li>
+      <li><a href="#">Servicios</a>
+        <ul>
+          <li><a href="#">Desarrollo Web</a></li>
+          <li><a href="#">Consultoría</a></li>
+          <li><a href="#">SEO</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Productos</a>
+        <ul>
+          <li><a href="#">Software</a></li>
+          <li><a href="#">Aplicaciones Móviles</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Nosotros</a></li>
+      <li><a href="#">Contacto</a></li>
+    </ul>
+  </nav>
+
+</body>
+</html>
