@@ -124,7 +124,15 @@ function borraoperador(idOperador){
     console.table(result);
     console.log(result.value);
     if (result.value) {
+      fetch('http://localhost:8080/api/operadores/'+idOperador, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
 
+    })
+    .then(response => response.json())
+   
       Swal.fire("Borrado!"+idOperador, "", "success");
 
     }
@@ -138,11 +146,38 @@ function modificaciondatos(){
   })
 }
 function modificacionoperador(){
+  var valores= window.location.search;
+  const urlParams=new URLSearchParams(valores);
+  var id_operador=urlParams.get("id");
+    const nombre = document.getElementById('nombre').value;
+    const correo = document.getElementById('email').value;
+    const contrasena = document.getElementById('pwd').value;
+    const telefono = document.getElementById('tel').value;
+            
+    // Crear el objeto con los datos
+    const actualizaOperador = {
+        o_nombre: nombre,
+        o_correo: correo,
+        o_contrasena: contrasena,
+        o_telefono: telefono
+    };
+
+  fetch('http://localhost:8080/api/operadores/'+id_operador, {
+    method: 'PUT',
+    headers: {
+        'Content-Type': 'application/json',
+
+    },
+    body: JSON.stringify(actualizaOperador)
+})
+.then(response => response.json())
+.then(data => {
   Swal.fire({
-    title:'Datos modificados de operador',
+    title:'Datos de operador modificados con éxito',
     icon:'success',
     timer:2500
   })
+<<<<<<< HEAD
 }
 function notfoperador(){
   Swal.fire({
@@ -185,3 +220,31 @@ function menu_desp(){
     })
   });
 }
+=======
+  document.location="Listado_operadores.html";
+})
+  
+}
+
+function cargardatos(){
+  console.log("cargando")
+  var valores= window.location.search;
+  const urlParams=new URLSearchParams(valores);
+  var id_operador=urlParams.get("id");
+  console.log(id_operador)
+  fetch('http://localhost:8080/api/operadores/'+id_operador, {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+})
+.then(response => response.json())
+.then(data => {
+  console.log(data.o_nombre);
+  document.getElementById("nombre").value=data.o_nombre;
+  document.getElementById("email").value=data.o_correo;
+  document.getElementById("pwd").value=data.o_contrasena;
+  document.getElementById("tel").value=data.o_telefono;
+})
+}
+>>>>>>> 99e87597bc71c5a56fdf4d5b331b9a549c50fac1

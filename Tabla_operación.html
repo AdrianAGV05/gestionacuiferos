@@ -43,6 +43,7 @@
       <thead>
             <tr>
                 <th>Clave de pozo</th>
+                <th>Fecha de captura</th>
                 <th>Nivel estático</th>
                 <th>Nivel dinámico</th>
                 <th>Caudal</th>
@@ -57,12 +58,14 @@
     <div style="height: 400px; overflow: auto; width: 80%;margin: auto;">
       <table style="width: 100%;">
         <colgroup>
-        <col width="10%"/>
+        <col width="11%"/>
         <col width="12%"/>
-        <col width="10%"/>
-        <col width="10%"/>
-        <col width="10%"/>
-        <col width="25%"/>
+        <col width="12%"/>
+        <col width="12%"/>
+        <col width="12%"/>
+        <col width="12%"/>
+        <col width="12%"/>
+        <col width="17%"/>
         </colgroup>
         <tbody id="operacionTableBody">
         <!-- Las filas de datos se insertarán aquí dinámicamente -->
@@ -95,6 +98,7 @@
                         row.innerHTML = `
 
                             <td>${item.op_cpozo}</td>
+                            <td>${item.op_fecha_captura}</td>
                             <td>${item.op_nestatico}m</td>
                             <td>${item.op_ndinamico}m</td>
                             <td>${item.op_gasto} l/s</td>

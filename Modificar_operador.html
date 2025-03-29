@@ -21,7 +21,7 @@
   Salir
 </div>
 </header>
-<body>
+<body onload="cargardatos()">
     <table border=""1" cellpadding="15" class="tabla">
         <caption> <h2>Modificar datos de operador</h2> </caption>
         <thead>
@@ -36,16 +36,16 @@
         <tbody>
             <tr>
                 <td>
-                    <input type="text">
+                    <input type="text" id="nombre">
                 </td>
                 <td>
-                    <input type="email">
+                    <input type="email" id="email">
                 </td>
                 <td>
-                    <input type="text">
+                    <input type="text" id="pwd">
                 </td>
                 <td>
-                    <input type="text">
+                    <input type="text" id="tel">
                 </td>
                 <!--Mostrar (placeholder) los datos precargados del operador-->
         </tbody>
