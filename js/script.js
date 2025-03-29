@@ -72,8 +72,41 @@ function menumain(){
 
 
 function crearcuenta(){
+   // Obtener los valores de los campos
+   const nombre = document.getElementById('nombre').value;
+   const correo = document.getElementById('correo').value;
+   const contrasena = document.getElementById('contrasena').value;
+   const telefono = document.getElementById('telefono').value;
+   const tipoUsuaro = document.getElementById('tipoUsuario').value;
+   
+   // Crear el objeto con los datos
+   const nuevoUsuario = {
+       us_nombre: nombre,
+       us_correo: correo,
+       us_contrasena: contrasena,
+       us_telefono: telefono,
+       us_tipo: tipoUsuario 
+
+   };
+
+   // Enviar los datos al servidor utilizando una solicitud POST
+   fetch('http://localhost:8080/api/operadores', {
+       method: 'POST',
+       headers: {
+           'Content-Type': 'application/json',
+       },
+       body: JSON.stringify(nuevoOperador)
+   })
+   .then(response => response.json())
+   .then(data => {
+       alert('Operador agregado con éxito');
+       // Redirigir a otra página si es necesario
+       //window.location.href = 'operador_agregado.html';//
+   })
+   .catch(error => console.error('Error al insertar datos:', error));
+}
   
-  document.location = 'inicio-sesion-prueba.html';
+  document.location = 'index.html';
   
 }
 
