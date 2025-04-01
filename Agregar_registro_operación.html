@@ -22,7 +22,7 @@
         <thead>
             <tr>
                 <th>Concepto</th>
-                <th>Agregar datos</th>
+                <th>Datos</th>
             </tr>
         </thead>
         
@@ -193,24 +193,7 @@
 
     
     <script>
-        // Actualizar el valor de los sliders en tiempo real
-        function actualizarValorSlider(sliderId, valorId) {
-            const slider = document.getElementById(sliderId);
-            const valor = document.getElementById(valorId);
-            valor.textContent = slider.value;
-    
-            slider.oninput = function() {
-                valor.textContent = this.value;
-            };
-        }
-    
-        // Llamar a la función para cada slider
-        actualizarValorSlider('valor', 'valormyRange');
-        actualizarValorSlider('valor1', 'valormyRange1');
-        actualizarValorSlider('valor2', 'valormyRange2');
-        actualizarValorSlider('valor3', 'valormyRange3');
-    
-        // Función para guardar el nuevo pozo
+
         function guardarPozo() {
             // Obtener los valores del formulario
             const clavePozo = document.getElementById('dropdown').value;
@@ -219,7 +202,7 @@
             const caudalextraido = document.getElementById('myRange2').value;
             const presion = document.getElementById('myRange3').value;
             const tiempodeoperacion = document.getElementById('tiempodeoperacion').value;
-            const Observaciones = document.getElementById('Observaciones').value;
+            const observaciones = document.getElementById('Observaciones').value;
     
             // Validar campos obligatorios
             if (!clavePozo) {
@@ -232,14 +215,14 @@
             }
     
             // Crear el objeto de datos a enviar
-            const pozoData = {
+            const nvoregOp = {
                 op_cpozo: clavePozo,
-                op_nestatico: parseInt(document.getElementById('myRange').value),
-                op_ndinamico: parseInt(document.getElementById('myRange1').value),
-                op_gasto: parseInt(document.getElementById('myRange2').value),
-                op_presion: parseInt(document.getElementById('myRange3').value),
+                op_nestatico: nivelestatico,
+                op_ndinamico: niveldinamico,
+                op_gasto: caudalextraido,
+                op_presion: presion,
                 op_tiempo_op: tiempodeoperacion,
-                op_observaciones: Observaciones
+                op_observaciones: observaciones
             };
     
             // Enviar los datos al servidor
@@ -248,7 +231,7 @@
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(pozoData)
+                body: JSON.stringify(nvoregOp)
             })
             .then(response => response.json())
             .then(data => {

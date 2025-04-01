@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/Menu_MAIN.css">
+    <script src="https://kit.fontawesome.com/7f2bc339d8.js" crossorigin="anonymous"></script>
+    <script src="js/script.js"></script>
+
+    <title>Capturar nueva alerta</title>
+</head>
+<header>
+  <div >
+    <a href="Menu_MAIN.html">
+      <i class="fa-solid fa-house" style="color: aliceblue; margin-left: 1200px" ></i>
+    </a>
+    inicio
+    <a >   
+      <i class="fa-solid fa-right-from-bracket"></i>
+    </a>
+    Salir
+  </div>
+</header>
+<body>
+   
+    <table border=""1" cellpadding="15" class="tabla">
+        <caption> <h2>Capturar nueva alerta</h2></caption>
+        <thead>
+            <tr>
+                <th>Clave de pozo</th>
+                <th>Tipo de alerta</th>
+                <th>Operador</th>
+                <th>Observaciones</th>
+                <th>Fecha y hora de alerta</th> <!--Fecha y hora de captura-->
+            </tr>
+        </thead>
+        
+        <tbody>
+            <tr>
+                <td>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                            // Llamada a la API REST para obtener los datos
+                            fetch('http://localhost:8080/api/lista_pozos')
+                                .then(response => response.json())
+                                .then(data => {
+                                    const dropdown = document.getElementById("dropdown");
+                                    dropdown.innerHTML = ''; // Limpiar opciones anteriores
+                                    data.forEach(item => {
+                                        const option = document.createElement("option");
+                                        option.value = item.l_poz_clave;
+                                        option.textContent = item.l_poz_clave;
+                                        dropdown.appendChild(option);
+                                    });
+                                })
+                                .catch(error => console.error('Error al cargar datos:', error));
+                        });
+                    </script>
+                    <form>
+                        <label for="dropdown"></label>
+                        <select id="dropdown" name="dropdown">
+                            <option value=""></option>
+                        </select>
+                    </form>
+                </td>
+                <td>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                            // Llamada a la API REST para obtener los datos de la tabla acuifero
+                            fetch('http://localhost:8080/api/alertas_tipo')
+                                .then(response => response.json())
+                                .then(data => {
+                                    const Acudd = document.getElementById("Acudd");
+                                    Acudd.innerHTML = ''; // Limpiar opciones anteriores
+                                    data.forEach(item => {
+                                        const option = document.createElement("option");
+                                        option.value = item.alert_tipo;
+                                        option.textContent = item.alert_tipo;
+                                        Acudd.appendChild(option);
+                                    });
+                                })
+                                .catch(error => console.error('Error al cargar datos:', error));
+                        });
+                    </script>
+                    <form>
+                        <label for="lblacudd"></label>
+                        <select id="Acudd" name="Acudd">
+                            <option value=""></option>
+                        </select>
+                    </form>
+                </td>
+                <td>
+                    <input type="text">
+                </td>
+                <td>
+                    <textarea name="" id="" cols="10" rows="2"></textarea>
+                   
+                </td>
+                <td>
+                    <input type="datetime">
+                </td>
+
+        </tbody>
+    </table>
+
+    <br>
+    <div class="button-container1">
+      <!-- Botón de Regresar -->
+      <button class="btn" onclick="menumain()" id="backBtn">
+          Regresar
+      </button>
+      <button class="btn" onclick="guardarAlerta()" id="backBtn">
+        Aceptar
+    </button>
+
+<script>
+    function guardarAlerta() {
+        // Obtener los valores de los campos
+        const cpozo = document.getElementById('cpozo').value;
+        const tipo = document.getElementById('tipo').value;
+        const operador = document.getElementById('operador').value;
+        const observaciones = document.getElementById('observaciones').value;
+        const fecha = document.getElementById('fecha').value;
+        
+        // Crear el objeto con los datos
+        const nuevoAlerta_pozos = {
+            al_clave_de_pozo: cpozo,
+            o_correo: tipo,
+            al_operador: operador,
+            al_comentarios: observaciones,
+            al_fechacap: fecha,
+        };
+
+        // Enviar los datos al servidor utilizando una solicitud POST
+        fetch('http://localhost:8080/api/alertas_pozos', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(nuevoAlertas_pozos)
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert('Alerta enviada con éxito');
+            // Redirigir a otra página si es necesario
+            //window.location.href = 'operador_agregado.html';//
+        })
+        .catch(error => console.error('Error al insertar datos:', error));
+    }
+</script>
+
+
+    <footer>
+      <small>
+        <div class="leyenda"> &copy; Software desarrollado por el Instituto Interamericano de Tecnología y Ciencias del Agua.</span>
+      </small>
+  </footer>
+      <!--Colocar el texto centrado y en la parte inferior de la pantlla-->
+
+</body>
+</html>
