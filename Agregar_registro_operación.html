@@ -203,6 +203,8 @@
             const presion = document.getElementById('myRange3').value;
             const tiempodeoperacion = document.getElementById('tiempodeoperacion').value;
             const observaciones = document.getElementById('Observaciones').value;
+            const fecha_captura = new Date();
+            const operador = 1;
     
             // Validar campos obligatorios
             if (!clavePozo) {
@@ -222,7 +224,9 @@
                 op_gasto: caudalextraido,
                 op_presion: presion,
                 op_tiempo_op: tiempodeoperacion,
-                op_observaciones: observaciones
+                op_observaciones: observaciones,
+                op_fecha_captura: fecha_captura,
+                op_operador: operador
             };
     
             // Enviar los datos al servidor
@@ -241,6 +245,14 @@
                     title: '¡Éxito!',
                     text: 'El registro se guardó correctamente.',
                 });
+                //limpiar los valores del formulario
+                document.getElementById('myRange').value=0;
+                document.getElementById('myRange1').value=0;
+                document.getElementById('myRange2').value=0;
+                document.getElementById('myRange3').value=0;
+                document.getElementById('Observaciones').value="";
+                document.getElementById('tiempodeoperacion').value="";
+
             })
             .catch(error => {
                 console.error('Error al guardar el registro:', error);

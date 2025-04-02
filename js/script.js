@@ -52,9 +52,9 @@ function confirmacion2(){
   })
 }
 
-function iraSelectAcuyOp(){
+function iraMenu_Main_prueba(){
   
-  document.location = 'Selec_acu_y_op.html';
+  document.location = 'Menu_MAIN.html';
   
 }
 
@@ -72,10 +72,7 @@ function menumain(){
 
 
 
-  
-  document.location = 'index.html';
-  
-}
+
 
 function listadopozos(){
   
@@ -177,50 +174,6 @@ function modificacionoperador(){
     icon:'success',
     timer:2500
   })
-<<<<<<< HEAD
-}
-function notfoperador(){
-  Swal.fire({
-    title:'Se envio una notificación al operador',
-    icon:'success',
-    timer: 3000
-  })
-  setTimeout(() => {
-    console.log("6 Segundo esperado")
-    document.location = "Gestion_de_Operacion.html";
-  }, 3500);
-}
-
-function notfoperadorr(){
-  Swal.fire({
-    title:'Se envio una notificación al operador',
-    icon:'success',
-    timer: 3000
-  })
-  setTimeout(() => {
-    console.log("6 Segundo esperado")
-    document.location = "Gestion_de_mtto.html";
-  }, 3500);
-}
-
-function menu_desp(){
-  let listElements = document.querySelectorAll('.list_button--click');
-
-  listElements.forEach(listElement => {
-    listElement.addEventListener('click', ()=>{
-  
-         listElement.classList.toggle('arrow');
-  
-         let height = 0;
-         let menu = listElement.nextElementSibling;
-         if(menu.clientHeight == "0"){
-          height=menu.scrollHeight;
-         }
-         menu.style.height = `${height}px`;
-    })
-  });
-}
-=======
   document.location="Listado_operadores.html";
 })
   
@@ -247,4 +200,46 @@ function cargardatos(){
   document.getElementById("tel").value=data.o_telefono;
 })
 }
->>>>>>> 99e87597bc71c5a56fdf4d5b331b9a549c50fac1
+
+function crearcuenta(){
+  console.log("aqui mero")
+  // Obtener los valores de los campos
+  const nombre = document.getElementById('nombre').value;
+  const correo = document.getElementById('correo').value;
+  const contrasena = document.getElementById('contrasena').value;
+  const telefono = document.getElementById('telefono').value;
+  const tipoUsuario = document.getElementById('tipoUsuario').value;
+  //para ler el archivo de documentos de acuifero
+  //const fileInput=document.getElementById("limites");
+  //const file=fileInput.files[0];
+  console.log("creando cuenta")
+  // Crear el objeto con los datos
+  const nuevoUsuario = {
+      us_nombre: nombre,
+      us_correo: correo,
+      us_contrasena: contrasena,
+      us_telefono: telefono,
+      us_tipo: tipoUsuario 
+      //const formData= new FormData();
+      //formData.append("us_nombre",nombre);
+      //formData.append("limites",file)
+      //body:formData
+  };
+
+  console.log(nuevoUsuario);
+  // Enviar los datos al servidor utilizando una solicitud POST
+  fetch('http://localhost:8080/api/usuarios', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(nuevoUsuario)
+  })
+  .then(response => response.json())
+  .then(data => {
+      alert('Datos enviados y en espera, la confirmación puede tardar entre uno y tres días hábiles');
+      // Redirigir a otra página si es necesario
+      //window.location.href = 'operador_agregado.html';//
+  })
+  .catch(error => console.error('Error al insertar datos:', error));
+}
