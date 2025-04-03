@@ -243,3 +243,155 @@ function crearcuenta(){
   })
   .catch(error => console.error('Error al insertar datos:', error));
 }
+
+
+function agregarregistromtto(){
+  // Obtener los valores del formulario
+  const clavePozo = document.getElementById('dropdown').value;
+  const tipoMotor = document.getElementById('tipoMotor').value;
+  const hpMotor = document.getElementById('hpMotor').value;
+  const kwMotor = document.getElementById('kwMotor').value;
+  const eficienciaMotor = document.getElementById('eficienciaMotor').value;
+  const tipoTablero = document.getElementById('tipoTablero').value;
+  const capacidadTablero = document.getElementById('capacidadTablero').value;
+  const tipoTransformador = document.getElementById('tipoTransformador').value;
+  const capacidadTransformador = document.getElementById('capacidadTransformador').value;
+  const calibreCable = document.getElementById('calibreCable').value;
+  const longitudCable = document.getElementById('longitudCable').value;
+  const diamTuberia = document.getElementById('diamTuberia').value;
+  const longTuberia = document.getElementById('longTuberia').value;
+  const obsmtto = document.getElementById('obsmtto').value;
+  const fecha_captura = new Date();
+  const operador = 1;
+
+  // Validar campos obligatorios
+  if (!clavePozo) {
+      Swal.fire({
+          icon: 'error',
+          title: '¡Error!',
+          text: 'Por favor complete los campos requeridos.',
+      });
+      return;
+  }
+
+  // Crear el objeto de datos a enviar
+  const nvoregMtto = {
+      mtto_clave_pozo: clavePozo,
+      mtto_motor_tipo: tipoMotor,
+      mtto_motor_hp: hpMotor,
+      mtto_motor_kw: kwMotor,
+      mtto_motor_eficiencia: eficienciaMotor,
+      mtto_tablero_tipo: tipoTablero,
+      mtto_tablero_capacidad: capacidadTablero,
+      mtto_transformador_tipo:tipoTransformador,
+      mtto_transformador_capacidad: capacidadTransformador,
+      mtto_cable_calibre: calibreCable,
+      mtto_cable_longitud: longitudCable,
+      mtto_tuberia_diametro: diamTuberia,
+      mtto_tuberia_longitud: longTuberia,
+      mtto_observaciones:obsmtto,
+      mtto_fecha_captura: fecha_captura,
+      mtto_operador: operador
+  };
+
+  // Enviar los datos al servidor
+  fetch('http://localhost:8080/api/mantenimiento', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(nvoregMtto)
+  })
+  .then(response => response.json())
+  .then(data => {
+      // Mostrar mensaje de éxito
+      Swal.fire({
+          icon: 'success',
+          title: '¡Éxito!',
+          text: 'El registro se guardó correctamente.',
+      });
+      //limpiar los valores del formulario
+      document.getElementById('hpMotor').value=0;
+      document.getElementById('kwMotor').value=0;
+      document.getElementById('eficienciaMotor').value=0;
+      document.getElementById('capacidadTablero').value=0;
+      document.getElementById('capacidadTransformador').value="0";
+      document.getElementById('longitudCable').value="0";
+      document.getElementById('diamTuberia').value="0";
+      document.getElementById('longTuberia').value="0";
+      document.getElementById('obsmtto').value="";
+
+  })
+  .catch(error => {
+      console.error('Error al guardar el registro:', error);
+      Swal.fire({
+          icon: 'error',
+          title: '¡Error!',
+          text: 'Hubo un problema al guardar el registro.',
+      });
+  });
+}
+
+
+function enviarAlerta() {
+  // Obtener los valores del formulario
+  const clavePozo = document.getElementById('dropdown').value;
+  const tipoAlerta = document.getElementById('alert_tipo').value;
+  const observaciones = document.getElementById('observaciones').value;
+  const fechacap = new Date();
+  const operador = 1;
+
+  console.log("Clave de pozo seleccionada:", clavePozo);
+  console.log("Tipo de alerta seleccionada:", tipoAlerta);
+  console.log("Observaciones:", observaciones);
+
+  // Validar campos obligatorios
+  if (!clavePozo) {
+      Swal.fire({
+          icon: 'error',
+          title: '¡Error!',
+          text: 'Por favor complete los campos requeridos.',
+      });
+      return;
+  }
+
+  // Crear el objeto de datos a enviar
+  const nvaAl = {
+      al_clave_de_pozo: clavePozo,
+      al_tipo_de_alerta: tipoAlerta,
+      al_comentarios: observaciones,
+      al_fechacap: fechacap,
+      al_operador: operador
+  };
+
+  // Enviar los datos al servidor
+  fetch('http://localhost:8080/api/alertas_pozos', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(nvaAl)
+  })
+  .then(response => response.json())
+  .then(data => {
+      // Mostrar mensaje de éxito
+      Swal.fire({
+          icon: 'success',
+          title: '¡Éxito!',
+          text: 'El registro se guardó correctamente.',
+      });
+      //limpiar los valores del formulario
+
+      document.getElementById('observaciones').value="";
+     
+
+  })
+  .catch(error => {
+      console.error('Error al guardar el registro:', error);
+      Swal.fire({
+          icon: 'error',
+          title: '¡Error!',
+          text: 'Hubo un problema al guardar el registro.',
+      });
+  });
+}

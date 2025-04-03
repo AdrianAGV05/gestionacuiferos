@@ -68,7 +68,8 @@
                 <td>
                     <h4>Profundidad en metros:</h4>
     
-                        <input type="range" min="30" max="250" value="30" class="slider" id="myRange" required>                        <p>Valor seleccionado: <span id="valor">30</span></p>
+                        <input type="range" min="30" max="250" value="30" class="slider" id="myRange" required>                        
+                        <p>Valor seleccionado: <span id="valor">30</span></p>
 
                         <script>
                             const sliderNivelEstatico = document.getElementById("myRange");
@@ -186,7 +187,7 @@
           </button>
     
           <!-- Botón de Avanzar -->
-          <button class="btn" onclick="guardarPozo()" >
+          <button class="btn" onclick="agregarregistrooperacion()" >
               Aceptar
           </button>    
     </section>
@@ -194,7 +195,7 @@
     
     <script>
 
-        function guardarPozo() {
+        function agregarregistrooperacion() {
             // Obtener los valores del formulario
             const clavePozo = document.getElementById('dropdown').value;
             const nivelestatico = document.getElementById('myRange').value;

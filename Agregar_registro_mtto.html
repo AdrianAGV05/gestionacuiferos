@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/Menu_MAIN.css">
+    <script src="https://unpkg.com/sweetalert2@9.5.3/dist/sweetalert2.all.min.js"></script>
+    <script src="https://kit.fontawesome.com/7f2bc339d8.js" crossorigin="anonymous"></script>
+    <script src="js/script.js"></script>
+    <title>Registro mtto</title>
+</head>
+<header>
+  <a href="Menu_MAIN.html">
+    <i class="fa-solid fa-house" style="color: aliceblue; margin-left: 1200px" ></i>
+  </a>
+  inicio
+  <a >   
+    <i class="fa-solid fa-right-from-bracket"></i>
+  </a>
+  Salir
+</div>
+</header>
+<body>
+    
+    <table border=""1" cellpadding="15" class="tabla">
+        <caption>
+            <h2>Nuevo registro</h2>
+        </caption>
+        <thead>
+            <tr>
+                <th>Concepto</th>
+                <th>Datos</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            <tr>
+                <td>
+                    Clave de pozo
+                </td>
+                <td>
+
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                            // Llamada a la API REST para obtener los datos
+                            fetch('http://localhost:8080/api/lista_pozos')
+                                .then(response => response.json())
+                                .then(data => {
+                                    const dropdown = document.getElementById("dropdown");
+                                    dropdown.innerHTML = ''; // Limpiar opciones anteriores
+                                    data.forEach(item => {
+                                        const option = document.createElement("option");
+                                        option.value = item.l_poz_clave;
+                                        option.textContent = item.l_poz_clave;
+                                        dropdown.appendChild(option);
+                                    });
+                                })
+                                .catch(error => console.error('Error al cargar datos:', error));
+                        });
+                    </script>
+                    <form>
+                        <label for="dropdown"></label>
+                        <select id="dropdown" name="dropdown">
+                            <option value=""></option>
+                        </select>
+                    </form>
+            </tr>
+            <tr>
+                <td>
+                    Tipo de motor
+                </td>
+                <td>
+                    <select id="tipoMotor" name="tipoMotor" required>
+                        <option value="covencional">Convencional</option>
+                        <option value="sumergible">Sumergible</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Hp de motor
+                </td>
+                <td>
+                    <h4>Hp</h4>
+    
+                        <input type="range" min="0" max="200" value="0" class="slider" id="hpMotor" required>                        
+                        <p>Valor seleccionado: <span id="hp">0</span></p>
+
+                        <script>
+                            const sliderHpMotor = document.getElementById("hpMotor");
+                            const outputHpMotor = document.getElementById("hp");
+
+                            // Mostrar el valor inicial
+                            outputHpMotor.textContent = sliderHpMotor.value;
+
+                            // Actualizar el valor en tiempo real
+                            sliderHpMotor.oninput = function() {
+                                outputHpMotor.textContent = this.value;
+                            }
+                        </script>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Kw de motor
+                </td>
+                <td>
+                    <h4>Kw</h4>
+    
+                    <input type="range" min="0" max="500" value="0" class="slider" id="kwMotor" required>                        
+                    <p>Valor seleccionado: <span id="kw">0</span></p>
+
+                    <script>
+                        const sliderKwMotor = document.getElementById("kwMotor");
+                        const outputKwMotor = document.getElementById("kw");
+
+                        // Mostrar el valor inicial
+                        outputKwMotor.textContent = sliderKwMotor.value;
+
+                        // Actualizar el valor en tiempo real
+                        sliderKwMotor.oninput = function() {
+                            outputKwMotor.textContent = this.value;
+                        }
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Eficiencia del motor
+                </td>
+                <td>
+                    <h4>% de eficiencia</h4>
+    
+                    <input type="range" min="0" max="100" value="0" class="slider" id="eficienciaMotor" required>                        
+                    <p>Valor seleccionado: <span id="eficiencia">0</span></p>
+
+                    <script>
+                        const sliderEficienciaMotor = document.getElementById("eficienciaMotor");
+                        const outputEficienciaMotor = document.getElementById("eficiencia");
+
+                        // Mostrar el valor inicial
+                        outputEficienciaMotor.textContent = sliderEficienciaMotor.value;
+
+                        // Actualizar el valor en tiempo real
+                        sliderEficienciaMotor.oninput = function() {
+                            outputEficienciaMotor.textContent = this.value;
+                        }
+                    </script>
+                </td>
+            </tr>            
+            <tr>
+                <td>
+                    Tipo de tablero
+                </td>
+                <td>
+                        <select id="tipoTablero" name="tipoTablero" required>
+                            <option value="Monofásico">Monofásico</option>
+                            <option value="Bifásico">Bifásico</option>
+                            <option value="Trifásico">Trifásico</option>
+                        </select>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Capacidad de tablero amp
+                </td>
+                <td>
+                    <h4>Amperes</h4>
+    
+                    <input type="range" min="0" max="300" value="0" class="slider" id="capacidadTablero" required>                        
+                    <p>Valor seleccionado: <span id="capacidad">0</span></p>
+
+                    <script>
+                        const sliderCapacidadTablero = document.getElementById("capacidadTablero");
+                        const outputCapacidadTablero= document.getElementById("capacidad");
+
+                        // Mostrar el valor inicial
+                        outputCapacidadTablero.textContent = sliderCapacidadTablero.value;
+
+                        // Actualizar el valor en tiempo real
+                        sliderCapacidadTablero.oninput = function() {
+                            outputCapacidadTablero.textContent = this.value;
+                        }
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td>Tipo de transformador</td>
+                <td>
+                <select id="tipoTransformador" name="tipoTransformador" required>
+                    <option value="Elevado">Elevado</option>
+                    <option value="Pedestal">Pedestal</option>
+                </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Capacidad de transformador kVA</td>
+                <td>
+                    <h4>kVA</h4>
+    
+                    <input type="range" min="0" max="400" value="0" class="slider" id="capacidadTransformador" required>                        
+                    <p>Valor seleccionado: <span id="transformador">0</span></p>
+
+                    <script>
+                        const sliderCapacidadTransformador = document.getElementById("capacidadTransformador");
+                        const outputCapacidadTransformador= document.getElementById("transformador");
+
+                        // Mostrar el valor inicial
+                        outputCapacidadTransformador.textContent = sliderCapacidadTransformador.value;
+
+                        // Actualizar el valor en tiempo real
+                        sliderCapacidadTransformador.oninput = function() {
+                            outputCapacidadTransformador.textContent = this.value;
+                        }
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td>Calibre de cable sumergible</td>
+                <td>
+                    <select id="calibreCable" name="calibreCable" required>
+                        <option value="0">0</option>
+                        <option value="00">00</option>
+                        <option value="000">000</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Longitud de cable sumergible</td>
+                <td>
+                    <h4>Metros</h4>
+    
+                    <input type="range" min="0" max="400" value="0" class="slider" id="longitudCable" required>                        
+                    <p>Valor seleccionado: <span id="longCable">0</span></p>
+
+                    <script>
+                        const sliderLongitudCable = document.getElementById("longitudCable");
+                        const outputLongitudCable= document.getElementById("longCable");
+
+                        // Mostrar el valor inicial
+                        outputLongitudCable.textContent = sliderLongitudCable.value;
+
+                        // Actualizar el valor en tiempo real
+                        sliderLongitudCable.oninput = function() {
+                            outputLongitudCable.textContent = this.value;
+                        }
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td>Diámetro de tubería</td>
+                <td>
+                    <h4>Pulgadas</h4>
+    
+                    <input type="range" min="0" max="20" value="0" class="slider" id="diamTuberia" required>                        
+                    <p>Valor seleccionado: <span id="diametroTuberia">0</span></p>
+
+                    <script>
+                        const sliderDiamTuberia = document.getElementById("diamTuberia");
+                        const outputDiamTuberia= document.getElementById("diametroTuberia");
+
+                        // Mostrar el valor inicial
+                        outputDiamTuberia.textContent = sliderDiamTuberia.value;
+
+                        // Actualizar el valor en tiempo real
+                        sliderDiamTuberia.oninput = function() {
+                            outputDiamTuberia.textContent = this.value;
+                        }
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td>Longitud de tubería</td>
+                <td>
+                    <h4>Metros</h4>
+    
+                    <input type="range" min="0" max="300" value="0" class="slider" id="longTuberia" required>                        
+                    <p>Valor seleccionado: <span id="lTuberia">0</span></p>
+
+                    <script>
+                        const sliderLongTuberia = document.getElementById("longTuberia");
+                        const outputLongTuberia= document.getElementById("lTuberia");
+
+                        // Mostrar el valor inicial
+                        outputLongTuberia.textContent = sliderLongTuberia.value;
+
+                        // Actualizar el valor en tiempo real
+                        sliderLongTuberia.oninput = function() {
+                            outputLongTuberia.textContent = this.value;
+                        }
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td>Observaciones</td>
+                <td><textarea name="" id="obsmtto" cols="10" rows="4"></textarea></td>
+            </tr>
+
+        </tbody>
+    </table>
+   
+    
+    <div class="button-container1">
+      <!-- Botón de Regresar -->
+      <button class="btn" onclick="agregarregistromtto()" id="backBtn">
+          Aceptar
+      </button>
+<br>
+<br>
+<br>
+<br>    
+
+      <!--Colocar el texto centrado y en la parte inferior de la pantlla-->
+
+
+</body>
+</html>

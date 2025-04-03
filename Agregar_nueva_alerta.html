@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="CSS/Menu_MAIN.css">
+<script src="https://unpkg.com/sweetalert2@9.5.3/dist/sweetalert2.all.min.js"></script> 
+<script src="https://kit.fontawesome.com/7f2bc339d8.js" crossorigin="anonymous"></script>
+    <script src="js/script.js"></script>
+    <title>Agregar nueva alerta</title>
+    <style>
+        .slider {
+            width: 300px;
+        }
+    </style>
+</head>
+<header></header>
+<body>   
+
+    <table border="1" cellpadding="15" class="tabla">
+        <caption> <h2>Agregar nueva alerta</h2></caption>
+        <thead>
+            <tr>
+                <th>Concepto</th>
+                <th>Datos</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            <tr>
+                <td>
+                    <div>
+                        <a>Clave de pozo</a>
+                    </div>
+                </td>
+                <td>
+
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                            // Llamada a la API REST para obtener los datos
+                            fetch('http://localhost:8080/api/lista_pozos')
+                                .then(response => response.json())
+                                .then(data => {
+                                    const dropdown = document.getElementById("dropdown");
+                                    dropdown.innerHTML = ''; // Limpiar opciones anteriores
+                                    data.forEach(item => {
+                                        const option = document.createElement("option");
+                                        option.value = item.l_poz_clave;
+                                        option.textContent = item.l_poz_clave;
+                                        dropdown.appendChild(option);
+                                    });
+                                })
+                                .catch(error => console.error('Error al cargar datos:', error));
+                        });
+                    </script>
+                    <form>
+                        <label for="dropdown"></label>
+                        <select id="dropdown" name="dropdown">
+                            <option value=""></option>
+                        </select>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a>Tipo de alerta</a>
+                </td>
+                <td>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                            // Llamada a la API REST para obtener los datos
+                            fetch('http://localhost:8080/api/alertas_tipo')
+                                .then(response => response.json())
+                                .then(data => {
+                                    const alert_tipo = document.getElementById("alert_tipo");
+                                    alert_tipo.innerHTML = ''; // Limpiar opciones anteriores
+                                    data.forEach(item => {
+                                        const option1 = document.createElement("option");
+                                        option1.value = item.alert_tipo;
+                                        option1.textContent = item.alert_tipo;
+                                        alert_tipo.appendChild(option1);
+                                    });
+                                })
+                                .catch(error => console.error('Error al cargar datos:', error));
+                        });
+                    </script>
+
+                        <label for="alert_tipo"></label>
+                        <select id="alert_tipo" name="alert_tipo">
+                            <option value=""></option>
+                        </select>
+
+              
+                </td>
+            </tr>
+            
+                <td>
+                    <a>Observaciones</a>
+                </td>
+                <td>
+                    <input type="text" id="observaciones">
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <section class="botones">
+       
+        <div class="button-container1">
+          <!-- Botón de Regresar -->
+          <button class="btn" onclick="gestiondeOperacion()" id="backBtn">
+              Regresar
+          </button>
+    
+          <!-- Botón de Avanzar -->
+          <button class="btn" onclick="enviarAlerta()" >
+              Enviar
+          </button>    
+    </section>
+
+    <footer>
+      <small>
+        <div class="leyenda"> &copy; Software desarrollado por el Instituto Interamericano de Tecnología y Ciencias del Agua.</span>
+      </small>
+  </footer>
+      <!--Colocar el texto centrado y en la parte inferior de la pantlla-->
+</body>
+</html>

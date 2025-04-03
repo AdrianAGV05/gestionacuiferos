@@ -23,15 +23,14 @@
 </header>
 <body>
     <table border=""1" cellpadding="15" class="tabla">
-        <caption> <h2>Datos de mantenimiento</h2></caption>
+        <caption> <h2>Datos capturados</h2></caption>
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Actividad</th>
-                <th>Fecha y hora de registro</th>
                 <th>Operador</th>
+                <th>Fecha y hora de registro</th>
                 <th>Registro</th>
                 <th>Acciones</th>
+                <th>Nuevo registro</th>
             </tr>
         </thead>
         
@@ -39,18 +38,12 @@
             <tr>
                 <td>
                     <div>
-                        1
+                        
                     </div> <!--Autoincrementable-->
                 </td>
                 <td>
-                    CAPTURA DE DATOS
+
                 </td>
-                <td>
-                    <input type="datetime"> <!--Fecha y hora de la captura-->
-                </td>
-                <td>
-                    cardenasalfredo@sacmex.gob
-                </td> <!--Nombre de usuario del operador-->
                 <td>
                     <a href="Registro_mtto.html"><button>Ver</button></a> 
                 </td>
@@ -58,6 +51,9 @@
                     <a href="#" onclick="confirmacion()"><i class=" icon-cog fa fa-regular fa-square-check fa-2x"></i></a>
                     <a href="Rechazar_cambios_mtto.html"><i class=" iconn-cog fa fa-light fa-delete-left fa-2x"></i></a>
                     <a href="Editar_mtto.html"><i class="iconnn-cog fa fa-solid fa-pen-to-square fa-2x"></i> editar</a>
+                </td> <!--Nombre de usuario del operador-->
+                <td>
+                    <a href="Agregar_registro_mtto.html"><i class=" iconnn-cog fa fa-solid fa-square-plus fa-2x"></i></a>
                 </td>
         </tbody>
     </table>
