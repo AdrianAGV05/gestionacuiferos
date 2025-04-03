@@ -52,7 +52,7 @@ function confirmacion2(){
   })
 }
 
-function iraMenu_Main_prueba(){
+function iraMenu_Main(){
   
   document.location = 'Menu_MAIN.html';
   
@@ -135,6 +135,7 @@ function borraoperador(idOperador){
     }
   })
 }
+
 function modificaciondatos(){
   Swal.fire({
     title:'Datos modificados con exito',
@@ -293,6 +294,17 @@ function agregarregistromtto(){
       mtto_fecha_captura: fecha_captura,
       mtto_operador: operador
   };
+  Swal.fire({
+    title: "Estas seguro?",
+  text: "Esta acción no se podra revertir!",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonText: "Si, borrar!",
+  cancelButtonText: "No, cancelar!",
+  }).then((result) => {
+    console.table(result);
+    console.log(result.value);
+    if (result.value) {
 
   // Enviar los datos al servidor
   fetch('http://localhost:8080/api/mantenimiento', {
@@ -331,6 +343,8 @@ function agregarregistromtto(){
       });
   });
 }
+})
+}
 
 
 function enviarAlerta() {
@@ -361,10 +375,21 @@ function enviarAlerta() {
       al_tipo_de_alerta: tipoAlerta,
       al_comentarios: observaciones,
       al_fechacap: fechacap,
-      al_operador: operador
+      al_operador: operador,
   };
-
+  Swal.fire({
+    title: "Estas seguro?",
+  text: "Esta acción no se podra revertir!",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonText: "Si, borrar!",
+  cancelButtonText: "No, cancelar!",
+  }).then((result) => {
+    console.table(result);
+    console.log(result.value);
+    if (result.value) {
   // Enviar los datos al servidor
+
   fetch('http://localhost:8080/api/alertas_pozos', {
       method: 'POST',
       headers: {
@@ -380,6 +405,7 @@ function enviarAlerta() {
           title: '¡Éxito!',
           text: 'El registro se guardó correctamente.',
       });
+      
       //limpiar los valores del formulario
 
       document.getElementById('observaciones').value="";
@@ -394,4 +420,97 @@ function enviarAlerta() {
           text: 'Hubo un problema al guardar el registro.',
       });
   });
+ }//cerrar
+})
+}
+
+
+
+
+function gestiondeAlerta(){
+  document.location="Gestion_de_alerta.html"
+}
+
+
+
+function agregarregistrooperacion() {
+    // Obtener los valores del formulario
+    const clavePozo = document.getElementById('dropdown').value;
+    const nivelestatico = document.getElementById('myRange').value;
+    const niveldinamico = document.getElementById('myRange1').value;
+    const caudalextraido = document.getElementById('myRange2').value;
+    const presion = document.getElementById('myRange3').value;
+    const tiempodeoperacion = document.getElementById('tiempodeoperacion').value;
+    const observaciones = document.getElementById('Observaciones').value;
+    const fecha_captura = new Date();
+    const operador = 1;
+
+    // Validar campos obligatorios
+    if (!clavePozo) {
+        Swal.fire({
+            icon: 'error',
+            title: '¡Error!',
+            text: 'Por favor complete los campos requeridos.',
+        });
+        return;
+    }
+
+    // Crear el objeto de datos a enviar
+    const nvoregOp = {
+        op_cpozo: clavePozo,
+        op_nestatico: nivelestatico,
+        op_ndinamico: niveldinamico,
+        op_gasto: caudalextraido,
+        op_presion: presion,
+        op_tiempo_op: tiempodeoperacion,
+        op_observaciones: observaciones,
+        op_fecha_captura: fecha_captura,
+        op_operador: operador
+    };
+    Swal.fire({
+      title: "¿Estas seguro?",
+    text: "¿Los datos ingresados son correctos?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Si, enviar",
+    cancelButtonText: "No ¡Ccorregir!",
+    }).then((result) => {
+      console.table(result);
+      console.log(result.value);
+      if (result.value) {
+    // Enviar los datos al servidor
+    fetch('http://localhost:8080/api/operacion', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(nvoregOp)
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Mostrar mensaje de éxito
+        Swal.fire({
+            icon: 'success',
+            title: '¡Éxito!',
+            text: 'El registro se guardó correctamente.',
+        });
+        //limpiar los valores del formulario
+        document.getElementById('myRange').value=0;
+        document.getElementById('myRange1').value=0;
+        document.getElementById('myRange2').value=0;
+        document.getElementById('myRange3').value=0;
+        document.getElementById('Observaciones').value="";
+        document.getElementById('tiempodeoperacion').value="";
+
+    })
+    .catch(error => {
+        console.error('Error al guardar el registro:', error);
+        Swal.fire({
+            icon: 'error',
+            title: '¡Error!',
+            text: 'Hubo un problema al guardar el registro.',
+        });
+    });
+  }
+  })
 }
