@@ -52,6 +52,14 @@ function confirmacion2(){
   })
 }
 
+function confirmacion3(){
+  Swal.fire({
+    title:'Alerta Resuelta',
+    icon:'success',
+    timer:2500
+  })
+}
+
 function iraMenu_Main(){
   
   document.location = 'Menu_MAIN.html';
@@ -131,7 +139,7 @@ function borraoperador(idOperador){
     .then(response => response.json())
    
       Swal.fire("Borrado!"+idOperador, "", "success");
-
+      cargaoperadores();  
     }
   })
 }
@@ -295,11 +303,11 @@ function agregarregistromtto(){
       mtto_operador: operador
   };
   Swal.fire({
-    title: "Estas seguro?",
-  text: "Esta acción no se podra revertir!",
+    title: "¿Estas seguro que desea guardar los datos?",
+
   icon: "warning",
   showCancelButton: true,
-  confirmButtonText: "Si, borrar!",
+  confirmButtonText: "Si, Guardar",
   cancelButtonText: "No, cancelar!",
   }).then((result) => {
     console.table(result);
@@ -515,6 +523,19 @@ function agregarregistrooperacion() {
   })
 }
 
+function notfoperadorr(){
+  Swal.fire({
+    title:'Se envio una notificación al operador',
+    icon:'success',
+    timer: 3000
+  })
+  setTimeout(() => {
+    console.log("6 Segundo esperado")
+    document.location = "Gestion_de_mtto.html";
+  }, 3500);
+}
+
+
 function menu_desp(){
   let listElements = document.querySelectorAll('.list_button--click');
 
@@ -532,3 +553,38 @@ function menu_desp(){
     })
   });
 }
+
+function cargaoperadores() {
+  // Llamada a la API REST para obtener los datos
+ fetch ('http://localhost:8080/api/operadores')
+      .then(response => response.json())
+      .then(data => {
+          const tablaOperadores = document.getElementById("tabla-operadores");
+          tablaOperadores.innerHTML = ''; // Limpiar la tabla
+
+          data.forEach(operador => {
+              // Crear una nueva fila
+              const fila = document.createElement("tr");
+
+              // Crear y agregar las celdas con los datos del operador
+              fila.innerHTML = `
+                  <td>${operador.o_nombre}</td>
+                  <td>${operador.o_correo}</td>
+                  <td>${operador.o_contrasena}</td>
+                  <td>${operador.o_telefono}</td>
+                  <td>
+                      <a href="Modificar_operador.html?id=${operador.id}" class="edit-operador">
+                       <i class="fa-solid fa-user-pen" style="color: blue;"></i>
+                      </a>
+                      <a href="#" onclick="borraoperador(${operador.id_o})">
+                          <i class="fa-solid fa-trash" style="color: blue;"></i>
+                      </a>
+                  </td>
+              `;
+
+              // Agregar la fila a la tabla
+              tablaOperadores.appendChild(fila);
+          });
+      })
+      .catch(error => console.error('Error al cargar datos:', error));
+};

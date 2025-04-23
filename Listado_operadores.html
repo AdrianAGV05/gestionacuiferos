@@ -17,12 +17,12 @@
   </a>
   Inicio
   <a href="index.html">   
-    <i class="fa-solid fa-right-from-bracket" style="color: aliceblue; margin-left: 1000px"></i>
+    <i class="fa-solid fa-right-from-bracket" style="color: aliceblue; "></i>
   </a>
   Salir
 </div>
 </header>
-<body>
+<body onload="cargaoperadores()">
     
     <table border="1" cellpadding="15" class="tabla">
     <table border="1" cellpadding="15" class="tabla">
@@ -61,43 +61,7 @@
           Regresar
       </button>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Llamada a la API REST para obtener los datos
-           fetch ('http://localhost:8080/api/operadores')
-                .then(response => response.json())
-                .then(data => {
-                    const tablaOperadores = document.getElementById("tabla-operadores");
-                    tablaOperadores.innerHTML = ''; // Limpiar la tabla
-
-                    data.forEach(operador => {
-                        // Crear una nueva fila
-                        const fila = document.createElement("tr");
-
-                        // Crear y agregar las celdas con los datos del operador
-                        fila.innerHTML = `
-                            <td>${operador.o_nombre}</td>
-                            <td>${operador.o_correo}</td>
-                            <td>${operador.o_contrasena}</td>
-                            <td>${operador.o_telefono}</td>
-                            <td>
-                                <a href="Modificar_operador.html?id=${operador.id}" class="edit-operador">
-                                 <i class="fa-solid fa-user-pen" style="color: blue;"></i>
-                                </a>
-                                <a href="#" onclick="borraoperador(${operador.id_o})">
-                                    <i class="fa-solid fa-trash" style="color: blue;"></i>
-                                </a>
-                            </td>
-                        `;
-
-                        // Agregar la fila a la tabla
-                        tablaOperadores.appendChild(fila);
-                    });
-                })
-                .catch(error => console.error('Error al cargar datos:', error));
-        });
-    </script>
-
+    
 <footer>
   <small>
     <div class="leyenda"> &copy; Software desarrollado por el Instituto Interamericano de Tecnología y Ciencias del Agua.</span>
