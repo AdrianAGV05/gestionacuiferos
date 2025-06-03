@@ -1,0 +1,277 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/Menu_MAIN.css">
+    <script src="https://unpkg.com/sweetalert2@9.5.3/dist/sweetalert2.all.min.js"></script> 
+    <script src="https://kit.fontawesome.com/7f2bc339d8.js" crossorigin="anonymous"></script>
+    <script src="js/script.js"></script>
+
+ <title>Consumo Energético de Pozos</title>
+  <style>
+    body { font-family: Arial; display: flex; }
+    #sidebar { width: 250px; padding: 20px; background: #f0f0f0; }
+    #main { flex: 1; padding: 20px; }
+    table, th, td { border: 1px solid black; border-collapse: collapse; }
+    th, td { padding: 5px; text-align: center; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+
+<div id="sidebar">
+  <h3>Seleccionar Pozo o grupo de pozos (Ctrl + Click)</h3>
+  <select id="dropdown" multiple size="10"></select>
+  <br><br>
+  <input type="checkbox" id="selectAll"> Seleccionar todos
+  <br><br>
+  <button onclick="mostrarTabla()">Cargar Datos</button>
+</div>
+
+<div id="main">
+  <div id="tablaContainer" class="hidden">
+    <h3>Datos de Pozos</h3>
+    <label>Seleccionar Pozo:</label>
+    <select id="pozoSelector"  multiple size="10"></select>
+    <br><br>
+    <table id="tablaDatos">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Carga Hidráulica (m)</th>
+          <th>Caudal (L/s)</th>
+          <th>Eficiencia (%)</th>
+          <th>Tiempo Operación (h)</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <input type="checkbox" id="toggleImport"> Importar tabla
+
+<div id="importSection" style="display: none; margin-top: 10px;">
+    <input type="file" id="fileInput">
+    <p>⚠️ Asegúrese que la estructura del archivo coincida con la tabla mostrada.</p>
+
+</div>
+
+    <br>
+    <label for="nombreTabla">Nombre del archivo de salida:</label>
+    <input type="text" id="nombreTabla">
+    <br><br>
+
+    <button onclick="EstimarConsumo()">Estimar</button>
+    <button onclick="cancelar()">Cancelar</button>
+    <div id="resultado" class="hidden">
+      <h4>Resultado de la estimación</h4>
+      <div id="tablaResultados"></div>
+      <canvas id="grafica" width="600" height="300"></canvas>
+      <br>
+      <button onclick="guardar()">Guardar</button>
+      <button onclick="NuevaEstimacion()">Nueva estimación</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let datosPozos = {};
+let datosEditables = {};
+let todosPozos = [];
+
+document.addEventListener("DOMContentLoaded", () => {
+  fetch('http://localhost:8080/api/lista_pozos')
+    .then(res => res.json())
+    .then(data => {
+      const dropdown = document.getElementById("dropdown");
+      data.forEach(item => {
+        const option = document.createElement("option");
+        option.value = item.id_lp;
+        option.textContent = item.l_poz_clave;
+        dropdown.appendChild(option);
+        todosPozos.push(item.l_poz_clave);
+      });
+    });
+
+  document.getElementById("selectAll").addEventListener("change", function() {
+    const dropdown = document.getElementById("dropdown");
+    Array.from(dropdown.options).forEach(option => option.selected = this.checked);
+  });
+});
+
+function mostrarTabla() {
+  const selected = Array.from(document.getElementById("dropdown").selectedOptions).map(opt => opt.value+"-"+opt.text);
+  console.log(selected);
+  if (selected.length === 0) return alert("Seleccione al menos un pozo");
+
+  const selector = document.getElementById("pozoSelector");
+  selector.innerHTML = '';
+  selected.forEach(pozo => {
+    const opt = document.createElement("option");
+    opt.value = pozo.split("-")[0];
+    opt.textContent = pozo.split("-")[1];
+    selector.appendChild(opt);
+  });
+
+  selector.onchange = () => cargarDatosPozo(selector.value);
+  selector.dispatchEvent(new Event("change"));
+  document.getElementById("tablaContainer").classList.remove("hidden");
+}
+
+function cargarDatosPozo(clave) {
+  const urlOperacion = `http://localhost:8080/api/operacion/pozo/${clave}`;
+  const urlMantenimiento = `http://localhost:8080/api/mantenimiento/pozo/${clave}`;
+
+  Promise.all([
+    fetch(urlOperacion).then(res => res.json()),
+    fetch(urlMantenimiento).then(res => res.json())
+  ])
+    .then(([operacion, mantenimiento]) => {
+      console.log(mantenimiento);
+      const eficiencia = mantenimiento[0].mtto_motor_eficiencia;
+      console.log(eficiencia);
+
+      datosEditables[clave] = operacion.map(item => {
+        const ne = item.op_nestatico;
+        const di = item.op_dinamico;
+
+        let carga = "";
+        if (ne != null && di != null) {
+          carga = ((ne + di) / 2).toFixed(2);
+        } else if (ne != null) {
+          carga = ne;
+        } else if (di != null) {
+          carga = di;
+        }
+
+        return {
+          fecha: item.op_fecha_captura,
+          carga: carga,
+          caudal: item.op_gasto ?? "",
+          eficiencia: eficiencia, // mismo valor para todos los registros
+          tiempo: item.op_tiempo_op ?? "",
+          cvePozo:item.op_cpozo
+        };
+      });
+console.log(datosEditables);
+      renderTabla(clave);
+    })
+    .catch(err => {
+      console.error("Error al cargar datos:", err);
+      alert("No se pudieron cargar los registros para el pozo " + clave);
+    });
+}
+
+
+function renderTabla(clave) {
+  const contenedor = document.getElementById("tablaDatos");
+  contenedor.innerHTML = "";
+
+  const datos = datosEditables[clave] || [];
+
+  const tabla = document.createElement("table");
+  tabla.className = "tabla-estimada";
+
+  const encabezado = `
+    <tr>
+      <th>Fecha</th>
+      <th>Carga hidráulica (m)</th>
+      <th>Caudal extraído (L/s)</th>
+      <th>Eficiencia de la bomba (%)</th>
+      <th>Tiempo de operación (h)</th>
+    </tr>`;
+  tabla.innerHTML = encabezado;
+
+  datos.forEach((registro, index) => {
+    const fila = document.createElement("tr");
+
+    fila.innerHTML = `
+      <td>${registro.fecha || ''}</td>
+      <td><input type="number" step="any" value="${registro.carga ?? ''}" 
+        ${registro.carga != null && registro.carga !== '' ? 'readonly' : ''}
+        onchange="actualizarDato('${clave}', ${index}, 'carga', this.value)">
+      </td>
+      <td><input type="number" step="any" value="${registro.caudal ?? ''}" 
+        ${registro.caudal != null && registro.caudal !== '' ? 'readonly' : ''}
+        onchange="actualizarDato('${clave}', ${index}, 'caudal', this.value)">
+      </td>
+      <td><input type="number" step="any" value="${registro.eficiencia ?? ''}" 
+        ${registro.eficiencia != null && registro.eficiencia !== '' ? 'readonly' : ''}
+        onchange="actualizarDato('${clave}', ${index}, 'eficiencia', this.value)">
+      </td>
+      <td><input type="number" step="any" value="${registro.tiempo ?? ''}" 
+        ${registro.tiempo != null && registro.tiempo !== '' ? 'readonly' : ''}
+        onchange="actualizarDato('${clave}', ${index}, 'tiempo', this.value)">
+      </td>
+    `;
+
+    tabla.appendChild(fila);
+  });
+
+  contenedor.appendChild(tabla);
+}
+
+function actualizar(pozo, idx, campo, valor) {
+  datosEditables[pozo][idx][campo] = parseFloat(valor);
+}
+
+function EstimarConsumo() {
+  const resultados = [];
+  console.log(datosEditables);
+  for (const pozo in datosEditables) {
+    console.log(pozo);
+    datosEditables[pozo].forEach(fila => {
+      if (fila.carga && fila.caudal && fila.eficiencia && fila.tiempo) {
+        const consumo = (9810 * (fila.carga/1000) * fila.caudal * fila.tiempo) / (1000 * (fila.eficiencia / 100));
+        //caudal en metros cúbicos por segundo
+        resultados.push({ pozo:fila.cvePozo, fecha: fila.fecha, consumo: consumo.toFixed(2) });
+      }
+    });
+  }
+  mostrarResultados(resultados);
+}
+
+function mostrarResultados(resultados) {
+  console.log(resultados);
+  const div = document.getElementById("tablaResultados");
+  div.innerHTML = "<table><tr><th>Pozo</th><th>Fecha</th><th>Consumo (kWh)</th></tr>" +
+    resultados.map(r => `<tr><td>${r.pozo}</td><td>${r.fecha}</td><td>${r.consumo}</td></tr>`).join("") +
+    "</table>";
+  document.getElementById("resultado").classList.remove("hidden");
+  graficar(resultados);
+}
+
+function graficar(resultados) {
+  const ctx = document.getElementById("grafica").getContext("2d");
+  new Chart(ctx, {
+    type: "scatter",
+    data: {
+      datasets: resultados.map(r => ({
+        label: `${r.pozo} - ${r.fecha}`,
+        data: [{ x: r.fecha, y: r.consumo }]
+      }))
+    },
+    options: {
+      scales: {
+        x: { type: 'category', title: { display: true, text: 'Fecha' } },
+        y: { title: { display: true, text: 'Consumo (kWh)' } }
+      }
+    }
+  });
+}
+
+function guardar() {
+  alert("Datos enviados a la base de datos (simulado).");
+  // fetch POST a tu endpoint con resultados
+}
+
+function cancelar() {
+  location.reload();
+}
+
+function nuevaEstimacion() {
+  location.reload();
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>
