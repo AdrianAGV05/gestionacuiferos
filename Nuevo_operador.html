@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="CSS/Menu_MAIN.css">
     <script src="https://kit.fontawesome.com/7f2bc339d8.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert2@9.5.3/dist/sweetalert2.all.min.js"></script> 
     <script src="js/script.js"></script>
+
 
 
     <title>Ingresar Datos de Operador</title>
@@ -69,7 +71,12 @@
             const correo = document.getElementById('correo').value;
             const contrasena = document.getElementById('contrasena').value;
             const telefono = document.getElementById('telefono').value;
-            
+            if (
+                nombre == "" || correo== "" || contrasena== "" || telefono== ""  
+            ) {
+                swal.fire ("Los campos no pueden estar vacios");
+                return;
+            }
             // Crear el objeto con los datos
             const nuevoOperador = {
                 o_nombre: nombre,
@@ -88,7 +95,15 @@
             })
             .then(response => response.json())
             .then(data => {
-                alert('Operador agregado con éxito');
+               Swal.fire({
+    title:'Operador agregado con éxito',
+    icon:'success',
+    timer: 3000
+  })
+  setTimeout(() => {
+    console.log("6 Segundo esperado")
+    document.location = "Listado_Operadores.html";
+  }, 3500);
                 // Redirigir a otra página si es necesario
                 //window.location.href = 'operador_agregado.html';//
             })

@@ -15,7 +15,7 @@
     </a>
     Inicio
     <a href="index.html">   
-      <i class="fa-solid fa-right-from-bracket"></i>
+      <i class="fa-solid fa-right-from-bracket" style="color: aliceblue;"></i>
     </a>
     Salir
   </div>
@@ -106,12 +106,12 @@
                         row.innerHTML = `
 
                             <td style= "text-align:center">${item.l_poz_clave}</td>
-                            <td>${item.lp_Nombre}</td>
-                            <td>${item.lp_ramal}</td>
-                            <td>${item.lp_Profundidad_perforación} m</td>
-                            <td>${item.lp_Diámetro_perforación} in</td>
-                            <td>${item.lp_Diámetro_ADEME} in</td>
-                            <td><a href="Modificar_pozo.html?id=${item.clave_pozo}"><i class=" iconnn-cog fa fa-solid fa-pen-to-square fa-lg"></i>
+                            <td  style= "text-align:center">${item.lp_Nombre}</td>
+                            <td  style= "text-align:center">${item.lp_ramal}</td>
+                            <td  style= "text-align:center">${item.lp_Profundidad_perforación} m</td>
+                            <td  style= "text-align:center">${item.lp_Diámetro_perforación} in</td>
+                            <td >${item.lp_Diámetro_ADEME} in</td>
+                            <td  style= "text-align:center"><a href="Modificar_pozo.html?id=${item.clave_pozo}"><i class=" iconnn-cog fa fa-solid fa-pen-to-square fa-lg"></i>
 
                         `;
 
