@@ -443,7 +443,9 @@ function gestiondeAlerta(){
 
 function agregarregistrooperacion() {
     // Obtener los valores del formulario
-    const clavePozo = document.getElementById('dropdown').value;
+    const dropdown = document.getElementById('dropdown');
+    const id_lp = dropdown.options[dropdown.selectedIndex].value;
+    const clavePozo = dropdown.options[dropdown.selectedIndex].text;
     const nivelestatico = document.getElementById('myRange').value;
     const niveldinamico = document.getElementById('myRange1').value;
     const caudalextraido = document.getElementById('myRange2').value;
@@ -465,6 +467,7 @@ function agregarregistrooperacion() {
 
     // Crear el objeto de datos a enviar
     const nvoregOp = {
+        idLp: parseInt(id_lp),
         op_cpozo: clavePozo,
         op_nestatico: nivelestatico,
         op_ndinamico: niveldinamico,

@@ -47,7 +47,7 @@
       </thead>
       <tbody></tbody>
     </table>
-    <input type="checkbox" id="toggleImport"> Importar tabla
+    <input type="checkbox" id="toggleImport" onchange="toggleCarga()"> Importar tabla
 
 <div id="importSection" style="display: none; margin-top: 10px;">
     <input type="file" id="fileInput">
@@ -67,7 +67,6 @@
       <div id="tablaResultados"></div>
       <canvas id="grafica" width="600" height="300"></canvas>
       <br>
-      <button onclick="guardar()">Guardar</button>
       <button onclick="NuevaEstimacion()">Nueva estimación</button>
     </div>
   </div>
@@ -111,13 +110,14 @@ function mostrarTabla() {
     opt.textContent = pozo.split("-")[1];
     selector.appendChild(opt);
   });
-
+  console.log(selector.selectedItem);
   selector.onchange = () => cargarDatosPozo(selector.value);
   selector.dispatchEvent(new Event("change"));
   document.getElementById("tablaContainer").classList.remove("hidden");
 }
 
 function cargarDatosPozo(clave) {
+  if(clave==undefined || clave=="")return;
   const urlOperacion = `http://localhost:8080/api/operacion/pozo/${clave}`;
   const urlMantenimiento = `http://localhost:8080/api/mantenimiento/pozo/${clave}`;
 
@@ -130,7 +130,7 @@ function cargarDatosPozo(clave) {
       const eficiencia = mantenimiento[0].mtto_motor_eficiencia;
       console.log(eficiencia);
 
-      datosEditables[clave] = operacion.map(item => {
+      datosEditables[clave] = operacion.sort((a, b) => new Date(a.op_fecha_captura) - new Date(b.op_fecha_captura)).map(item => {
         const ne = item.op_nestatico;
         const di = item.op_dinamico;
 
@@ -152,7 +152,7 @@ function cargarDatosPozo(clave) {
           cvePozo:item.op_cpozo
         };
       });
-console.log(datosEditables);
+
       renderTabla(clave);
     })
     .catch(err => {
@@ -214,14 +214,27 @@ function actualizar(pozo, idx, campo, valor) {
   datosEditables[pozo][idx][campo] = parseFloat(valor);
 }
 
+function toggleCarga(){
+  var toggleImport = document.getElementById("toggleImport");
+  console.log(toggleImport.checked);
+  var importSection = document.getElementById("importSection");
+  if(toggleImport.checked){
+    importSection.style.display = 'block';
+  }else{
+    importSection .style.display = 'none';
+  }
+
+}
+
 function EstimarConsumo() {
   const resultados = [];
   console.log(datosEditables);
   for (const pozo in datosEditables) {
-    console.log(pozo);
+    
     datosEditables[pozo].forEach(fila => {
+      console.log(fila);
       if (fila.carga && fila.caudal && fila.eficiencia && fila.tiempo) {
-        const consumo = (9810 * (fila.carga/1000) * fila.caudal * fila.tiempo) / (1000 * (fila.eficiencia / 100));
+        const consumo = (9810 * fila.carga * (fila.caudal/1000) * fila.tiempo) / (1000 * (fila.eficiencia / 100));
         //caudal en metros cúbicos por segundo
         resultados.push({ pozo:fila.cvePozo, fecha: fila.fecha, consumo: consumo.toFixed(2) });
       }
@@ -242,22 +255,49 @@ function mostrarResultados(resultados) {
 
 function graficar(resultados) {
   const ctx = document.getElementById("grafica").getContext("2d");
+
+  // Agrupar por pozo y construir series de tiempo
+  const agrupados = {};
+  resultados.forEach(r => {
+    if (!agrupados[r.pozo]) agrupados[r.pozo] = [];
+    agrupados[r.pozo].push({ x: r.fecha, y: r.consumo });
+  });
+
   new Chart(ctx, {
-    type: "scatter",
+    type: "line",
     data: {
-      datasets: resultados.map(r => ({
-        label: `${r.pozo} - ${r.fecha}`,
-        data: [{ x: r.fecha, y: r.consumo }]
+      datasets: Object.entries(agrupados).map(([pozo, datos]) => ({
+        label: pozo,
+        data: datos.sort((a, b) => new Date(a.x) - new Date(b.x)), // Ordenar por fecha
+        fill: false,
+        borderColor: getRandomColor(), // Color aleatorio o personalizado
+        tension: 0.1 // Suavizado de la línea (opcional)
       }))
     },
     options: {
+      responsive: true,
       scales: {
-        x: { type: 'category', title: { display: true, text: 'Fecha' } },
-        y: { title: { display: true, text: 'Consumo (kWh)' } }
+        x: {
+          type: 'time', // Usa escala de tiempo si `r.fecha` es una fecha
+          time: {
+            unit: 'day' // Ajusta a 'month', 'hour', etc., según lo que necesites
+          },
+          title: { display: true, text: 'Fecha' }
+        },
+        y: {
+          title: { display: true, text: 'Consumo (kWh)' }
+        }
       }
     }
   });
 }
+
+// Función para generar colores aleatorios
+function getRandomColor() {
+  const r = () => Math.floor(Math.random() * 256);
+  return `rgb(${r()}, ${r()}, ${r()})`;
+}
+
 
 function guardar() {
   alert("Datos enviados a la base de datos (simulado).");
@@ -268,10 +308,11 @@ function cancelar() {
   location.reload();
 }
 
-function nuevaEstimacion() {
+function NuevaEstimacion() {
   location.reload();
 }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
 </body>
 </html>

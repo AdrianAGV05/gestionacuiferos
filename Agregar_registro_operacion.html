@@ -55,7 +55,7 @@
                                     dropdown.innerHTML = ''; // Limpiar opciones anteriores
                                     data.forEach(item => {
                                         const option = document.createElement("option");
-                                        option.value = item.l_poz_clave;
+                                        option.value = item.id_lp;
                                         option.textContent = item.l_poz_clave;
                                         dropdown.appendChild(option);
                                     });
@@ -78,8 +78,8 @@
                 <td>
                     <h4>Profundidad en metros:</h4>
     
-                        <input type="range" min="30" max="250" value="30" class="slider" id="myRange" required>                        
-                        <p>Valor seleccionado: <span id="valor">30</span></p>
+                        <input type="range" min="0" max="250" value="0" class="slider" id="myRange" required>                        
+                        <p>Valor seleccionado: <span id="valor">0</span></p>
 
                         <script>
                             const sliderNivelEstatico = document.getElementById("myRange");
@@ -103,8 +103,8 @@
                 <td>
                     <h4>Profundidad en metros:</h4>
     
-                        <input type="range" min="30" max="250" value="30" class="slider" id="myRange1" required>
-                        <p>Valor seleccionado: <span id="valor1">50</span></p>
+                        <input type="range" min="0" max="250" value="0" class="slider" id="myRange1" required>
+                        <p>Valor seleccionado: <span id="valor1">0</span></p>
 
                         <script>
                             const sliderNivelDinamico = document.getElementById("myRange1");
@@ -127,7 +127,7 @@
                 <td>
                     <h4>Litros/segundo:</h4>
     
-                    <input type="range" min="0" max="150" value="0" class="slider" id="myRange2" required>
+                    <input type="range" min="0" max="100" value="0" class="slider" id="myRange2" required>
                     <p>Valor seleccionado: <span id="valor2">10</span></p>
 
                     <script>
@@ -149,9 +149,9 @@
                     <a>Presión</a>
                 </td>
                 <td>
-                    <h4>kg/cm<sup>2</sup>:</h4>
+                    <h4>Psi</h4>
     
-                        <input type="range" min="0" max="40" value="0" class="slider" id="myRange3" required>
+                        <input type="range" min="0" max="10" value="0" class="slider" id="myRange3" required>
                         <p>Valor seleccionado: <span id="valor3">1</span></p>
 
                         <script>
