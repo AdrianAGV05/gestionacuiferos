@@ -9,6 +9,7 @@
     <script src="js/script.js"></script>
 
  <title>Consumo Energético de Pozos</title>
+ 
   <style>
     body { font-family: Arial; display: flex; }
     #sidebar { width: 250px; padding: 20px; background: #f0f0f0; }
@@ -16,47 +17,61 @@
     table, th, td { border: 1px solid black; border-collapse: collapse; }
     th, td { padding: 5px; text-align: center; }
     .hidden { display: none; }
+
+  
   </style>
 </head>
 <body>
-
-<div id="sidebar">
-  <h3>Seleccionar Pozo o grupo de pozos (Ctrl + Click)</h3>
-  <select id="dropdown" multiple size="10"></select>
-  <br><br>
-  <input type="checkbox" id="selectAll"> Seleccionar todos
-  <br><br>
-  <button onclick="mostrarTabla()">Cargar Datos</button>
-</div>
-
-<div id="main">
-  <div id="tablaContainer" class="hidden">
-    <h3>Datos de Pozos</h3>
-    <p>⚠️ Por favor verifique los datos de cada pozo seleccionado.</p>
- 
-    <select id="pozoSelector"  multiple size="5"></select>
+<div class="contenedor">
+  <div class="item">
+    <div class="headerIndicadores">
+      <div>
+        <a href="Menu_MAIN.html">
+          <i class="fa-solid fa-house" style="color: aliceblue; margin-left: 1200px" ></i>
+        </a>
+        inicio
+        <a href="index.html">   
+          <i class="fa-solid fa-right-from-bracket" style="color: aliceblue"></i>
+        </a>
+        Salir
+      </div>
+    </div>
+  </div>
+<div class="item">
+  <div id="sidebar">
+    <h3>Seleccionar Pozo o grupo de pozos (Ctrl + Click)</h3>
+    <select id="dropdown" multiple size="10"></select>
     <br><br>
-    <table id="tablaDatos">
-      <thead>
-        <tr>
-          <th>Fecha</th>
-          <th>Carga Hidráulica (m)</th>
-          <th>Caudal (L/s)</th>
-          <th>Eficiencia (%)</th>
-          <th>Tiempo Operación (h)</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-    <input type="checkbox" id="toggleImport" onchange="toggleCarga()"> Importar tabla
-
-<div id="importSection" style="display: none; margin-top: 10px;">
-    <input type="file" id="fileInput">
-    <p>⚠️ Asegúrese que la estructura del archivo coincida con la tabla mostrada.</p>
-
+    <input type="checkbox" id="selectAll"> Seleccionar todos
+    <br><br>
+    <button onclick="mostrarTabla()">Cargar Datos</button>
+  </div>
 </div>
-
-
+<div class="item">
+  <div id="main">
+    <div id="tablaContainer" class="hidden">
+      <h3>Datos de Pozos</h3>
+      <p>⚠️ Por favor verifique los datos de cada pozo seleccionado.</p>
+  
+      <select id="pozoSelector"  multiple size="5"></select>
+      <br><br>
+      <table id="tablaDatos">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Carga Hidráulica (m)</th>
+            <th>Caudal (L/s)</th>
+            <th>Eficiencia (%)</th>
+            <th>Tiempo Operación (h)</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    <input type="checkbox" id="toggleImport" onchange="toggleCarga()"> Importar tabla
+    <div id="importSection" style="display: none; margin-top: 10px;">
+        <input type="file" id="fileInput">
+        <p>⚠️ Asegúrese que la estructura del archivo coincida con la tabla mostrada.</p>
+    </div>
     <button onclick="EstimarConsumo()">Estimar</button>
     <button onclick="cancelar()">Cancelar</button>
     <div id="resultado" class="hidden">
@@ -65,9 +80,24 @@
       <canvas id="grafica" width="600" height="300"></canvas>
       <br>
       <button onclick="NuevaEstimacion()">Nueva estimación</button>
+        </div>
+      </div>
     </div>
+    
+    
+      <!-- Botón de Regresar -->
+      <button class="btn" onclick="menumain()" id="backBtn">
+          Regresar
+      </button>
+    
+<br>
+    <br>
   </div>
 </div>
+
+
+
+
 
 <script>
 let datosPozos = {};
@@ -313,5 +343,11 @@ function NuevaEstimacion() {
 </script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+
+<footer>
+      <small>
+        <div class="leyenda"> &copy; Software desarrollado por el Instituto Interamericano de Tecnología y Ciencias del Agua.</span>
+      </small>
+  </footer>
 </body>
 </html>
