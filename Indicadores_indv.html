@@ -32,8 +32,9 @@
 <div id="main">
   <div id="tablaContainer" class="hidden">
     <h3>Datos de Pozos</h3>
-    <label>Seleccionar Pozo:</label>
-    <select id="pozoSelector"  multiple size="10"></select>
+    <p>⚠️ Por favor verifique los datos de cada pozo seleccionado.</p>
+ 
+    <select id="pozoSelector"  multiple size="5"></select>
     <br><br>
     <table id="tablaDatos">
       <thead>
@@ -55,10 +56,6 @@
 
 </div>
 
-    <br>
-    <label for="nombreTabla">Nombre del archivo de salida:</label>
-    <input type="text" id="nombreTabla">
-    <br><br>
 
     <button onclick="EstimarConsumo()">Estimar</button>
     <button onclick="cancelar()">Cancelar</button>
@@ -311,6 +308,8 @@ function cancelar() {
 function NuevaEstimacion() {
   location.reload();
 }
+
+
 </script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
