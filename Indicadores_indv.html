@@ -55,7 +55,8 @@
   
       <select id="pozoSelector"  multiple size="5"></select>
       <br><br>
-      <table id="tablaDatos">
+  <div style="max-height: 200px;width: 80%; overflow-y: auto;">
+    <table id="tablaDatos" style="width: 100%;">
         <thead>
           <tr>
             <th>Fecha</th>
@@ -67,6 +68,8 @@
         </thead>
         <tbody></tbody>
       </table>
+     <br>
+</div>
     <input type="checkbox" id="toggleImport" onchange="toggleCarga()"> Importar tabla
     <div id="importSection" style="display: none; margin-top: 10px;">
         <input type="file" id="fileInput">
@@ -74,9 +77,11 @@
     </div>
     <button onclick="EstimarConsumo()">Estimar</button>
     <button onclick="cancelar()">Cancelar</button>
+     <br> <br>
     <div id="resultado" class="hidden">
       <h4>Resultado de la estimación</h4>
-      <div id="tablaResultados"></div>
+      <div id="tablaResultados" style="max-height: 200px; width: 33%;overflow-y: auto;"></div>
+       <br><br>
       <canvas id="grafica" width="600" height="300"></canvas>
       <br>
       <button onclick="NuevaEstimacion()">Nueva estimación</button>
