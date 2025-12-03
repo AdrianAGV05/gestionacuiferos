@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>XibalbaData | Niveles & Caudal Específico</title>
+
+<!-- Dependencias CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+<style>
+:root{ --blue-deep:#004E89; --blue:#00A6FB; --gray:#7A7A7A; --bg:#f6f9fc; }
+body{ margin:0; font-family:"Poppins", Arial, sans-serif; background:var(--bg); color:#053049; padding:18px; }
+header{ display:flex; align-items:center; gap:12px; margin-bottom:12px;} h1{ margin:0; color:var(--blue-deep); font-size:1.25rem;}
+.layout{ display:grid; grid-template-columns:320px 1fr; gap:14px; align-items:start; }
+.panel{ background:#fff; border-radius:10px; padding:14px; box-shadow:0 6px 18px rgba(2,24,44,0.06); }
+label{ display:block; font-weight:600; margin-bottom:6px; font-size:0.9rem;} select,input,button{ font-family:inherit; }
+select[multiple]{ height:150px; width:100%; }
+.controls{ display:flex; gap:8px; flex-wrap:wrap; }
+.control{ flex:1 1 120px; min-width:120px; }
+.small{ font-size:0.85rem; color:#333; }
+.btn{ background:var(--blue); color:#fff; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; font-weight:600; }
+.btn.secondary{ background:#6c757d; }
+.btn.print{ background:#28a745; }
+.table-wrap{ max-height:260px; overflow:auto; margin-top:10px; border-radius:6px; border:1px solid #eee; }
+table{ width:100%; border-collapse:collapse; font-size:0.9rem;} th,td{ padding:8px; text-align:center; border-bottom:1px solid #eee;} th{ background:linear-gradient(90deg,var(--blue-deep),var(--blue)); color:white; position:sticky; top:0; }
+.fuera{ background:#ffe6e6 !important; color:#a00; font-weight:700; }
+.chart-container{ margin-top:12px; background:#fff; padding:10px; border-radius:8px; box-shadow:0 4px 8px rgba(0,0,0,0.03); }
+.row{ display:flex; gap:8px; align-items:center; }
+.col{ flex:1; }
+.actions{ display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; }
+footer{ margin-top:18px; font-size:0.85rem; color:#666; text-align:center;}
+.interpretacion{ margin-top:8px; padding:8px; background:#f7f7f7; border-radius:6px; display:none; white-space:pre-wrap; }
+.help-icon{ cursor:pointer; margin-left:6px; color:var(--blue-deep); border-radius:50%; width:20px; height:20px; display:inline-flex; align-items:center; justify-content:center; font-size:0.85rem; background:#e8f6ff; }
+input[disabled], select[disabled] { opacity:0.5; pointer-events:none; }
+.legend-note{ margin-top:8px; font-size:0.9rem; color:#a00; font-weight:700; }
+.range-row{ display:flex; gap:8px; align-items:center; }
+.range-row > div{ flex:1; }
+@media (max-width:900px){ .layout{ grid-template-columns:1fr; } .range-row{ flex-direction:column; } }
+</style>
+</head>
+<body>
+<header>
+  <h1><i class="fa-solid fa-droplet"></i> Niveles estático / dinámico & Caudal específico</h1>
+</header>
+
+<div class="layout">
+  <!-- SIDEBAR -->
+  <div class="panel">
+    <label>Seleccionar pozo(s) (Ctrl + Click)</label>
+    <select id="pozosSelect" multiple></select>
+    <div style="height:10px"></div>
+    <label><input type="checkbox" id="selectAllPozos"> Seleccionar todos</label>
+    <div style="height:10px"></div>
+    <button class="btn" id="btnLoad">Cargar registros</button>
+
+    <hr style="margin:12px 0">
+    <label>Rango normal de nivel (m) <span class="help-icon" id="helpRange" title="Ayuda">?</span></label>
+    <div class="controls">
+      <div class="control">
+        <label class="small">Mínimo</label>
+        <input type="range" id="normalMin" min="0" max="500" value="80">
+        <div class="small">Valor: <span id="normalMinVal">80</span> m</div>
+      </div>
+      <div class="control">
+        <label class="small">Máximo</label>
+        <input type="range" id="normalMax" min="0" max="500" value="140">
+        <div class="small">Valor: <span id="normalMaxVal">140</span> m</div>
+      </div>
+    </div>
+
+    <hr style="margin:12px 0">
+    <label>Filtro fecha</label>
+
+    <div class="controls">
+      <div class="control">
+        <label class="small">Fecha puntual</label>
+        <input type="date" id="fechaPuntual">
+      </div>
+    </div>
+
+    <div class="range-row" style="margin-top:8px;">
+      <div>
+        <label class="small">Rango desde</label>
+        <input type="date" id="fechaDesde" style="width:100%">
+      </div>
+      <div>
+        <label class="small">Rango hasta</label>
+        <input type="date" id="fechaHasta" style="width:100%">
+      </div>
+    </div>
+
+    <div style="height:8px"></div>
+
+    <div class="controls">
+      <div class="control">
+        <label class="small">Año</label>
+        <select id="anioSelect"><option value="">--Todos--</option></select>
+      </div>
+      <div class="control">
+        <label class="small">Mes</label>
+        <select id="mesSelect"><option value="">--Todos--</option></select>
+      </div>
+      <div class="control">
+        <label style="visibility:hidden">.</label>
+        <label><input type="checkbox" id="selectAllDates"> Seleccionar todas las fechas</label>
+      </div>
+    </div>
+
+    <div style="height:10px"></div>
+    <button class="btn secondary" id="btnResetFecha">Restablecer filtro fecha</button>
+
+    <div style="height:12px"></div>
+    <div class="actions">
+      <button class="btn" id="btnFilter">Aplicar filtros & Graficar</button>
+      <button class="btn secondary" id="btnCalcSpecific">Calcular caudal específico</button>
+    </div>
+
+    <div style="height:12px"></div>
+    <div class="actions">
+      <button class="btn print" id="btnPrint">Imprimir reporte</button>
+      <button class="btn" id="btnPDF">Exportar PDF</button>
+      <button class="btn secondary" id="btnCSV">Descargar CSV</button>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div>
+    <div class="panel">
+      <h3>Registros cargados</h3>
+      <div class="table-wrap">
+        <table id="tablaRegistros">
+          <thead>
+            <tr><th>Fecha</th><th>Nivel estático (m)</th><th>Nivel dinámico (m)</th><th>Caudal (L/s)</th><th>Descenso (m)</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div class="legend-note">Los registros resaltados en rojo están fuera de los rangos normales establecidos.</div>
+
+      <h3 style="margin-top:14px;">Gráfico de niveles estáticos y dinámicos</h3>
+      <div class="chart-container">
+        <canvas id="chartNiveles"></canvas>
+        <div style="margin-top:8px;">
+          <button class="btn" id="btnInterpretacionNiveles">Interpretación de la gráfica de niveles</button>
+          <div id="interpretacionNivelesTxt" class="interpretacion"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:12px;">
+      <h3>Caudal específico (Q / Descenso)</h3>
+      <div class="chart-container" style="margin-top:8px;">
+        <canvas id="chartSpecific"></canvas>
+        <div style="margin-top:8px;">
+          <button class="btn" id="btnInterpretacionSpecific">Interpretación del caudal específico</button>
+          <div id="interpretacionSpecificTxt" class="interpretacion"></div>
+        </div>
+      </div>
+
+      <div style="height:10px"></div>
+      <table id="tablaSpecific" style="margin-top:8px;">
+        <thead><tr><th>Pozo</th><th>Fecha</th><th>Q (L/s)</th><th>Descenso (m)</th><th>Q/Desc (L/s·m⁻¹)</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<footer><small>&copy; XibalbaData — Instituto Interamericano de Tecnología y Ciencias del Agua</small></footer>
+
+<script type="module">
+/* ============================
+   UTILIDADES
+   ============================ */
+function safeParseFloat(v){ const n = parseFloat(v); return isNaN(n)?null:n; }
+function mean(arr){ if(!arr.length) return null; return arr.reduce((a,b)=>a+b,0)/arr.length; }
+function variance(arr){ if(!arr.length) return null; const m=mean(arr); return arr.reduce((s,x)=>s+Math.pow(x-m,2),0)/arr.length; }
+function stddev(arr){ const v=variance(arr); return v==null?null:Math.sqrt(v); }
+function percentile(arr,p){ if(!arr.length) return null; const s=[...arr].sort((a,b)=>a-b); const idx=(p/100)*(s.length-1); if(Number.isInteger(idx)) return s[idx]; const lo=Math.floor(idx), hi=Math.ceil(idx), frac=idx-lo; return s[lo] + (s[hi]-s[lo])*frac; }
+function debounce(fn,wait=200){ let t; return (...args)=>{ clearTimeout(t); t=setTimeout(()=>fn(...args),wait); }; }
+
+/* ============================
+   ESTADO
+   ============================ */
+let registrosPorPozo = {}; // { id: [{fecha,ne,di,gasto,cve}, ...] }
+let registrosFiltrados = [];
+let chartNiveles = null;
+let chartSpecific = null;
+
+/* ============================
+   POBLAR SELECT POZOS (4 POZOS)
+   ============================ */
+const pozosSim = [
+  { id: '1', clave: 'PZ-01', nombre: 'Pozo Norte' },
+  { id: '2', clave: 'PZ-02', nombre: 'Pozo Este' },
+  { id: '3', clave: 'PZ-03', nombre: 'Pozo Sur' },
+  { id: '4', clave: 'PZ-04', nombre: 'Pozo Oeste' }
+];
+
+function poblarPozosSelect(){
+  const sel = document.getElementById('pozosSelect');
+  sel.innerHTML = '';
+  pozosSim.forEach(p=>{
+    const opt = document.createElement('option');
+    opt.value = p.id;
+    opt.textContent = `${p.clave} — ${p.nombre}`;
+    sel.appendChild(opt);
+  });
+}
+
+/* ============================
+   DATOS SIMULADOS: tendencia a la baja (aumento de profundidad)
+   con recuperaciones en meses de lluvia (may-ago)
+   ============================ */
+function generarSimuladosPara(pozoLabel){
+  const out=[];
+  const meses = 24; // 24 meses de historial
+  const hoy = new Date();
+  // base y aumento de profundidad mensual (la NE aumenta numéricamente -> aguas más profundas)
+  const base = 60 + Math.random()*10;      // profundidad inicial (m)
+  const aumentoMensual = 0.7 + Math.random()*0.6; // incremento mensual (m)
+  for(let i=meses-1;i>=0;i--){
+    const d = new Date(hoy.getFullYear(), hoy.getMonth()-i, 15); // día 15
+    const month = d.getMonth(); // 0..11
+    // meses de lluvia (may-jun-jul-aug): ligera recuperación (reducción de profundidad)
+    const lluvia = [4,5,6,7].includes(month) ? (-2 - Math.random()*2) : 0; // negativa = recuperación (nivel sube)
+    // tendencia acumulada a aumentar profundidad
+    const ne = base + ((meses-1 - i) * aumentoMensual) + lluvia + (Math.random()*1.2 - 0.6);
+    const di = ne - (1.5 + Math.random()*1.2); // ND levemente menor (bombeo)
+    const q = 12 + Math.random()*8; // caudal L/s
+    out.push({ fecha: d.toISOString().slice(0,10), ne: Number(ne.toFixed(2)), di: Number(di.toFixed(2)), gasto: Number(q.toFixed(2)), cve: pozoLabel });
+  }
+  return out;
+}
+
+/* ============================
+   INICIALIZACIÓN
+   ============================ */
+document.addEventListener('DOMContentLoaded', ()=>{
+  poblarPozosSelect();
+  poblarMesesAnios();
+  setupControls();
+});
+
+/* ============================
+   Meses y años
+   ============================ */
+function poblarMesesAnios(){
+  const meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  const selectMes = document.getElementById('mesSelect');
+  selectMes.innerHTML = '<option value="">--Todos--</option>';
+  meses.forEach((m,i)=> {
+    const o = document.createElement('option'); o.value = i+1; o.textContent = m; selectMes.appendChild(o);
+  });
+  const selectAnio = document.getElementById('anioSelect');
+  selectAnio.innerHTML = '<option value="">--Todos--</option>';
+  const now = new Date();
+  for(let y=now.getFullYear(); y>= now.getFullYear()-10; y--){
+    const o = document.createElement('option'); o.value = y; o.textContent = y; selectAnio.appendChild(o);
+  }
+}
+
+/* ============================
+   CONTROLES y EVENTOS
+   ============================ */
+function setupControls(){
+  // sliders display
+  const nm = document.getElementById('normalMin');
+  const nx = document.getElementById('normalMax');
+  const nmv = document.getElementById('normalMinVal');
+  const nxv = document.getElementById('normalMaxVal');
+  nmv.textContent = nm.value; nxv.textContent = nx.value;
+  nm.addEventListener('input', ()=>{ nmv.textContent = nm.value; if(Number(nm.value) > Number(nx.value)) nx.value = nm.value; nxv.textContent = nx.value; });
+  nx.addEventListener('input', ()=>{ nxv.textContent = nx.value; if(Number(nx.value) < Number(nm.value)) nm.value = nx.value; nmv.textContent = nm.value; });
+
+  // select all pozos
+  document.getElementById('selectAllPozos').addEventListener('change', e=>{
+    const sel = document.getElementById('pozosSelect');
+    Array.from(sel.options).forEach(opt => opt.selected = e.target.checked);
+  });
+
+  // cargar registros (genera datos simulados para pozos seleccionados)
+  document.getElementById('btnLoad').addEventListener('click', ()=>{
+    const sel = document.getElementById('pozosSelect');
+    const selected = Array.from(sel.selectedOptions).map(o=> ({ id:o.value, label:o.textContent }));
+    if(selected.length===0){ Swal.fire('Aviso','Seleccione al menos un pozo','warning'); return; }
+    registrosPorPozo = {};
+    selected.forEach(p=>{
+      registrosPorPozo[p.id] = generarSimuladosPara(p.label);
+    });
+    Swal.fire('Listo','Registros cargados','success');
+    aplicarFiltrosYGraficar();
+  });
+
+  // fecha controls
+  setupDateControls();
+
+  // botones
+  document.getElementById('btnFilter').addEventListener('click', aplicarFiltrosYGraficar);
+  document.getElementById('btnCalcSpecific').addEventListener('click', ()=>{
+    calcularCaudalEspecifico();
+  });
+  document.getElementById('btnCSV').addEventListener('click', descargarCSV);
+  document.getElementById('btnPDF').addEventListener('click', exportarPDF);
+  document.getElementById('btnPrint').addEventListener('click', imprimirReporte);
+  document.getElementById('btnInterpretacionNiveles').addEventListener('click', interpretarNiveles);
+  document.getElementById('btnInterpretacionSpecific').addEventListener('click', interpretarSpecific);
+
+  // ayuda rango normal
+  document.getElementById('helpRange').addEventListener('click', ()=> {
+    Swal.fire({
+      title:'Rango normal de nivel',
+      icon:'info',
+      html:`El rango normal debe establecerse por el usuario según las condiciones operativas del pozo y del acuífero.<br>
+Considere histórico de niveles, periodo seco/húmedo y criterios del organismo operador.<br><br>
+Use los controles Mínimo y Máximo para definir los límites de operación aceptables.`,
+      confirmButtonText:'Entendido'
+    });
+  });
+
+  // Restablecer filtro fecha
+  document.getElementById('btnResetFecha').addEventListener('click', ()=>{
+    const controls = ['fechaPuntual','fechaDesde','fechaHasta','anioSelect','mesSelect','selectAllDates'];
+    controls.forEach(id=>{
+      const el = document.getElementById(id);
+      if(!el) return;
+      if(el.type === 'checkbox') el.checked = false;
+      el.value = '';
+      el.disabled = false;
+      if(el.type === 'date') el.removeAttribute('min');
+    });
+  });
+}
+
+/* ============================
+   DATE CONTROLS - validaciones
+   ============================ */
+function setupDateControls(){
+  const fp = document.getElementById('fechaPuntual');
+  const fd = document.getElementById('fechaDesde');
+  const fh = document.getElementById('fechaHasta');
+  const anio = document.getElementById('anioSelect');
+  const mes = document.getElementById('mesSelect');
+  const all = document.getElementById('selectAllDates');
+
+  function disableOthers(enabled){
+    const ctrls = [fp,fd,fh,anio,mes,all];
+    ctrls.forEach(c=>{
+      if(c !== enabled){
+        if(c.type === 'checkbox') c.checked = false;
+        c.value = '';
+        c.disabled = true;
+        if(c.type === 'date') c.removeAttribute('min');
+      } else {
+        c.disabled = false;
+      }
+    });
+  }
+  function enableAll(){
+    [fp,fd,fh,anio,mes,all].forEach(c=>{ c.disabled=false; if(c.type==='date') c.removeAttribute('min'); });
+  }
+
+  // fecha puntual: inhabilita demás
+  fp.addEventListener('change', ()=>{
+    if(fp.value) disableOthers(fp);
+    else enableAll();
+  });
+
+  // desde: habilita hasta & set min for hasta
+  fd.addEventListener('change', ()=>{
+    if(fd.value){
+      disableOthers(fd);
+      fh.disabled = false;
+      // configurar minimo de fh
+      fh.min = fd.value;
+    } else {
+      enableAll();
+    }
+  });
+
+  // hasta: si se selecciona, valida >= desde
+  fh.addEventListener('change', ()=>{
+    if(fh.value && fd.value){
+      const desde = new Date(fd.value);
+      const hasta = new Date(fh.value);
+      if(hasta < desde){
+        Swal.fire('Error','La fecha "Hasta" no puede ser anterior a "Desde". Selección cancelada.','error');
+        fh.value = '';
+        fh.removeAttribute('min');
+        return;
+      }
+      // mantener desde habilitado
+      disableOthers(fd);
+      fh.disabled = false;
+      fd.disabled = false;
+    } else if(fh.value && !fd.value){
+      Swal.fire('Aviso','Primero seleccione "Rango desde".','warning');
+      fh.value = '';
+    } else if(!fh.value && !fd.value){
+      enableAll();
+    }
+  });
+
+  anio.addEventListener('change', ()=>{
+    if(anio.value){
+      disableOthers(anio);
+      mes.disabled = false;
+    } else enableAll();
+  });
+
+  mes.addEventListener('change', ()=>{
+    if(mes.value){
+      if(!anio.value){
+        Swal.fire('Aviso','Seleccione primero el año antes de elegir mes.','warning');
+        mes.value = '';
+        return;
+      }
+      disableOthers(anio);
+      anio.disabled = false;
+      mes.disabled = false;
+    } else {
+      if(!anio.value) enableAll();
+    }
+  });
+
+  all.addEventListener('change', ()=>{
+    if(all.checked) disableOthers(all);
+    else enableAll();
+  });
+}
+
+/* ============================
+   APLICAR FILTROS Y GRAFICAR
+   ============================ */
+function aplicarFiltrosYGraficar(){
+  const all = [];
+  for(const id in registrosPorPozo) registrosPorPozo[id].forEach(r=> all.push(Object.assign({}, r, { pozoId:id })));
+  if(all.length === 0){ Swal.fire('Aviso','No hay registros cargados. Use "Cargar registros".','info'); return; }
+
+  const fechaP = document.getElementById('fechaPuntual').value;
+  const fechaD = document.getElementById('fechaDesde').value;
+  const fechaH = document.getElementById('fechaHasta').value;
+  const anio = document.getElementById('anioSelect').value;
+  const mes = document.getElementById('mesSelect').value;
+  const allDates = document.getElementById('selectAllDates').checked;
+
+  registrosFiltrados = all.filter(r=>{
+    if(!r.fecha) return false;
+    const d = new Date(r.fecha);
+    if(allDates) return true;
+    if(fechaP) return r.fecha === fechaP;
+    if(fechaD && fechaH) return (new Date(r.fecha) >= new Date(fechaD) && new Date(r.fecha) <= new Date(fechaH));
+    if(anio){ if(String(d.getFullYear()) !== anio) return false; }
+    if(mes){ if((d.getMonth()+1) !== parseInt(mes)) return false; }
+    return true;
+  });
+
+  if(fechaP && registrosFiltrados.length === 0){
+    Swal.fire('Sin registros','La fecha puntual seleccionada no cuenta con registros.','warning');
+  }
+
+  registrosFiltrados.sort((a,b)=> new Date(a.fecha) - new Date(b.fecha));
+  renderTablaRegistros();
+  graficarNiveles();
+  clearSpecificResults();
+}
+
+/* ============================
+   RENDER TABLA REGISTROS
+   ============================ */
+function renderTablaRegistros(){
+  const tbody = document.querySelector('#tablaRegistros tbody');
+  tbody.innerHTML = '';
+  const min = parseFloat(document.getElementById('normalMin').value);
+  const max = parseFloat(document.getElementById('normalMax').value);
+  const frag = document.createDocumentFragment();
+
+  registrosFiltrados.forEach(r=>{
+    const tr = document.createElement('tr');
+    const descenso = (r.ne!=null && r.di!=null) ? (r.ne - r.di).toFixed(2) : '';
+    const fuera = (r.ne!=null && (r.ne < min || r.ne > max)) || (r.di!=null && (r.di < min || r.di > max));
+    if(fuera) tr.classList.add('fuera');
+    tr.innerHTML = `<td>${r.fecha}</td><td>${r.ne==null?'':Number(r.ne).toFixed(2)}</td><td>${r.di==null?'':Number(r.di).toFixed(2)}</td><td>${r.gasto==null?'':Number(r.gasto).toFixed(2)}</td><td>${descenso}</td>`;
+    frag.appendChild(tr);
+  });
+
+  tbody.appendChild(frag);
+}
+
+/* ============================
+   GRAFICAR NIVELES (debounced)
+   ============================ */
+const plotNiveles = debounce(function(){
+  const ctx = document.getElementById('chartNiveles').getContext('2d');
+  if(chartNiveles) chartNiveles.destroy();
+
+  const seriesNE = {};
+  const seriesDI = {};
+
+  registrosFiltrados.forEach(r=>{
+    const label = r.cve || `Pozo ${r.pozoId}`;
+    seriesNE[label] = seriesNE[label] || [];
+    seriesDI[label] = seriesDI[label] || [];
+    seriesNE[label].push({ x: r.fecha, y: r.ne });
+    seriesDI[label].push({ x: r.fecha, y: r.di });
+  });
+
+  const datasets = [];
+  const palette = ['#004E89','#00A6FB','#7A7A7A','#FF7A00','#6A4C93','#FF4D4F','#00A878'];
+
+  let idx=0;
+  Object.entries(seriesNE).forEach(([pozo,data])=>{
+    datasets.push({ label: `${pozo} - NE`, data: data.sort((a,b)=>new Date(a.x)-new Date(b.x)), borderColor: palette[idx%palette.length], tension:0.3, fill:false });
+    idx++;
+  });
+  Object.entries(seriesDI).forEach(([pozo,data])=>{
+    datasets.push({ label: `${pozo} - ND`, data: data.sort((a,b)=>new Date(a.x)-new Date(b.x)), borderColor: palette[idx%palette.length], borderDash:[4,2], tension:0.3, fill:false });
+    idx++;
+  });
+
+  // Rango normal líneas
+  if(registrosFiltrados.length>0){
+    const xs = registrosFiltrados.map(r=>r.fecha);
+    const minVal = Number(document.getElementById('normalMin').value);
+    const maxVal = Number(document.getElementById('normalMax').value);
+    datasets.push({ label:'Rango normal - min', data: xs.map(x=>({ x, y: minVal })), borderColor:'#00cc66', borderDash:[6,4], pointRadius:0 });
+    datasets.push({ label:'Rango normal - max', data: xs.map(x=>({ x, y: maxVal })), borderColor:'#00cc66', borderDash:[6,4], pointRadius:0 });
+  }
+
+  chartNiveles = new Chart(ctx, {
+    type:'line',
+    data:{ datasets },
+    options:{
+      responsive:true,
+      plugins:{ legend:{ position:'top' } },
+      scales:{
+        x:{ type:'time', time:{ unit:'month' }, title:{ display:true, text:'Fecha' } },
+        // reverse:true muestra profundidad aumentando hacia abajo visualmente
+        y:{ title:{ display:true, text:'Profundidad (m)' }, reverse:true }
+      }
+    }
+  });
+}, 220);
+
+function graficarNiveles(){ plotNiveles(); }
+
+/* ============================
+   CAUDAL ESPECÍFICO (Q / Descenso)
+   ============================ */
+function calcularCaudalEspecifico(){
+  const results = [];
+  registrosFiltrados.forEach(r=>{
+    if(r.gasto!=null && r.ne!=null && r.di!=null){
+      const descenso = Number((r.ne - r.di).toFixed(3));
+      if(descenso > 0){
+        const qdesc = r.gasto / descenso;
+        results.push({ pozo:r.cve, fecha:r.fecha, gasto:r.gasto, descenso: descenso.toFixed(3), specific: Number(qdesc).toFixed(3) });
+      }
+    }
+  });
+  renderSpecificResults(results);
+}
+
+function renderSpecificResults(results){
+  const tbody = document.querySelector('#tablaSpecific tbody');
+  tbody.innerHTML = '';
+  const frag = document.createDocumentFragment();
+  results.forEach(r=>{
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${r.pozo}</td><td>${r.fecha}</td><td>${r.gasto}</td><td>${r.descenso}</td><td>${r.specific}</td>`;
+    frag.appendChild(tr);
+  });
+  tbody.appendChild(frag);
+  graficarSpecific(results);
+}
+
+function graficarSpecific(results){
+  if(chartSpecific) chartSpecific.destroy();
+  const ctx = document.getElementById('chartSpecific').getContext('2d');
+
+  // Agrupar por pozo correctamente
+  const grouped = {};
+  results.forEach(r=>{
+    if(!grouped[r.pozo]) grouped[r.pozo] = [];
+    grouped[r.pozo].push({ x: r.fecha, y: parseFloat(r.specific) });
+  });
+
+  const palette = ['#004E89','#00A6FB','#6A4C93','#FF7A00','#8A2BE2','#00A878'];
+  const datasets = Object.keys(grouped).map((p,i)=>({
+    label: p,
+    data: grouped[p].sort((a,b)=>new Date(a.x)-new Date(b.x)),
+    borderColor: palette[i % palette.length],
+    tension: 0.2,
+    fill: false
+  }));
+
+  chartSpecific = new Chart(ctx, {
+    type: 'line',
+    data: { datasets },
+    options: {
+      responsive: true,
+      plugins: { legend: { position: 'top' } },
+      scales: {
+        x: { type: 'time', time: { unit: 'month' }, title: { display:true, text: 'Fecha' } },
+        y: { title: { display:true, text: 'Q/Desc (L/s·m⁻¹)' }, beginAtZero: true }
+      }
+    }
+  });
+}
+
+function clearSpecificResults(){
+  document.querySelector('#tablaSpecific tbody').innerHTML = '';
+  if(chartSpecific){ chartSpecific.destroy(); chartSpecific = null; }
+}
+
+/* ============================
+   EXPORT / PRINT / CSV / PDF
+   ============================ */
+async function exportarPDF(){
+  const { jsPDF } = window.jspdf;
+  Swal.showLoading();
+  const element = document.querySelector('.layout');
+  const canvas = await html2canvas(element, { scale:1.5, useCORS:true });
+  const imgData = canvas.toDataURL('image/png');
+  const pdf = new jsPDF('landscape','pt','a4');
+  const imgProps = pdf.getImageProperties(imgData);
+  const pdfWidth = pdf.internal.pageSize.getWidth();
+  const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+  pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+  pdf.addPage();
+  const interpN = document.getElementById('interpretacionNivelesTxt').textContent || '';
+  const interpS = document.getElementById('interpretacionSpecificTxt').textContent || '';
+  pdf.setFontSize(10);
+  pdf.text('Interpretación', 40, 40);
+  pdf.text(interpN, 40, 60, {maxWidth:700});
+  pdf.text(interpS, 40, 120, {maxWidth:700});
+  pdf.save(`XibalbaData_Niveles_${new Date().toISOString().slice(0,10)}.pdf`);
+  Swal.close();
+}
+
+function imprimirReporte(){
+  const printContents = document.querySelector('.layout').outerHTML;
+  const w = window.open('', '', 'width=900,height=700');
+  w.document.write('<html><head><title>Reporte XibalbaData</title>');
+  w.document.write('<style>body{font-family:Arial;} table{border-collapse:collapse;} th,td{border:1px solid #ccc;padding:6px;}</style>');
+  w.document.write('</head><body>');
+  w.document.write(printContents);
+  const interpN = document.getElementById('interpretacionNivelesTxt').outerHTML;
+  const interpS = document.getElementById('interpretacionSpecificTxt').outerHTML;
+  w.document.write('<h3>Interpretación</h3>');
+  w.document.write(interpN);
+  w.document.write(interpS);
+  w.document.write('</body></html>');
+  w.document.close();
+  w.focus();
+  w.print();
+  w.close();
+}
+
+function descargarCSV(){
+  if(registrosFiltrados.length===0) return Swal.fire('Aviso','No hay datos para exportar','info');
+  const rows=[['Pozo','Fecha','NE (m)','ND (m)','Caudal (L/s)','Descenso (m)']];
+  registrosFiltrados.forEach(r=>{
+    const descenso = (r.ne!=null && r.di!=null) ? (r.ne - r.di).toFixed(3) : '';
+    rows.push([r.cve || r.pozoId, r.fecha, r.ne==null?'':r.ne, r.di==null?'':r.di, r.gasto==null?'':r.gasto, descenso]);
+  });
+  const csv = rows.map(r=> r.map(cell=> `"${String(cell).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob = new Blob([csv], { type:'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = `Niveles_XibalbaData_${new Date().toISOString().slice(0,10)}.csv`; a.click(); URL.revokeObjectURL(url);
+}
+
+/* ============================
+   INTERPRETACIONES
+   ============================ */
+function interpretarNiveles(){
+  const vals = registrosFiltrados.filter(r=>r.ne!=null).map(r=>Number(r.ne));
+  const div = document.getElementById('interpretacionNivelesTxt');
+  if(vals.length===0){ div.textContent='No se encontraron registros para interpretar.'; div.style.display='block'; return; }
+  const p10 = percentile(vals,10), p50 = percentile(vals,50), p90 = percentile(vals,90);
+  const prom = mean(vals), sd = stddev(vals);
+  const min = Number(document.getElementById('normalMin').value), max = Number(document.getElementById('normalMax').value);
+  let texto = `Niveles - promedio: ${prom.toFixed(2)} m (std ${sd?.toFixed(2)})\nPercentiles: p10=${p10?.toFixed(2)}, p50=${p50?.toFixed(2)}, p90=${p90?.toFixed(2)}.\nRango normal: ${min}-${max} m.`;
+  if(prom > max) texto += '\nEstado: Promedio por encima del rango normal (más profundo). Posible abatimiento del acuífero.';
+  else if(prom < min) texto += '\nEstado: Promedio por debajo del rango normal (menos profundo).';
+  div.textContent = texto; div.style.display = 'block';
+}
+
+function interpretarSpecific(){
+  const rows = Array.from(document.querySelectorAll('#tablaSpecific tbody tr'));
+  const div = document.getElementById('interpretacionSpecificTxt');
+  if(rows.length===0){ div.textContent='No existen registros suficientes para calcular caudal específico.'; div.style.display='block'; return; }
+  const vals = rows.map(tr=>parseFloat(tr.cells[4].textContent)).filter(v=>!isNaN(v));
+  if(vals.length===0){ div.textContent='No hay valores numéricos de caudal específico.'; div.style.display='block'; return; }
+  const prom = mean(vals), sd = stddev(vals);
+  const p10 = percentile(vals,10), p50 = percentile(vals,50), p90 = percentile(vals,90);
+  let texto = `Caudal específico promedio: ${prom.toFixed(3)} L/s·m⁻¹ (std ${sd?.toFixed(3)})\nPercentiles: p10=${p10?.toFixed(3)}, p50=${p50?.toFixed(3)}, p90=${p90?.toFixed(3)}.\nInterpretación: valores altos => buena productividad; valores bajos => posible ensuciamiento o baja conductividad.`;
+  div.textContent = texto; div.style.display='block';
+}
+
+</script>
+</body>
+</html>

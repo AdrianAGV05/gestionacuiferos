@@ -93,6 +93,57 @@
                 <option value="admin">Administrador</option>
                 <option value="invitado">Gestor</option>
             </select>
+            <label for="acuifero">Acuífero:</label>
+              <select id="Acudd" name="Acudd">
+                <option value=""></option>  
+             </select>
+                <div>
+                    <a href="Captura_de_acuifero.html"><img src="img/Agregar_nuevo.png" width="50"></a>
+                </div>
+            <label for="organismoOperador">Organismo Operador:</label>
+            <select id="oodd" name="oodd">
+                 <option value=""></option>
+            </select>
+                <div>
+                    <a href="Captura_de_OP.html"><img src="img/Agregar_nuevo.png" width="50"></a>
+                </div>
+
+            <script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                            // Llamada a la API REST para obtener los datos de la tabla acuifero
+                            fetch('http://localhost:8080/api/acuifero')
+                                .then(response => response.json())
+                                .then(data => {
+                                    const Acudd = document.getElementById("Acudd");
+                                    Acudd.innerHTML = ''; // Limpiar opciones anteriores
+                                    data.forEach(item => {
+                                        const option = document.createElement("option");
+                                        option.value = item.acu_nombre;
+                                        option.textContent = item.acu_nombre;
+                                        Acudd.appendChild(option);
+                                    });
+                                })
+                                .catch(error => console.error('Error al cargar datos:', error));
+                        });
+
+                        document.addEventListener("DOMContentLoaded", function() {
+                            // Llamada a la API REST para obtener los datos de la tabla acuifero
+                            fetch('http://localhost:8080/api/oo')
+                                .then(response => response.json())
+                                .then(data => {
+                                    const oodd = document.getElementById("oodd");
+                                    oodd.innerHTML = ''; // Limpiar opciones anteriores
+                                    data.forEach(item => {
+                                        const option = document.createElement("option");
+                                        option.value = item.oo_nombre;
+                                        option.textContent = item.oo_nombre;
+                                        oodd.appendChild(option);
+                                    });
+                                })
+                                .catch(error => console.error('Error al cargar datos:', error));
+                        });
+            </script>
+
 
             <input type="button" value="Crear Cuenta" onclick="crearcuenta()">
         

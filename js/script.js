@@ -108,7 +108,7 @@ function gestiondemtto(){
 
 function selectacuyop(){
   
-  document.location = 'Selec_acu_y_op.html';
+  document.location = 'nvo-usuario-prueba.html';
   
 }
 function listadopozo(){
