@@ -434,16 +434,19 @@ background-color: rgb(16, 66, 205);
 
 /* Estilos para la lista de notificaciones */
 .notification-dropdown {
-  display: none;
+  display: none; /* Se mantiene oculto por defecto */
   position: absolute;
-  top: 30px;
-  right: 0;
-  width: 250px;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  box-shadow: 0px 4px 8px rgb(16, 66, 205);
-  z-index: 1;
+  top: 100%; /* Lo posiciona exactamente debajo del icono de la campana */
+  left: 0; /* Lo ancla a la derecha para que no se desborde fuera del monitor */
+  
+  /* Estilos visuales del recuadro */
+  width: 280px; 
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 10px;
+  z-index: 1000;
   }
 .notification-dropdown.active {
   display: block;

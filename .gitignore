@@ -1,5 +1,18 @@
-.DS_store
-*.java
+.DS_Store
 /xibalba-data
-mvnw
-*.xml
+Thumbs.db
+
+.env
+.env.local
+
+.vscode/
+
+# Backend
+
+__pycache__/
+.venv/
+env/
+
+
+*.log
+npm-debug.log*
