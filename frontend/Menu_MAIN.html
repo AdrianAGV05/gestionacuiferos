@@ -7,501 +7,132 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="CSS/Menu_MAIN.css">
   <title>XibalbaData menu MAIN</title>
-  <script src="js/script.js"></script>
+  
+  <script src="js/script.js" defer></script>
   <script src="https://kit.fontawesome.com/7f2bc339d8.js" crossorigin="anonymous"></script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #e0f7fa;
-      /* Color de fondo azul claro */
-      color: #01579b;
-      /* Color de texto azul más oscuro */
-      line-height: 1.6;
-    }
-
-    header {
-      background-color: #0288d1;
-      /* Azul intenso para el encabezado */
-      color: white;
-      text-align: center;
-      padding: 20px;
-      width: 100%;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 2.5em;
-
-
-    }
-
-    nav {
-      text-align: center;
-      margin: 20px 0;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: #0288d1;
-      margin: 0 15px;
-      font-size: 1.2em;
-    }
-
-    nav a:hover {
-      color: #01579b;
-    }
-
-    section {
-      padding: 20px;
-      margin: 0 10%;
-    }
-
-    footer {
-      background-color: #0288d1;
-      color: white;
-      text-align: center;
-      padding: 10px;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-    }
-
-    .highlight {
-      color: #00bcd4;
-      /* Un tono azul claro para destacar */
-      font-weight: bold;
-    }
-
-    .image-container {
-      text-align: center;
-      margin: 20px 0;
-    }
-
-    .image-container img {
-      max-width: 100%;
-      height: auto;
-    }
-  </style>
 </head>
-
 
 <body onload="menu_desp()">
 
   <header>
-    <h1>Sistema Gestor de Información </h1> 
-    <a href="index.html" style="color: white;"> Cerrar Sesion</a> 
+    <h1>Sistema Gestor de Información</h1> 
+    <a href="index.html" class="logout-link">Cerrar Sesion</a> 
   </header>
 
-  </nav>
+  <!-- Contenedor de notificaciones -->
+  <div class="notification-container">
+    <span class="notification-icon" onclick="toggleNotifications()">🔔</span>
+    <span class="notification-count">!</span>
+    
+    <!-- Buzón de notificaciones -->
+    <div class="notification-dropdown" id="notificationDropdown">
+      <div class="notification-item">Nueva notificación 1</div>
+      <div class="notification-item">Nueva notificación 2</div>
+      <div class="notification-item">Nueva notificación 3</div>
+    </div>
+  </div>
 
-  <body>
-
-    <!--Cololocar en la parte derecha de la pantalla burbujas con una breve explicación del contenido de cada aprtado del menú-->
-    <div class="notification-container">
-      <span class="notification-icon" onclick="toggleNotifications()">🔔</span>
-      <span class="notification-count">!</span> <!-- Número de notificaciones -->
-
-
+  <div class="container">
+    <!-- Base de datos -->
+    <div class="barra">
+      <b>Base de datos</b>
+      <img src="img/lista1.png" alt="Gestion de Pozos">
+      <p>Visualiza y edita el contenido de la base de datos.</p>
       
-      <!-- Buzón de notificaciones -->
-
-      <!-- Arreglar, para que suelte notificaciones reales -->
-      <div class="notification-dropdown" id="notificationDropdown">
-        <div class="notification-item">Nueva notificación 1</div>
-        <div class="notification-item">Nueva notificación 2</div>
-        <div class="notification-item">Nueva notificación 3</div>
-      </div>
+      <nav class="nav">
+        <ul class="list">
+          <li class="list_item list_item--click">
+            <div class="list_button list_button--click">
+              <a href="#" class="nav_link">Gestion de Base de datos</a>
+              <img src="assets/arrow.svg" class="list_arrow">
+            </div>
+            <ul class="list_show">
+              <li class="list_inside"><a href="Listado_pozos.html" class="nav_link nav_link--inside">Listado de pozos</a></li>
+              <li class="list_inside"><a href="operacion.html" class="nav_link nav_link--inside">Operación</a></li>
+              <li class="list_inside"><a href="mantenimiento.html" class="nav_link nav_link--inside">Mantenimiento</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
     </div>
 
-    <br>
-    <br>
-    <script>
-      function toggleNotifications() {
-        const dropdown = document.getElementById('notificationDropdown');
-        dropdown.classList.toggle('active'); // Alternar la visibilidad del buzón
-      }
+    <!-- Gestion de Captura -->
+    <div class="barra">
+      <b>Gestion de Captura</b>
+      <img src="img/celularcap.png" alt="Gestion de Captura">
+      <p>Administra la información enviada por los operadores.</p>
 
-      // Opcional: Ocultar el buzón al hacer clic fuera de él
-      window.addEventListener('click', function (event) {
-        const dropdown = document.getElementById('notificationDropdown');
-        const icon = document.querySelector('.notification-icon');
-        if (!icon.contains(event.target) && !dropdown.contains(event.target)) {
-          dropdown.classList.remove('active');
-        }
-      });
-    </script>
-
-
-
-
-    <div class="container">
-      <div class="barra">
-        <b>
-          <FONT color="black">Base de datos</FONT>
-        </b>
-        <img src="img/lista1.png" alt="Gestion de Pozos">
-        <p>
-          <FONT color="black">Visualiza y edita el contenido de la base de datos.</FONT>
-        </p>
-        <!-- Un hover en visualiza y edit...... y al darle click despliuega la opcion listdo de pozos-->
-        <nav class="nav">
-          <ul class="list">
-
-            <li class="list_item">
-              <div class="list_button">
-              </div>
-            </li>
-
-            <li class="list_item list_item--click">
-              <div class="list_button list_button--click">
-                <a href="#" class="nav_link">Gestion de Base de datos</a>
-                <img src="assets/arrow.svg" class="list_arrow">
-              </div>
-
-              <ul class="list_show">
-                <li class="list_inside">
-                  <a href="Listado_pozos.html" class="nav_link nav_link--inside">Listado de pozos</a>
-                </li>
-               
-                <li class="list_inside">
-                  <a href="operacion.html" class="nav_link nav_link--inside">Operación</a>
-                </li>
-                <li class="list_inside">
-                  <a href="mantenimiento.html" class="nav_link nav_link--inside">Mantenimiento</a>
-                </li>
-               
-
-              </ul>
-            </li>
-
-
-            <li class="list_item">
-              <div class="list_button">
-              </div>
-            </li>
-
-          </ul>
-        </nav>
-
-      </div>
-
-
-
-      <div class="barra">
-        <b>
-          <FONT color="black">Gestion de Captura</FONT>
-        </b>
-        <img src="img/celularcap.png" alt="Gestion de Captura">
-        <p>
-          <FONT color="black">Administra la información enviada por los operadores.</FONT>
-        </p>
-
-        <nav class="nav">
-          <ul class="list">
-
-            <li class="list_item">
-              <div class="list_button">
-              </div>
-            </li>
-
-            <li class="list_item list_item--click">
-              <div class="list_button list_button--click">
-                <a href="#" class="nav_link">Gestion de Captura</a>
-                <img src="assets/arrow.svg" class="list_arrow">
-              </div>
-
-              <ul class="list_show">
-                <li class="list_inside">
-                  <a href="Listado_operadores.html" class="nav_link nav_link--inside">Operadores</a>
-                </li>
-                <li class="list_inside">
-                  <a href="Gestion_de_Operacion.html" class="nav_link nav_link--inside">Operacion</a>
-                </li>
-                <li class="list_inside">
-                  <a href="Gestion_de_mtto.html" class="nav_link nav_link--inside">Mantenimiento</a>
-                </li>
-                <li class="list_inside">
-                  <a href="Gestion_de_alerta.html" class="nav_link nav_link--inside">Alertas</a>
-                </li>
-
-              </ul>
-            </li>
-
-
-            <li class="list_item">
-              <div class="list_button">
-              </div>
-            </li>
-
-          </ul>
-        </nav>
-      </div>
-
-
-
-
-
-      <div class="barra">
-        <b>
-          <FONT color="black">Gestion de procesamiento</FONT>
-        </b>
-        <img src="img/procesamiento-de-datos.png" alt="Gestion de procesamiento">
-        <p>
-          <FONT color="black">Genera indicadores:
-            <nav class="nav">
-              <ul class="list">
-
-                <li class="list_item">
-                  <div class="list_button">
-                  </div>
-                </li>
-
-                <li class="list_item list_item--click">
-                  <div class="list_button list_button--click">
-                    <a href="#" class="nav_link">Gestion de Procesamiento</a>
-                    <img src="assets/arrow.svg" class="list_arrow">
-                  </div>
-
-                  <ul class="list_show">
-                    <li class="list_inside">
-                      <a href="Indicadores_indv.html" class="nav_link nav_link--inside">Consumo energetico</a>
-                    </li>   
-                    <li class="list_inside">
-                      <a href="Prueba_niveles_2.html" class="nav_link nav_link--inside">Niveles y caudal específico</a>
-                    </li>             
-                  </ul>
-                  
-                </li>
-
-
-                <li class="list_item">
-                  <div class="list_button">
-                  </div>
-                </li>
-
-              </ul>
-            </nav>
-
-
-          </FONT>
-        </p>
-      </div>
-      <div class="barra">
-        <b>
-          <FONT color="black">Gestion de Visualización</FONT>
-        </b>
-        <img src="img/data-visualization.png" alt="Gestion de Visualización">
-        <p>
-          <FONT color="black">Visualiza datos:
-            <br>
-            -Tabulares
-            <br>
-            -Gráficos
-            <br>
-            -Cartográficos
-        </p>
-        </FONT>
-
-
-
-        <nav class="nav">
-          <ul class="list">
-
-            <li class="list_item">
-              <div class="list_button">
-              </div>
-            </li>
-
-            <li class="list_item list_item--click">
-              <div class="list_button list_button--click">
-                <a href="#" class="nav_link">Gestion de Visualización</a>
-                <img src="assets/arrow.svg" class="list_arrow">
-              </div>
-
-              <ul class="list_show">
-                <li class="list_inside">
-                  <a href="Listado_pozos.html" class="nav_link nav_link--inside">Datos de Pozo</a>
-                </li>
-                <li class="list_inside">
-                  <a href="#" class="nav_link nav_link--inside">Datos de operación</a>
-                </li>
-                <li class="list_inside">
-                  <a href="#" class="nav_link nav_link--inside">Datos de mantenimiento</a>
-                </li>
-                <li class="list_inside">
-                  <a href="#" class="nav_link nav_link--inside">Registro de alertas</a>
-                </li>
-                <li class="list_inside">
-                  <a href="#" class="nav_link nav_link--inside">Indicadores</a>
-                </li>
-              </ul>
-            </li>
-
-
-            <li class="list_item">
-              <div class="list_button">
-              </div>
-            </li>
-
-          </ul>
-        </nav>
-      </div>
-      
+      <nav class="nav">
+        <ul class="list">
+          <li class="list_item list_item--click">
+            <div class="list_button list_button--click">
+              <a href="#" class="nav_link">Gestion de Captura</a>
+              <img src="assets/arrow.svg" class="list_arrow">
+            </div>
+            <ul class="list_show">
+              <li class="list_inside"><a href="Listado_operadores.html" class="nav_link nav_link--inside">Operadores</a></li>
+              <li class="list_inside"><a href="Gestion_de_Operacion.html" class="nav_link nav_link--inside">Operacion</a></li>
+              <li class="list_inside"><a href="Gestion_de_mtto.html" class="nav_link nav_link--inside">Mantenimiento</a></li>
+              <li class="list_inside"><a href="Gestion_de_alerta.html" class="nav_link nav_link--inside">Alertas</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
     </div>
 
+    <!-- Gestion de Procesamiento -->
+    <div class="barra">
+      <b>Gestion de procesamiento</b>
+      <img src="img/procesamiento-de-datos.png" alt="Gestion de procesamiento">
+      <p>Genera indicadores:</p>
+      
+      <nav class="nav">
+        <ul class="list">
+          <li class="list_item list_item--click">
+            <div class="list_button list_button--click">
+              <a href="#" class="nav_link">Gestion de Procesamiento</a>
+              <img src="assets/arrow.svg" class="list_arrow">
+            </div>
+            <ul class="list_show">
+              <li class="list_inside"><a href="Indicadores_indv.html" class="nav_link nav_link--inside">Consumo energetico</a></li>   
+              <li class="list_inside"><a href="Prueba_niveles_2.html" class="nav_link nav_link--inside">Niveles y caudal específico</a></li>             
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
 
-    <style>
-      /* Estilos generales */
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: white;
-      }
+    <!-- Gestion de Visualización -->
+    <div class="barra">
+      <b>Gestion de Visualización</b>
+      <img src="img/data-visualization.png" alt="Gestion de Visualización">
+      <p>Visualiza datos:<br>-Tabulares<br>-Gráficos<br>-Cartográficos</p>
 
-      .dropdown {
-        position: relative;
-        display: inline-block;
-      }
+      <nav class="nav">
+        <ul class="list">
+          <li class="list_item list_item--click">
+            <div class="list_button list_button--click">
+              <a href="#" class="nav_link">Gestion de Visualización</a>
+              <img src="assets/arrow.svg" class="list_arrow">
+            </div>
+            <ul class="list_show">
+              <li class="list_inside"><a href="Listado_pozos.html" class="nav_link nav_link--inside">Datos de Pozo</a></li>
+              <li class="list_inside"><a href="#" class="nav_link nav_link--inside">Datos de operación</a></li>
+              <li class="list_inside"><a href="#" class="nav_link nav_link--inside">Datos de mantenimiento</a></li>
+              <li class="list_inside"><a href="#" class="nav_link nav_link--inside">Registro de alertas</a></li>
+              <li class="list_inside"><a href="#" class="nav_link nav_link--inside">Indicadores</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
 
-      /* Estilo del botón del menú */
-      .dropbtn {
-        background-color: #4CAF50;
-        color: white;
-        padding: 16px;
-        font-size: 16px;
-        border: none;
-        cursor: pointer;
-      }
+  <footer>
+    <small>
+      <span style="color: white;">&copy; Software desarrollado por el Instituto Interamericano de Tecnología y Ciencias del Agua.</span>
+    </small>
+  </footer>
 
-      /* Contenido del menú desplegable */
-      .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: white;
-        min-width: 160px;
-        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-        z-index: 1;
-      }
-
-      .dropdown-content a {
-        color: black;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-      }
-
-      /* Cambiar el color cuando el mouse pasa sobre un enlace */
-      .dropdown-content a:hover {
-        background-color: #f1f1f1;
-      }
-
-      /* Mostrar el contenido del menú cuando se pasa el mouse sobre el contenedor */
-      .dropdown:hover .dropdown-content {
-        display: block;
-      }
-
-      /* Cambiar color del botón cuando el mouse pasa sobre él */
-      .dropdown:hover .dropbtn {
-        background-color: #3e8e41;
-      }
-    </style>
-
-
-    <style>
-      /*Estilo menu hamburguesa desplegable*/
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      .nav {
-        width: 235px;
-
-      }
-
-      .nav_link {
-        color: #303440;
-        display: block;
-        padding: 10px 0;
-        text-decoration: none;
-      }
-
-      .nav_link--inside {
-        border-radius: 6px;
-        padding-left: 20px;
-
-      }
-
-      .nav_link--inside:hover {
-        background: white;
-      }
-
-      .list {
-        width: 100%;
-        height: 30vh;
-        direction: flex;
-        justify-content: left;
-        flex-direction: column;
-        border-radius: 0 16px 16px 0;
-        background: rgb(255, 255, 255);
-
-      }
-
-      .list_item {
-        list-style: none;
-        width: 100%;
-        text-align: left;
-        overflow: hidden;
-        font-size: 14px;
-
-      }
-
-      .list_item--click {
-        cursor: pointer;
-      }
-
-      .list_button {
-        display: flex;
-        align-items: left;
-        gap: 1em;
-        width: 100%;
-        margin: 0 auto;
-      }
-
-      .arrow .list_arrow {
-        transform: rotate(90deg);
-      }
-
-      .list_arrow {
-        margin-left: auto;
-        transition: transform .3s;
-      }
-
-      .list_show {
-        width: 80%;
-        margin-left: auto;
-        border-left: 2px solid #303440;
-        list-style: none;
-        transition: height .4s;
-        height: 0;
-      }
-    </style>
-
-
-<br>
-<br>
-
-    <footer>
-      <small>
-        <FONT color="white"> &copy; Software desarrollado por el Instituto Interamericano de Tecnología y Ciencias del
-          Agua.</FONT></span>
-      </small>
-    </footer>
-    <!--Colocar el texto centrado y en la parte inferior de la pantlla-->
-  </body>
-
+</body>
 </html>

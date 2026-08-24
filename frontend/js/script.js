@@ -417,3 +417,28 @@ window.onclick = function(event) {
       modalContacto.style.display = "none";
   }
 }
+
+
+
+// ==========================================
+// LÓGICA DE NOTIFICACIONES (Menu_MAIN)
+// ==========================================
+
+function toggleNotifications() {
+  const dropdown = document.getElementById('notificationDropdown');
+  if (dropdown) {
+    dropdown.classList.toggle('active'); 
+  }
+}
+
+// Ocultar el buzón de notificaciones al hacer clic fuera de él
+window.addEventListener('click', function (event) {
+  const dropdown = document.getElementById('notificationDropdown');
+  const icon = document.querySelector('.notification-icon');
+  
+  if (icon && dropdown) {
+    if (!icon.contains(event.target) && !dropdown.contains(event.target)) {
+      dropdown.classList.remove('active');
+    }
+  }
+});
