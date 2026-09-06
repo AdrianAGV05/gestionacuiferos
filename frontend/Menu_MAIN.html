@@ -7,130 +7,176 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="CSS/Menu_MAIN.css">
   <title>XibalbaData menu MAIN</title>
-  
+
   <script src="js/script.js" defer></script>
   <script src="https://kit.fontawesome.com/7f2bc339d8.js" crossorigin="anonymous"></script>
 </head>
 
 <body onload="menu_desp()">
 
-  <header>
-    <h1>Sistema Gestor de Información</h1> 
-    <a href="index.html" class="logout-link">Cerrar Sesion</a> 
-  </header>
+  <div class="page-content">
 
-  <!-- Contenedor de notificaciones -->
-  <div class="notification-container">
-    <span class="notification-icon" onclick="toggleNotifications()">🔔</span>
-    <span class="notification-count">!</span>
-    
-    <!-- Buzón de notificaciones -->
-    <div class="notification-dropdown" id="notificationDropdown">
-      <div class="notification-item">Nueva notificación 1</div>
-      <div class="notification-item">Nueva notificación 2</div>
-      <div class="notification-item">Nueva notificación 3</div>
-    </div>
-  </div>
+    <header class="main-header">
+      <a href="Menu_MAIN.html" class="logo-box" title="Ir al menú principal">
+        LOGO
+      </a>
 
-  <div class="container">
-    <!-- Base de datos -->
-    <div class="barra">
-      <b>Base de datos</b>
-      <img src="img/lista1.png" alt="Gestion de Pozos">
-      <p>Visualiza y edita el contenido de la base de datos.</p>
-      
-      <nav class="nav">
-        <ul class="list">
-          <li class="list_item list_item--click">
-            <div class="list_button list_button--click">
-              <a href="#" class="nav_link">Gestion de Base de datos</a>
-              <img src="assets/arrow.svg" class="list_arrow">
+      <div class="header-actions">
+        <!-- Notificaciones estilizadas como botón -->
+        <div class="notification-container">
+          <button type="button" class="nav-btn notification-btn" onclick="toggleNotifications()">
+            <i class="fa-solid fa-bell"></i>
+            <span class="notification-count">!</span>
+          </button>
+
+          <!-- Buzón de notificaciones -->
+          <div class="notification-dropdown" id="notificationDropdown">
+            <div class="notification-item">Nueva notificación 1</div>
+            <div class="notification-item">Nueva notificación 2</div>
+            <div class="notification-item">Nueva notificación 3</div>
+          </div>
+        </div>
+
+        <a href="index.html" class="nav-btn logout-link">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          Cerrar Sesión
+        </a>
+      </div>
+    </header>
+
+    <!-- Título principal centrado fuera del header -->
+    <h1 class="main-title">Sistema Gestor de Información</h1>
+
+    <div class="container">
+
+      <!-- Columna izquierda -->
+      <div class="container-col">
+
+        <!-- Base de datos -->
+        <div class="barra">
+          <div class="barra-header">
+            <img src="img/lista1.png" alt="Gestion de Pozos" class="barra-img barra-img--circle">
+            <div class="barra-header-text">
+              <b>Base de datos</b>
+              <p class="barra-desc">Visualiza y edita el contenido de la base de datos.</p>
             </div>
-            <ul class="list_show">
-              <li class="list_inside"><a href="Listado_pozos.html" class="nav_link nav_link--inside">Listado de pozos</a></li>
-              <li class="list_inside"><a href="operacion.html" class="nav_link nav_link--inside">Operación</a></li>
-              <li class="list_inside"><a href="mantenimiento.html" class="nav_link nav_link--inside">Mantenimiento</a></li>
+          </div>
+
+          <nav class="nav">
+            <ul class="list">
+              <li class="list_item list_item--click">
+                <div class="list_button list_button--click">
+                  <a href="#" class="nav_link">Gestion de Base de datos</a>
+                  <i class="fa-solid fa-chevron-right list_arrow"></i>
+                </div>
+                <ul class="list_show">
+                  <li class="list_inside"><a href="Listado_pozos.html" class="nav_link nav_link--inside">Listado de pozos</a></li>
+                  <li class="list_inside"><a href="operacion.html" class="nav_link nav_link--inside">Operación</a></li>
+                  <li class="list_inside"><a href="mantenimiento.html" class="nav_link nav_link--inside">Mantenimiento</a></li>
+                </ul>
+              </li>
             </ul>
-          </li>
-        </ul>
-      </nav>
-    </div>
+          </nav>
+        </div>
 
-    <!-- Gestion de Captura -->
-    <div class="barra">
-      <b>Gestion de Captura</b>
-      <img src="img/celularcap.png" alt="Gestion de Captura">
-      <p>Administra la información enviada por los operadores.</p>
-
-      <nav class="nav">
-        <ul class="list">
-          <li class="list_item list_item--click">
-            <div class="list_button list_button--click">
-              <a href="#" class="nav_link">Gestion de Captura</a>
-              <img src="assets/arrow.svg" class="list_arrow">
+        <!-- Gestion de Captura -->
+        <div class="barra">
+          <div class="barra-header barra-header--img-right">
+            <div class="barra-header-text">
+              <b>Gestion de Captura</b>
+              <p class="barra-desc">Administra la información enviada por los operadores.</p>
             </div>
-            <ul class="list_show">
-              <li class="list_inside"><a href="Listado_operadores.html" class="nav_link nav_link--inside">Operadores</a></li>
-              <li class="list_inside"><a href="Gestion_de_Operacion.html" class="nav_link nav_link--inside">Operacion</a></li>
-              <li class="list_inside"><a href="Gestion_de_mtto.html" class="nav_link nav_link--inside">Mantenimiento</a></li>
-              <li class="list_inside"><a href="Gestion_de_alerta.html" class="nav_link nav_link--inside">Alertas</a></li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-    </div>
+            <img src="img/celularcap.png" alt="Gestion de Captura" class="barra-img barra-img--square">
+          </div>
 
-    <!-- Gestion de Procesamiento -->
-    <div class="barra">
-      <b>Gestion de procesamiento</b>
-      <img src="img/procesamiento-de-datos.png" alt="Gestion de procesamiento">
-      <p>Genera indicadores:</p>
-      
-      <nav class="nav">
-        <ul class="list">
-          <li class="list_item list_item--click">
-            <div class="list_button list_button--click">
-              <a href="#" class="nav_link">Gestion de Procesamiento</a>
-              <img src="assets/arrow.svg" class="list_arrow">
+          <nav class="nav">
+            <ul class="list">
+              <li class="list_item list_item--click">
+                <div class="list_button list_button--click">
+                  <a href="#" class="nav_link">Gestion de Captura</a>
+                  <i class="fa-solid fa-chevron-right list_arrow"></i>
+                </div>
+                <ul class="list_show">
+                  <li class="list_inside"><a href="Listado_operadores.html" class="nav_link nav_link--inside">Operadores</a></li>
+                  <li class="list_inside"><a href="Gestion_de_Operacion.html" class="nav_link nav_link--inside">Operacion</a></li>
+                  <li class="list_inside"><a href="Gestion_de_mtto.html" class="nav_link nav_link--inside">Mantenimiento</a></li>
+                  <li class="list_inside"><a href="Gestion_de_alerta.html" class="nav_link nav_link--inside">Alertas</a></li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+      </div>
+
+      <!-- Columna derecha -->
+      <div class="container-col">
+
+        <!-- Gestion de Procesamiento -->
+        <div class="barra">
+          <div class="barra-header">
+            <img src="img/procesamiento-de-datos.png" alt="Gestion de procesamiento" class="barra-img barra-img--square">
+            <div class="barra-header-text">
+              <b>Gestion de procesamiento</b>
+              <p class="barra-desc">Genera indicadores:</p>
             </div>
-            <ul class="list_show">
-              <li class="list_inside"><a href="Indicadores_indv.html" class="nav_link nav_link--inside">Consumo energetico</a></li>   
-              <li class="list_inside"><a href="Prueba_niveles_2.html" class="nav_link nav_link--inside">Niveles y caudal específico</a></li>             
+          </div>
+
+          <nav class="nav">
+            <ul class="list">
+              <li class="list_item list_item--click">
+                <div class="list_button list_button--click">
+                  <a href="#" class="nav_link">Gestion de Procesamiento</a>
+                  <i class="fa-solid fa-chevron-right list_arrow"></i>
+                </div>
+                <ul class="list_show">
+                  <li class="list_inside"><a href="Indicadores_indv.html" class="nav_link nav_link--inside">Consumo energetico</a></li>
+                  <li class="list_inside"><a href="Prueba_niveles_2.html" class="nav_link nav_link--inside">Niveles y caudal específico</a></li>
+                </ul>
+              </li>
             </ul>
-          </li>
-        </ul>
-      </nav>
-    </div>
+          </nav>
+        </div>
 
-    <!-- Gestion de Visualización -->
-    <div class="barra">
-      <b>Gestion de Visualización</b>
-      <img src="img/data-visualization.png" alt="Gestion de Visualización">
-      <p>Visualiza datos:<br>-Tabulares<br>-Gráficos<br>-Cartográficos</p>
-
-      <nav class="nav">
-        <ul class="list">
-          <li class="list_item list_item--click">
-            <div class="list_button list_button--click">
-              <a href="#" class="nav_link">Gestion de Visualización</a>
-              <img src="assets/arrow.svg" class="list_arrow">
+        <!-- Gestion de Visualización -->
+        <div class="barra barra--tall">
+          <div class="barra-header barra-header--img-right">
+            <div class="barra-header-text">
+              <b>Gestion de Visualización</b>
+              <p class="barra-desc">Visualiza datos: tabulares, gráficos y cartográficos.</p>
             </div>
-            <ul class="list_show">
-              <li class="list_inside"><a href="Listado_pozos.html" class="nav_link nav_link--inside">Datos de Pozo</a></li>
-              <li class="list_inside"><a href="#" class="nav_link nav_link--inside">Datos de operación</a></li>
-              <li class="list_inside"><a href="#" class="nav_link nav_link--inside">Datos de mantenimiento</a></li>
-              <li class="list_inside"><a href="#" class="nav_link nav_link--inside">Registro de alertas</a></li>
-              <li class="list_inside"><a href="#" class="nav_link nav_link--inside">Indicadores</a></li>
+            <img src="img/data-visualization.png" alt="Gestion de Visualización" class="barra-img barra-img--square">
+          </div>
+
+          <nav class="nav">
+            <ul class="list">
+              <li class="list_item list_item--click">
+                <div class="list_button list_button--click">
+                  <a href="#" class="nav_link">Gestion de Visualización</a>
+                  <i class="fa-solid fa-chevron-right list_arrow"></i>
+                </div>
+                <ul class="list_show">
+                  <li class="list_inside"><a href="Listado_pozos.html" class="nav_link nav_link--inside">Datos de Pozo</a></li>
+                  <li class="list_inside"><a href="#" class="nav_link nav_link--inside">Datos de operación</a></li>
+                  <li class="list_inside"><a href="#" class="nav_link nav_link--inside">Datos de mantenimiento</a></li>
+                  <li class="list_inside"><a href="#" class="nav_link nav_link--inside">Registro de alertas</a></li>
+                  <li class="list_inside"><a href="#" class="nav_link nav_link--inside">Indicadores</a></li>
+                </ul>
+              </li>
             </ul>
-          </li>
-        </ul>
-      </nav>
+          </nav>
+        </div>
+
+      </div>
+
     </div>
-  </div>
+
+  </div><!-- /.page-content -->
 
   <footer>
     <small>
-      <span style="color: white;">&copy; Software desarrollado por el Instituto Interamericano de Tecnología y Ciencias del Agua.</span>
+      <i class="fa-regular fa-copyright"></i>
+      Software desarrollado por el Instituto Interamericano de Tecnología y Ciencias del Agua.
     </small>
   </footer>
 

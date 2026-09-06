@@ -14,24 +14,26 @@
 </head>
 <body>
 
-<header>
-    <h1>XibalbaData</h1>
+<header class="main-header">
+  <div class="header-logo">
+    <h1>XibalbaData | IITCA</h1>
+  </div>
+  
+  <nav class="header-nav">
+    <a href="inicio_sesion.html" class="nav-btn">
+      Acceder <i class="fas fa-check"></i>
+    </a>
+    <a href="nvo-usuario-prueba.html" class="nav-btn">
+      Registrarse <i class="fa-solid fa-pencil"></i>
+    </a>
+    <button id="btn-modal-nosotros" class="nav-btn" onclick="activar()">
+      Nosotros <i class="fa-solid fa-circle-info"></i>
+    </button>
+    <button id="btn-modal-contacto" class="nav-btn" onclick="activar2()">
+      Contactanos <i class="fa-solid fa-phone"></i>
+    </button>
+  </nav>
 </header>
-
-<nav>
-    <a href="inicio-sesion-prueba.html">Acceder
-      <i class="fas fa-check"></i>
-    </a>
-    <a href="nvo-usuario-prueba.html">Registrarse
-      <i class="fa-solid fa-pencil"></i>
-    </a>
-    <button id="btn-modal-nosotros" onclick="activar()">Nosotros
-      <i class="fa-solid fa-circle-info"></i> 
-    </button>
-    <button id="btn-modal-contacto" onclick="activar2()">Contactanos
-      <i class="fa-solid fa-phone"></i>
-    </button>
-</nav>
   
 <div id="myModal" class="modal">
   <div class="modal-content">
