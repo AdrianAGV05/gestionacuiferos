@@ -1,133 +1,251 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="CSS/Menu_MAIN.css">
-    <script src="https://kit.fontawesome.com/7f2bc339d8.js" crossorigin="anonymous"></script>
-<script src="js/script.js"></script>
-    <title>Listado de Pozos</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="CSS/Menu_MAIN.css">
+  <title>Listado de Pozos</title>
+
+  <script src="https://kit.fontawesome.com/7f2bc339d8.js" crossorigin="anonymous"></script>
+  <script src="js/script.js" defer></script>
 </head>
-<header>
-  <div >
-    <a href="Menu_MAIN.html">
-      <i class="fa-solid fa-house" style="color: aliceblue; margin-left: 1200px" ></i>
-    </a>
-    Inicio
-    <a href="index.html">   
-      <i class="fa-solid fa-right-from-bracket" style="color: aliceblue;"></i>
-    </a>
-    Salir
-  </div>
-</header>
+
 <body>
-<table style=" width: 80%; margin: auto; ">
-  <colgroup>
-  <col width="90%">
-  <col width="10%">
-  </colgroup>
-  <tr>
-    <td style="text-align: center;">
-      <h2>Listado de pozos</h2>
-    </td>
-    <td style="text-align: center;">
-      Agregar pozo
-      <a href="Nuevo_pozo.html"><i class=" fa fa-regular fa-square-plus fa-lg" style="color: rgb(27, 91, 227);"></i></a>
-    </td>
-  </tr>
-</table>
 
-    <table  cellpadding="15" class="tabla" style="width: 95%;">
+  <div class="page-content">
 
-      <colgroup>
-        <col width="10%"/>
-        <col width="12%"/>
-        <col width="25%"/>
-        <col width="24%"/>
-        <col width="22%"/>
-        <col width="7%"/>
-        </colgroup>
-      <thead>
-  
+    <header class="main-header">
+      <div class="header-logo">
+        <a href="Menu_MAIN.html" class="nav-btn">
+          <i class="fa-solid fa-house"></i>
+          Inicio
+        </a>
+      </div>
+
+      <div class="header-actions">
+        <a href="index.html" class="nav-btn">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          Salir
+        </a>
+      </div>
+    </header>
+
+    <h1 class="main-title">Listado de pozos</h1>
+
+    <div class="panel">
+
+      <div class="panel-header">
+        <h2>Pozos registrados</h2>
+        <a href="Nuevo_pozo.html" class="add-btn">
+          <i class="fa-solid fa-square-plus"></i>
+          Agregar pozo
+        </a>
+      </div>
+
+      <div class="filters">
+        <div class="filter-group">
+          <label for="filtroProfundidadMin">Profundidad de perforación (m)</label>
+          <div class="filter-range">
+            <input type="number" id="filtroProfundidadMin" placeholder="Mín" min="0" step="any">
+            <span>a</span>
+            <input type="number" id="filtroProfundidadMax" placeholder="Máx" min="0" step="any">
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <label for="filtroDiamPerfMin">Diámetro de perforación (in)</label>
+          <div class="filter-range">
+            <input type="number" id="filtroDiamPerfMin" placeholder="Mín" min="0" step="any">
+            <span>a</span>
+            <input type="number" id="filtroDiamPerfMax" placeholder="Máx" min="0" step="any">
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <label for="filtroAdemeMin">Diámetro de ADEME (in)</label>
+          <div class="filter-range">
+            <input type="number" id="filtroAdemeMin" placeholder="Mín" min="0" step="any">
+            <span>a</span>
+            <input type="number" id="filtroAdemeMax" placeholder="Máx" min="0" step="any">
+          </div>
+        </div>
+
+        <div class="filter-actions">
+          <button type="button" class="btn-outline" id="limpiarFiltrosBtn">
+            <i class="fa-solid fa-xmark"></i>
+            Limpiar
+          </button>
+          <button type="button" class="btn" id="aplicarFiltrosBtn">
+            <i class="fa-solid fa-filter"></i>
+            Filtrar
+          </button>
+        </div>
+      </div>
+
+      <div class="table-scroll">
+        <table class="tabla">
+          <colgroup>
+            <col width="10%">
+            <col width="12%">
+            <col width="25%">
+            <col width="24%">
+            <col width="22%">
+            <col width="7%">
+          </colgroup>
+          <thead>
             <tr>
-                <th>Clave de pozo</th>
-                <th>Nombre del pozo</th>
-                <th>Ramal</th>
-                <th>Profundidad de perforación 
-                  <br>en metros</th>
-                <th>Diámetro de perforación
-                  <br>en pulgadas</th>
-                <th>Diámetro de ADEME
-                  <br>en pulgadas</th>
-                <th>Acciones</th>
+              <th>Clave de pozo</th>
+              <th>Nombre del pozo</th>
+              <th>Ramal</th>
+              <th>Profundidad de perforación<br>en metros</th>
+              <th>Diámetro de perforación<br>en pulgadas</th>
+              <th>Diámetro de ADEME<br>en pulgadas</th>
+              <th>Acciones</th>
             </tr>
-        </thead>
-        <!--AGREGAR COLUMNA CON NOMBRE DE RAMAL AMBOS
-        FALTA AGRAGR FILTROS  PARA GESTION DE VISUALIZACION (BSUQUEDA)-->
-    </table>
-    <div style="height: 400px; overflow: auto; width: 95%;margin: auto;">
-      <table style="width: 100%; ">
-        <colgroup>
-        <col width="10%"/>
-        <col width="12%"/>
-        <col width="25%"/>
-        <col width="24%"/>
-        <col width="22%"/>
-        <col width="7%"/>
-        </colgroup>
-        <tbody id="pozosTableBody">
-        <!-- Las filas de datos se insertarán aquí dinámicamente -->
-        </tbody>
-      </table>
+            <!-- TODO: agregar columna con nombre de ramal (ambos)
+                 TODO: agregar filtros de búsqueda para Gestión de Visualización -->
+          </thead>
+          <tbody id="pozosTableBody">
+            <tr>
+              <td colspan="7" class="empty-state">Cargando pozos…</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="button-container1">
+        <button class="btn" onclick="menumain()" id="backBtn">
+          <i class="fa-solid fa-arrow-left"></i>
+          Regresar
+        </button>
+      </div>
+
     </div>
 
-    <div class="button-container1">
-      <!-- Botón de Regresar -->
-      <button class="btn" onclick="menumain()" id="backBtn">
-          Regresar
-      </button>
+  </div><!-- /.page-content -->
 
-    
+  <footer>
+    <small>
+      <i class="fa-regular fa-copyright"></i>
+      Software desarrollado por el Instituto Interamericano de Tecnología y Ciencias del Agua.
+    </small>
+  </footer>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Llamada a la API REST para obtener los datos
-            fetch('http://localhost:8080/api/lista_pozos')
-                .then(response => response.json())
-                .then(data => {
-                    const tableBody = document.getElementById("pozosTableBody");
-                    tableBody.innerHTML = ''; // Limpiar cualquier dato anterior en la tabla
-                    
-                    data.forEach(item => {
-                        // Crear una fila para cada registro
-                        const row = document.createElement("tr");
-                        
-                        // Insertar las celdas en la fila con los datos correspondientes
-                        row.innerHTML = `
+  <script>
+    // Guarda el listado completo tal como llega del servidor.
+    // Los filtros trabajan sobre esta copia, sin volver a pedir datos a la API.
+    let pozosData = [];
 
-                            <td style= "text-align:center">${item.l_poz_clave}</td>
-                            <td  style= "text-align:center">${item.lp_Nombre}</td>
-                            <td  style= "text-align:center">${item.lp_ramal}</td>
-                            <td  style= "text-align:center">${item.lp_Profundidad_perforación} m</td>
-                            <td  style= "text-align:center">${item.lp_Diámetro_perforación} in</td>
-                            <td >${item.lp_Diámetro_ADEME} in</td>
-                            <td  style= "text-align:center"><a href="Modificar_pozo.html?id=${item.clave_pozo}"><i class=" iconnn-cog fa fa-solid fa-pen-to-square fa-lg"></i>
+    function pintarFilas(lista) {
+      const tableBody = document.getElementById("pozosTableBody");
+      tableBody.innerHTML = '';
 
-                        `;
+      if (!lista || lista.length === 0) {
+        tableBody.innerHTML = '<tr><td colspan="7" class="empty-state">No hay pozos que coincidan con los filtros.</td></tr>';
+        return;
+      }
 
-                        // Añadir la fila al cuerpo de la tabla
-                        tableBody.appendChild(row);
-                    });
-                })
-                .catch(error => console.error(  'Error al cargar los datos:', error));
+      lista.forEach(item => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${item.l_poz_clave}</td>
+          <td>${item.lp_Nombre}</td>
+          <td>${item.lp_ramal}</td>
+          <td>${item.lp_Profundidad_perforación} m</td>
+          <td>${item.lp_Diámetro_perforación} in</td>
+          <td>${item.lp_Diámetro_ADEME} in</td>
+          <td>
+            <a href="Modificar_pozo.html?id=${item.clave_pozo}" title="Editar pozo">
+              <i class="fa-solid fa-pen-to-square action-icon"></i>
+            </a>
+          </td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    // Lee un input de rango: si está vacío devuelve null (sin límite),
+    // si tiene un valor lo convierte a número.
+    function leerLimite(id) {
+      const raw = document.getElementById(id).value.trim();
+      if (raw === '') return null;
+      const num = parseFloat(raw);
+      return isNaN(num) ? null : num;
+    }
+
+    // Revisa si un valor numérico cae dentro de [min, max].
+    // min o max en null significa "sin límite" en ese extremo.
+    function dentroDeRango(valor, min, max) {
+      const num = parseFloat(valor);
+      if (isNaN(num)) return false;
+      if (min !== null && num < min) return false;
+      if (max !== null && num > max) return false;
+      return true;
+    }
+
+    function aplicarFiltros() {
+      const profMin = leerLimite('filtroProfundidadMin');
+      const profMax = leerLimite('filtroProfundidadMax');
+      const diamPerfMin = leerLimite('filtroDiamPerfMin');
+      const diamPerfMax = leerLimite('filtroDiamPerfMax');
+      const ademeMin = leerLimite('filtroAdemeMin');
+      const ademeMax = leerLimite('filtroAdemeMax');
+
+      const filtrados = pozosData.filter(item => {
+        if ((profMin !== null || profMax !== null) &&
+            !dentroDeRango(item.lp_Profundidad_perforación, profMin, profMax)) {
+          return false;
+        }
+        if ((diamPerfMin !== null || diamPerfMax !== null) &&
+            !dentroDeRango(item.lp_Diámetro_perforación, diamPerfMin, diamPerfMax)) {
+          return false;
+        }
+        if ((ademeMin !== null || ademeMax !== null) &&
+            !dentroDeRango(item.lp_Diámetro_ADEME, ademeMin, ademeMax)) {
+          return false;
+        }
+        return true;
+      });
+
+      pintarFilas(filtrados);
+    }
+
+    function limpiarFiltros() {
+      ['filtroProfundidadMin', 'filtroProfundidadMax',
+       'filtroDiamPerfMin', 'filtroDiamPerfMax',
+       'filtroAdemeMin', 'filtroAdemeMax'].forEach(id => {
+        document.getElementById(id).value = '';
+      });
+      pintarFilas(pozosData);
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      fetch('http://localhost:8080/api/lista_pozos')
+        .then(response => response.json())
+        .then(data => {
+          pozosData = data || [];
+          pintarFilas(pozosData);
+        })
+        .catch(error => {
+          console.error('Error al cargar los datos:', error);
+          const tableBody = document.getElementById("pozosTableBody");
+          tableBody.innerHTML = '<tr><td colspan="7" class="empty-state">No se pudo cargar el listado de pozos.</td></tr>';
         });
-    </script>
 
-<footer>
-  <small>
-    <div class="leyenda"> &copy; Software desarrollado por el Instituto Interamericano de Tecnología y Ciencias del Agua.</span>
-  </small>
-</footer>
-  
+      document.getElementById('aplicarFiltrosBtn').addEventListener('click', aplicarFiltros);
+      document.getElementById('limpiarFiltrosBtn').addEventListener('click', limpiarFiltros);
+
+      // Permite presionar Enter dentro de cualquier campo de filtro para aplicarlo
+      document.querySelectorAll('.filter-range input').forEach(input => {
+        input.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            aplicarFiltros();
+          }
+        });
+      });
+    });
+  </script>
+
 </body>
 </html>
