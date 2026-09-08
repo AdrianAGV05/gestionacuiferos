@@ -1,74 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listado de Operadores</title>
+    <title>Listado de Operadores - XibalbaData</title>
+    
+    <link rel="stylesheet" href="CSS/Menu_MAIN.css">
+    
     <script src="https://kit.fontawesome.com/7f2bc339d8.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/sweetalert2@9.5.3/dist/sweetalert2.all.min.js"></script> 
-
-    <link rel="stylesheet" href="css/Menu_MAIN.css">
-    <script src="js/script.js"></script>
-
+    <script src="js/script.js" defer></script>
 </head>
-<header>
-  <a href="Menu_MAIN.html">
-    <i class="fa-solid fa-house" style="color: aliceblue; margin-left: 1200px" ></i>
-  </a>
-  Inicio
-  <a href="index.html">   
-    <i class="fa-solid fa-right-from-bracket" style="color: aliceblue; "></i>
-  </a>
-  Salir
-</div>
-</header>
 <body onload="cargaoperadores()">
-    
-    <table border="1" cellpadding="15" class="tabla">
-    <table border="1" cellpadding="15" class="tabla">
-        <caption><h2>Listado de operadores </h2> 
-          
-            Agregar Operador
-            <a href="Nuevo_operador.html"><i class="fa-solid fa-user-plus" style="color: rgb(27, 91, 227);"></i></a>
-            
-        </caption>
-        <thead>
+
+  <!-- Contenedor principal que empuja el footer al fondo -->
+  <div class="page-content">
+
+    <header class="main-header">
+      <a href="Menu_MAIN.html" class="logo-box" title="Ir al menú principal">
+        <img src="img/iitca_logo.png" class="logo-img">
+      </a>
+
+      <div class="header-actions">
+        <!-- Notificaciones estilizadas como botón -->
+        <div class="notification-container">
+          <button type="button" class="nav-btn notification-btn" onclick="toggleNotifications()">
+            <i class="fa-solid fa-bell"></i>
+          </button>
+
+          <!-- Buzón de notificaciones -->
+          <div class="notification-dropdown" id="notificationDropdown">
+            <div class="notification-item">Nueva notificación 1</div>
+            <div class="notification-item">Nueva notificación 2</div>
+            <div class="notification-item">Nueva notificación 3</div>
+          </div>
+        </div>
+
+        <a href="index.html" class="nav-btn logout-link">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          Cerrar Sesión
+        </a>
+      </div>
+    </header>
+
+    <h1 class="main-title">Listado de operadores</h1>
+
+    <div class="panel">
+      
+      <div class="panel-header">
+        <h2>Operadores registrados</h2>
+        <a href="Nuevo_operador.html" class="add-btn">
+          <i class="fa-solid fa-user-plus"></i>
+          Agregar Operador
+        </a>
+      </div>
+
+      <div class="table-scroll">
+        <table class="tabla">
+          <colgroup>
+            <col width="25%">
+            <col width="30%">
+            <col width="15%">
+            <col width="20%">
+            <col width="10%">
+          </colgroup>
+          <thead>
             <tr>
-                <th>Nombre</th>
-                <th>Correo electrónico</th>
-                <th>Contraseña</th>
-                <th>Número de teléfono</th>
-                <th>Acciones</th>
+              <th>Nombre</th>
+              <th>Correo electrónico</th>
+              <th>Contraseña</th>
+              <th>Número de teléfono</th>
+              <th>Acciones</th>
             </tr>
-        </thead>
-        <tbody id="tabla-operadores">
-            <!-- Las filas de datos se generarán dinámicamente aquí -->
-        </tbody>
-    </table>
+          </thead>
+          <tbody id="tabla-operadores">
+            <!-- Las filas de datos se generarán dinámicamente aquí a través de tu JS -->
+          </tbody>
+        </table>
+      </div>
 
+      <div class="button-container1">
+        <button class="btn" onclick="menumain()" id="backBtn">
+            <i class="fa-solid fa-arrow-left"></i>
+            Regresar
+        </button>
+      </div>
 
-   <!--<section class="botones">
-        <article>
-            <a href="Nuevo_operador.html"><img src="img/Nuevo_usuario.jpg" width="50"></a>
-        </article>
-        
-    </section>
---> 
-    <br>
-    <div class="button-container1">
-      <!-- Botón de Regresar -->
-      <button class="btn" onclick="menumain()" id="backBtn">
-          Regresar
-      </button>
-    </div>
-     
-<footer>
-  <small>
-    <div class="leyenda"> &copy; Software desarrollado por el Instituto Interamericano de Tecnología y Ciencias del Agua.</span>
-  </small>
-</footer>
-  <!--Colocar el texto centrado y en la parte inferior de la pantlla-->
+    </div> <!-- /.panel -->
 
+  </div> <!-- /.page-content -->
+
+  <footer>
+    <small>
+      <i class="fa-regular fa-copyright"></i> 
+      Software desarrollado por el Instituto Interamericano de Tecnología y Ciencias del Agua.
+    </small>
+  </footer>
 
 </body>
 </html>

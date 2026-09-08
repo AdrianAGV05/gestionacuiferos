@@ -1,89 +1,132 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Alertas - XibalbaData</title>
+    
     <link rel="stylesheet" href="CSS/Menu_MAIN.css">
+    
     <script src="https://kit.fontawesome.com/7f2bc339d8.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/sweetalert2@9.5.3/dist/sweetalert2.all.min.js"></script> 
-
-    <script src="js/script.js"></script>
-
-    <title>Gestion de alerta</title>
+    <script src="js/script.js" defer></script>
 </head>
-<header>
-  <div >
-    <a href="Menu_MAIN.html">
-      <i class="fa-solid fa-house" style="color: aliceblue; margin-left: 1200px" ></i>
-    </a>
-    inicio
-    <a href="index.html">   
-      <i class="fa-solid fa-right-from-bracket" style="color: aliceblue"></i>
-    </a>
-    Salir
-  </div>
-</header>
 <body>
-   
-    <table border=""1" cellpadding="15" class="tabla">
-        <caption> <h2>Alertas recibidas</h2></caption>
-        <thead>
+
+  <!-- Contenedor principal que empuja el footer al fondo -->
+  <div class="page-content">
+
+    <header class="main-header">
+      <a href="Menu_MAIN.html" class="logo-box" title="Ir al menú principal">
+        <img src="img/iitca_logo.png" class="logo-img">
+      </a>
+
+      <div class="header-actions">
+        <!-- Notificaciones estilizadas como botón -->
+        <div class="notification-container">
+          <button type="button" class="nav-btn notification-btn" onclick="toggleNotifications()">
+            <i class="fa-solid fa-bell"></i>
+          </button>
+
+          <!-- Buzón de notificaciones -->
+          <div class="notification-dropdown" id="notificationDropdown">
+            <div class="notification-item">Nueva notificación 1</div>
+            <div class="notification-item">Nueva notificación 2</div>
+            <div class="notification-item">Nueva notificación 3</div>
+          </div>
+        </div>
+
+        <a href="index.html" class="nav-btn logout-link">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          Cerrar Sesión
+        </a>
+      </div>
+    </header>
+
+    <h1 class="main-title">Gestión de alertas</h1>
+
+    <div class="panel">
+      
+      <div class="panel-header">
+        <h2>Alertas recibidas</h2>
+        <a href="Agregar_nueva_alerta.html" class="add-btn">
+          <i class="fa-solid fa-square-plus"></i>
+          Capturar nueva alerta
+        </a>
+      </div>
+
+      <div class="table-scroll">
+        <table class="tabla">
+          <colgroup>
+            <col width="5%">
+            <col width="15%">
+            <col width="20%">
+            <col width="15%">
+            <col width="25%">
+            <col width="10%">
+            <col width="10%">
+          </colgroup>
+          <thead>
             <tr>
-                <th>ID</th> <!--Autoincrementable-->
-                <th>Tipo de alerta</th>
-                <th>Fecha y hora de alerta</th> <!--Fecha y hora de captura-->
-                <th>Operador</th>
-                <th>Observaciones de operador</th>
-                <th>Alerta resuelta</th>
-                <th>Capturar nueva alerta</th>
+              <th>ID</th>
+              <th>Tipo de alerta</th>
+              <th>Fecha y hora de alerta</th>
+              <th>Operador</th>
+              <th>Observaciones de operador</th>
+              <th>Alerta resuelta</th>
+              <th>Capturar alerta</th>
             </tr>
-        </thead>
-        
-        <tbody>
+          </thead>
+          <tbody>
+            <!-- Fila de ejemplo con datos rellenados -->
             <tr>
-                <td>
-                    <div>
-                        
-                    </div>
-                </td>
-                <td>
-                    
-                </td>
-                <td>
-                    <input type="datetime">
-                </td>
-                <td>
-                    
-                </td>
-                <td>
-                    <textarea name="" id="" cols="10" rows="2"></textarea>
-                </td>
-                <td>
-                  <a href="#" onclick="confirmacion3()"><i class=" icon-cog fa fa-regular fa-square-check fa-2x" title="Aceptar"></i></a>
-                    <a href="Alerta_no_resuelta.html"><i class=" iconn-cog fa fa-light fa-delete-left fa-2x" title="Cancelar"></i></a>
-                </td>
-                <td>
-                  <a href="Agregar_nueva_alerta.html"><i class=" iconnn-cog fa fa-solid fa-square-plus fa-2x" title="Agregar"></i></a>
-                </td>
+              <td>1</td>
+              <td>Nivel crítico</td>
+              <td>
+                <!-- Input modernizado a datetime-local -->
+                <input type="datetime-local" style="width: 100%; padding: 6px; border-radius: 4px; border: 1px solid #ccc; font-family: inherit; color: #333;">
+              </td>
+              <td>Usuario Ejemplo</td>
+              <td>
+                <!-- Textarea estilizado para no desbordar la tabla -->
+                <textarea style="width: 100%; padding: 6px; border-radius: 4px; border: 1px solid #ccc; font-family: inherit; color: #333; resize: vertical;" rows="2"></textarea>
+              </td>
+              <td>
+                <!-- Iconos unificados usando FontAwesome actual -->
+                <a href="#" onclick="confirmacion3()" title="Aceptar" style="margin-right: 12px;">
+                  <i class="fa-solid fa-square-check action-icon" style="color: #28a745; font-size: 1.3rem;"></i>
+                </a>
+                <a href="Alerta_no_resuelta.html" title="Cancelar">
+                  <i class="fa-solid fa-delete-left action-icon" style="color: #dc3545; font-size: 1.3rem;"></i>
+                </a>
+              </td>
+              <td>
+                <a href="Agregar_nueva_alerta.html" title="Agregar">
+                  <i class="fa-solid fa-square-plus action-icon" style="font-size: 1.3rem;"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-        </tbody>
-    </table>
+      <div class="button-container1">
+        <button class="btn" onclick="menumain()" id="backBtn">
+            <i class="fa-solid fa-arrow-left"></i>
+            Regresar
+        </button>
+      </div>
 
-    <br>
-    <div class="button-container1">
-      <!-- Botón de Regresar -->
-      <button class="btn" onclick="menumain()" id="backBtn">
-          Regresar
-      </button>
-    </div>
+    </div> <!-- /.panel -->
 
+  </div> <!-- /.page-content -->
 
-    <footer>
-      <small>
-        <div class="leyenda"> &copy; Software desarrollado por el Instituto Interamericano de Tecnología y Ciencias del Agua.</span>
-      </small>
+  <footer>
+    <small>
+      <i class="fa-regular fa-copyright"></i> 
+      Software desarrollado por el Instituto Interamericano de Tecnología y Ciencias del Agua.
+    </small>
   </footer>
-      <!--Colocar el texto centrado y en la parte inferior de la pantlla-->
 
 </body>
 </html>

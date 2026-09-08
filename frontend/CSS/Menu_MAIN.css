@@ -552,8 +552,109 @@ footer small {
   background-color: #003661;
 }
 
+
+
 /* ==========================================
-   8. RESPONSIVE
+   8. FILTROS DE BÚSQUEDA (Liquid Glass)
+   ========================================== */
+.filters {
+  display: flex;
+  flex-wrap: wrap; /* Permite que los elementos bajen a otra línea si la pantalla es pequeña */
+  align-items: flex-end; /* Alinea los botones abajo junto con los inputs */
+  gap: 20px;
+  background-color: rgba(0, 0, 0, 0.1); /* Fondo sutil para agrupar los filtros */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filter-group label {
+  font-size: 0.9rem;
+  color: #ffffff;
+  font-weight: 300;
+}
+
+.filter-range {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.filter-range span {
+  color: #ffffff;
+  font-size: 0.9rem;
+}
+
+/* Estilos de los campos numéricos (inputs) */
+.filter-range input[type="number"] {
+  width: 100px;
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.95);
+  color: #004982;
+  font-family: inherit;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.filter-range input[type="number"]:focus {
+  border-color: #00bcd4; /* Color cyan para resaltar cuando se escribe */
+  box-shadow: 0 0 6px rgba(0, 188, 212, 0.6);
+}
+
+/* Ocultar las flechas arriba/abajo por defecto de los inputs numéricos para un diseño más limpio */
+.filter-range input[type=number]::-webkit-inner-spin-button, 
+.filter-range input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+.filter-range input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* Contenedor de los botones */
+.filter-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto; /* Empuja los botones hacia la derecha */
+}
+
+/* Botón Limpiar (Transparente con borde blanco) */
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  font-size: 0.95rem;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 6px;
+  background-color: transparent;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-outline:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn-outline:active {
+  transform: scale(0.98);
+}
+
+
+/* ==========================================
+  9. RESPONSIVE
    ========================================== */
 @media (max-width: 900px) {
   .container {
