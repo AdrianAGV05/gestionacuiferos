@@ -16,66 +16,68 @@
 
 <body>
 
+  <!-- Contenedor principal para empujar el footer al fondo -->
+  <div class="page-content">
+
     <!-- Encabezado unificado -->
     <header class="main-header">
-      <div class="header-logo">
-        <h1>XibalbaData | IITCA</h1>
-      </div>
-      
-      <nav class="header-nav">
-        <button id="btn-modal-nosotros" class="nav-btn" onclick="activar()">
-          Nosotros <i class="fa-solid fa-circle-info"></i>
-        </button>
-        <button id="btn-modal-contacto" class="nav-btn" onclick="activar2()">
-          Contáctanos <i class="fa-solid fa-phone"></i>
-        </button>
-      </nav>
+      <a href="index.html" class="logo-box" title="Ir al inicio">
+        <img src="img/iitca_logo.png" class="logo-img" alt="Logo IITCA">
+      </a> 
     </header>
 
-    <!-- Modales dentro del body -->
-    <div id="myModal" class="modal">
-      <div class="modal-content">
-          <span class="close">&times;</span>
-          <h2>Acerca de XibalbaData</h2>
-          <p>Herramienta encargada de dar soporte a la toma de decisiones respecto a recursos hídricos subterráneos, con base en la gestión eficiente de información.
-            <br><br>
-            Este sistema es capaz de capturar información de forma remota en tiempo real, procesarla y desplegarla en función de las necesidades del usuario.
-          </p>
-      </div>
-    </div>
-
-    <div id="myModal2" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Información de Contacto</h2>
-            <p>Dr. Jimmy Gonzalez Becerril.
-                <br>
-                Tel. 712 178 5135
-                <br>
-                Correo: jgonzalesb011@alumno.uaemex.mx
-            </p>
-        </div>
-    </div>
-
-    <!-- Contenedor principal que centra el formulario -->
-    <main class="login-wrapper">
-        <div class="login-container">
-            <h2>Iniciar sesión</h2>
-            <form action="#" method="POST" onsubmit="event.preventDefault(); iraMenu_Main();">
-                <input type="text" id="usuario" class="input-field" placeholder="Usuario" required>
-                <input type="password" id="password" class="input-field" placeholder="Contraseña" required>
-                <button type="submit" class="btn-login">Iniciar sesión</button>
+    <!-- Contenedor principal que centra el formulario usando Flexbox -->
+    <main class="login-wrapper" style="display: flex; justify-content: center; align-items: center; flex: 1; padding: 20px;">
+        
+        <!-- Formulario adaptado al estilo Glassmorphism -->
+        <div class="panel" style="width: 100%; max-width: 420px; padding: 40px; text-align: center; margin: auto;">
+            
+            <h2 class="panel-title">Iniciar sesión</h2>
+            
+            <form action="#" method="POST" onsubmit="event.preventDefault(); iraMenu_Main();" style="display: flex; flex-direction: column; gap: 16px;">
+                
+                <input type="text" id="usuario" placeholder="Usuario" required 
+                       style="width: 100%; padding: 12px 15px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.5); font-family: inherit; color: #004982; outline: none; background-color: rgba(255, 255, 255, 0.95); font-size: 1rem;">
+                
+                <input type="password" id="password" placeholder="Contraseña" required 
+                       style="width: 100%; padding: 12px 15px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.5); font-family: inherit; color: #004982; outline: none; background-color: rgba(255, 255, 255, 0.95); font-size: 1rem;">
+                
+                <button type="submit" class="btn" style="width: 100%; justify-content: center; font-size: 1.05rem; padding: 12px; margin-top: 10px;">
+                    <i class="fa-solid fa-right-to-bracket"></i> Ingresar
+                </button>
             </form>
-            <a href="rec.contra-prueba.html" class="forgot-password">¿Olvidaste tu contraseña?</a>
+            
+            <a href="rec.contra-prueba.html" style="display: block; margin-top: 25px; font-size: 0.95rem; color: #ffffff; text-decoration: underline; font-weight: 300;">
+              ¿Olvidaste tu contraseña?
+            </a>
         </div>
     </main>
 
-    <!-- Pie de página -->
-    <footer>
-      <small>
-        <div class="leyenda">&copy; Software desarrollado por el Instituto Interamericano de Tecnología y Ciencias del Agua.</div>
-      </small>
-    </footer>
+  </div> <!-- /.page-content -->
+
+  <!-- Modales (Ocultos por defecto, listos para ser llamados si se requiere) -->
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 style="color: #004982; margin-bottom: 15px;">Acerca de XibalbaData</h2>
+        <p style="color: #333333;">Herramienta encargada de dar soporte a la toma de decisiones respecto a recursos hídricos subterráneos...</p>
+    </div>
+  </div>
+
+  <div id="myModal2" class="modal">
+      <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2 style="color: #004982; margin-bottom: 15px;">Información de Contacto</h2>
+          <p style="color: #333333;">Dr. Jimmy Gonzalez Becerril.<br>Tel. 712 178 5135</p>
+      </div>
+  </div>
+
+  <!-- Pie de página unificado -->
+  <footer>
+    <small>
+      <i class="fa-regular fa-copyright"></i> Software desarrollado por el Instituto Interamericano de Tecnología y Ciencias del Agua.
+    </small>
+  </footer>
 
 </body>
 </html>

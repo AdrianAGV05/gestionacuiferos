@@ -1,121 +1,171 @@
 <!DOCTYPE html> 
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingresar Datos de Operador - XibalbaData</title>
+    
     <link rel="stylesheet" href="CSS/Menu_MAIN.css">
+    
     <script src="https://kit.fontawesome.com/7f2bc339d8.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/sweetalert2@9.5.3/dist/sweetalert2.all.min.js"></script> 
-    <script src="js/script.js"></script>
-
-
-
-    <title>Ingresar Datos de Operador</title>
+    <script src="js/script.js" defer></script>
 </head>
-<header>
-  <a href="Menu_MAIN.html">
-    <i class="fa-solid fa-house" style="color: aliceblue; margin-left: 1200px" ></i>
-  </a>
-  inicio
-  <a >   
-    <i class="fa-solid fa-right-from-bracket"></i>
-  </a>
-  Salir
-</div>
-</header>
 <body>
     
-    <table border="1" cellpadding="15" class="tabla">
-        <caption><h2>Ingresar datos de operador</h2></caption>
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Correo electrónico</th>
-                <th>Contraseña</th>
-                <th>Número de teléfono</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    <input type="text" id="nombre" name="nombre" required>
-                </td>
-                <td>
-                    <input type="email" id="correo" name="correo" required>
-                </td>
-                <td>
-                    <input type="password" id="contrasena" name="contrasena" required>
-                </td>
-                <td>
-                    <input type="text" id="telefono" name="telefono" required>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+  <div class="page-content">
 
-    <br>
-    <div class="button-container1">
-      <!-- Botón de Regresar -->
-      <button class="btn" onclick="listadoOperadores()" id="backBtn">
-          Regresar
-      </button>
-        <!-- Botón de Regresar -->
-        <button class="btn" onclick="guardarOperador()" id="backBtn">
-            Aceptar
+    <header class="main-header">
+      <a href="Menu_MAIN.html" class="logo-box" title="Ir al menú principal">
+        <img src="img/iitca_logo.png" class="logo-img">
+      </a>
+
+      <div class="header-actions">
+        <!-- Notificaciones estilizadas como botón -->
+        <div class="notification-container">
+          <button type="button" class="nav-btn notification-btn" onclick="toggleNotifications()">
+            <i class="fa-solid fa-bell"></i>
+          </button>
+
+          <!-- Buzón de notificaciones -->
+          <div class="notification-dropdown" id="notificationDropdown">
+            <div class="notification-item">Nueva notificación 1</div>
+            <div class="notification-item">Nueva notificación 2</div>
+            <div class="notification-item">Nueva notificación 3</div>
+          </div>
+        </div>
+
+        <a href="index.html" class="nav-btn logout-link">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          Cerrar Sesión
+        </a>
+      </div>
+    </header>
+
+    <h1 class="main-title">Ingresar datos de operador</h1>
+
+    <div class="panel">
+      
+      <div class="panel-header">
+        <h2>Registro de nuevo operador</h2>
+      </div>
+
+      <div class="table-scroll">
+        <table class="tabla">
+          <colgroup>
+            <col width="25%">
+            <col width="30%">
+            <col width="20%">
+            <col width="25%">
+          </colgroup>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Correo electrónico</th>
+              <th>Contraseña</th>
+              <th>Número de teléfono</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <input type="text" id="nombre" name="nombre" placeholder="Nombre completo" required style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc; font-family: inherit; color: #004982; outline: none;">
+              </td>
+              <td>
+                <input type="email" id="correo" name="correo" placeholder="ejemplo@correo.com" required style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc; font-family: inherit; color: #004982; outline: none;">
+              </td>
+              <td>
+                <input type="password" id="contrasena" name="contrasena" placeholder="********" required style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc; font-family: inherit; color: #004982; outline: none;">
+              </td>
+              <td>
+                <input type="text" id="telefono" name="telefono" placeholder="10 dígitos" required style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc; font-family: inherit; color: #004982; outline: none;">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="button-container1">
+        <!-- Botón de Regresar (Secundario) -->
+        <button class="btn" onclick="listadoOperadores()" id="backBtn">
+          <i class="fa-solid fa-arrow-left"></i> Regresar
         </button>
-    
-    <script>
-        function guardarOperador() {
-            // Obtener los valores de los campos
-            const nombre = document.getElementById('nombre').value;
-            const correo = document.getElementById('correo').value;
-            const contrasena = document.getElementById('contrasena').value;
-            const telefono = document.getElementById('telefono').value;
-            if (
-                nombre == "" || correo== "" || contrasena== "" || telefono== ""  
-            ) {
-                swal.fire ("Los campos no pueden estar vacios");
-                return;
-            }
-            // Crear el objeto con los datos
-            const nuevoOperador = {
-                o_nombre: nombre,
-                o_correo: correo,
-                o_contrasena: contrasena,
-                o_telefono: telefono
-            };
+        <!-- Botón de Aceptar (Principal) -->
+        <button class="btn" onclick="guardarOperador()" id="saveBtn">
+          <i class="fa-solid fa-floppy-disk"></i> Guardar Operador
+        </button>
+      </div>
 
-            // Enviar los datos al servidor utilizando una solicitud POST
-            fetch('http://localhost:8080/api/operadores', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(nuevoOperador)
-            })
-            .then(response => response.json())
-            .then(data => {
-               Swal.fire({
-    title:'Operador agregado con éxito',
-    icon:'success',
-    timer: 3000
-  })
-  setTimeout(() => {
-    console.log("6 Segundo esperado")
-    document.location = "Listado_Operadores.html";
-  }, 3500);
-                // Redirigir a otra página si es necesario
-                //window.location.href = 'operador_agregado.html';//
-            })
-            .catch(error => console.error('Error al insertar datos:', error));
-        }
-    </script>
-     <footer>
-      <small>
-        <div class="leyenda"> &copy; Software desarrollado por el Instituto Interamericano de Tecnología y Ciencias del Agua.</span>
-      </small>
+    </div> <!-- /.panel -->
+
+  </div> <!-- /.page-content -->
+
+  <footer>
+    <small>
+      <i class="fa-regular fa-copyright"></i> 
+      Software desarrollado por el Instituto Interamericano de Tecnología y Ciencias del Agua.
+    </small>
   </footer>
-      <!--Colocar el texto centrado y en la parte inferior de la pantlla-->
+
+  <script>
+    function guardarOperador() {
+        // Obtener los valores de los campos y eliminar espacios en blanco
+        const nombre = document.getElementById('nombre').value.trim();
+        const correo = document.getElementById('correo').value.trim();
+        const contrasena = document.getElementById('contrasena').value.trim();
+        const telefono = document.getElementById('telefono').value.trim();
+
+        // Validación visual usando SweetAlert
+        if (!nombre || !correo || !contrasena || !telefono) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Campos incompletos',
+                text: 'Por favor, llene todos los campos antes de guardar.'
+            });
+            return;
+        }
+
+        // Crear el objeto con los datos
+        const nuevoOperador = {
+            o_nombre: nombre,
+            o_correo: correo,
+            o_contrasena: contrasena,
+            o_telefono: telefono
+        };
+
+        // Enviar los datos al servidor 
+        fetch('http://localhost:8080/api/operadores', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(nuevoOperador)
+        })
+        .then(response => {
+            if(!response.ok) throw new Error("Error en la petición");
+            return response.json();
+        })
+        .then(data => {
+            // Mostrar éxito y redirigir dinámicamente al cerrar
+            Swal.fire({
+                title: '¡Operador agregado con éxito!',
+                icon: 'success',
+                timer: 3000,
+                showConfirmButton: true
+            }).then(() => {
+                document.location = "Listado_operadores.html";
+            });
+        })
+        .catch(error => {
+            console.error('Error al insertar datos:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error de servidor',
+                text: 'Hubo un problema al guardar el operador. Intente nuevamente.'
+            });
+        });
+    }
+  </script>
 
 </body>
 </html>

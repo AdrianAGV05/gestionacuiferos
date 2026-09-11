@@ -1,181 +1,190 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar datos de pozo - XibalbaData</title>
+    
     <link rel="stylesheet" href="CSS/Menu_MAIN.css">
-    <script src="https://unpkg.com/sweetalert2@9.5.3/dist/sweetalert2.all.min.js"></script> 
-    <script src="js/script.js"></script>
+    
     <script src="https://kit.fontawesome.com/7f2bc339d8.js" crossorigin="anonymous"></script>
-    <title>Modificar datos de pozo</title>
+    <script src="https://unpkg.com/sweetalert2@9.5.3/dist/sweetalert2.all.min.js"></script> 
+    <script src="js/script.js" defer></script>
 </head>
-<header>
-  <div >
-    <a href="Menu_MAIN.html">
-        <i class="fa-solid fa-house" style="color: aliceblue; margin-left: 1200px" ></i>
-      </a>
-      Inicio
-      <a href="index.html">   
-        <i class="fa-solid fa-right-from-bracket" style="color: aliceblue; "></i>
-      </a>
-      Salir
-  </div>
-</header>
 <body>
-    <table border="1" cellpadding="15" class="tabla">
-        <caption> <h2>Modificar datos de pozo</h2> </caption>
-        <thead>
+
+  <div class="page-content">
+
+    <!-- Header estandarizado -->
+    <header class="main-header">
+      <a href="Menu_MAIN.html" class="logo-box" title="Ir al menú principal">
+        <img src="img/iitca_logo.png" class="logo-img" alt="Logo IITCA">
+      </a>
+      
+      <div class="header-actions">
+        <a href="Menu_MAIN.html" class="nav-btn">
+          <i class="fa-solid fa-house"></i>
+          Inicio
+        </a>
+        <a href="index.html" class="nav-btn logout-link">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          Salir
+        </a>
+      </div>
+    </header>
+
+    <h1 class="main-title">Modificar datos de pozo</h1>
+
+    <div class="panel">
+      
+      <div class="panel-header">
+        <h2>Edición de parámetros</h2>
+      </div>
+
+      <div class="table-scroll">
+        <table class="tabla">
+          <colgroup>
+            <col width="10%">
+            <col width="12%">
+            <col width="12%">
+            <col width="15%">
+            <col width="11%">
+            <col width="11%">
+            <col width="11%">
+            <col width="18%">
+          </colgroup>
+          <thead>
             <tr>
-                <th>Clave de pozo</th>
-                <th>Nombre del pozo</th>
-                <th>Ramal</th>
-                <th>Ubicación</th>
-                <th>Profundidad de perforación</th>
-                <th>Diámetro de perforación</th>
-                <th>Diámetro de ADEME</th>
-                <th>Documentos del pozo</th>
+              <th>Clave de pozo</th>
+              <th>Nombre del pozo</th>
+              <th>Ramal</th>
+              <th>Ubicación</th>
+              <th>Profundidad de perforación</th>
+              <th>Diámetro de perforación</th>
+              <th>Diámetro de ADEME</th>
+              <th>Documentos del pozo</th>
             </tr>
-        </thead>
-
-        <tbody>
+          </thead>
+          <tbody>
             <tr>
-                <td>
-                    <script>
-                        document.addEventListener("DOMContentLoaded", function() {
-                            // Llamada a la API REST para obtener los datos
-                            fetch('http://localhost:8080/api/lista_pozos')
-                                .then(response => response.json())
-                                .then(data => {
-                                    const dropdown = document.getElementById("dropdown");
-                                    dropdown.innerHTML = ''; // Limpiar opciones anteriores
-                                    data.forEach(item => {
-                                        const option = document.createElement("option");
-                                        option.value = item.l_poz_clave;
-                                        option.textContent = item.l_poz_clave;
-                                        dropdown.appendChild(option);
-                                    });
-                                })
-                                .catch(error => console.error('Error al cargar datos:', error));
-                        });
-                    </script>
-                    <form>
-                        <label for="dropdown"></label>
-                        <select id="dropdown" name="dropdown">
-                            <option value=""></option>
-                        </select>
-                    </form>
-                </td>
+              <!-- Dropdown de Clave de Pozo -->
+              <td>
+                <select id="dropdown" name="dropdown" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc; font-family: inherit; color: #004982; outline: none; background-color: white;">
+                  <option value="">Cargando...</option>
+                </select>
+              </td>
 
-                <td>
-                    <input type="text">
-                </td>
-                <td>
-                    <input type="text">
-                </td>
-                <td>
-                    <article>
-                        <input type="file">
-                    </article>
-                    <article>
-                        <label>Descripción</label>
-                        <textarea></textarea>
-                    </article>
-                </td>
-                <td>
-                    <h4>Metros:</h4>
-    
-                        <input type="range" min="30" max="250" value="50" class="slider" id="myRange">
-                        <p>Valor seleccionado: <span id="valor">50</span></p>
+              <!-- Nombre y Ramal -->
+              <td>
+                <input type="text" placeholder="Nombre" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc; font-family: inherit; color: #004982; outline: none;">
+              </td>
+              <td>
+                <input type="text" placeholder="Ramal" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc; font-family: inherit; color: #004982; outline: none;">
+              </td>
 
-                        <script>
-                            const sliderProfundidadPerforacion = document.getElementById("myRange");
-                            const outputProfundidadPerforacion = document.getElementById("valor");
+              <!-- Ubicación -->
+              <td>
+                <article style="display: flex; flex-direction: column; gap: 8px;">
+                  <input type="file" style="font-size: 0.8rem; width: 100%;">
+                  <label style="font-size: 0.85rem; color: #555; text-align: left;">Descripción</label>
+                  <textarea rows="2" style="width: 100%; padding: 6px; border-radius: 4px; border: 1px solid #ccc; font-family: inherit; color: #333; resize: vertical;"></textarea>
+                </article>
+              </td>
 
-                            // Mostrar el valor inicial
-                            outputProfundidadPerforacion.textContent = sliderProfundidadPerforacion.value;
+              <!-- Sliders -->
+              <td>
+                <h4 style="margin-bottom: 5px; color: #333; font-weight: normal; font-size: 0.9rem;">Metros:</h4>
+                <input type="range" min="30" max="250" value="50" class="slider" id="myRange" style="width: 100%;">
+                <p style="margin-top: 5px; font-size: 0.85rem; color: #555;">Valor: <span id="valor" style="color: #004982; font-weight: bold;">50</span></p>
+              </td>
+              <td>
+                <h4 style="margin-bottom: 5px; color: #333; font-weight: normal; font-size: 0.9rem;">Pulgadas:</h4>
+                <input type="range" min="10" max="40" value="20" class="slider" id="myRange1" style="width: 100%;">
+                <p style="margin-top: 5px; font-size: 0.85rem; color: #555;">Valor: <span id="valor1" style="color: #004982; font-weight: bold;">20</span></p>
+              </td>
+              <td>
+                <h4 style="margin-bottom: 5px; color: #333; font-weight: normal; font-size: 0.9rem;">Pulgadas:</h4>
+                <input type="range" min="10" max="40" value="20" class="slider" id="myRange2" style="width: 100%;">
+                <p style="margin-top: 5px; font-size: 0.85rem; color: #555;">Valor: <span id="valor2" style="color: #004982; font-weight: bold;">20</span></p>
+              </td>
 
-                            // Actualizar el valor en tiempo real
-                            sliderProfundidadPerforacion.oninput = function() {
-                                outputProfundidadPerforacion.textContent = this.value;
-                            }
-                        </script>
-                </td>
-                <td>
-                    <h4>Pulgadas:</h4>
-    
-                        <input type="range" min="10" max="40" value="20" class="slider" id="myRange1">
-                        <p>Valor seleccionado: <span id="valor1">20</span></p>
-
-                        <script>
-                            const sliderDiametroPerforacion = document.getElementById("myRange1");
-                            const outputDiametroPerforacion = document.getElementById("valor1");
-
-                            // Mostrar el valor inicial
-                            outputDiametroPerforacion.textContent = sliderDiametroPerforacion.value;
-
-                            // Actualizar el valor en tiempo real
-                            sliderDiametroPerforacion.oninput = function() {
-                                outputDiametroPerforacion.textContent = this.value;
-                            }
-                        </script>
-                </td>
-                <td>
-                    <h4>Pulgadas:</h4>
-    
-                        <input type="range" min="10" max="40" value="20" class="slider" id="myRange2">
-                        <p>Valor seleccionado: <span id="valor2">20</span></p>
-
-                        <script>
-                            const sliderDiametroAdeme = document.getElementById("myRange2");
-                            const outputDiametroAdeme = document.getElementById("valor2");
-
-                            // Mostrar el valor inicial
-                            outputDiametroAdeme.textContent = sliderDiametroAdeme.value;
-
-                            // Actualizar el valor en tiempo real
-                            sliderDiametroAdeme.oninput = function() {
-                                outputDiametroAdeme.textContent = this.value;
-                            }
-                        </script>
-                </td>
-                <td>
-                    <article>
-                        <input type="file">
-                    </article>
-                        <!--"!"Ingrese documentos históricos del pozo en formato PDF o TXT-->
-                    <article>
-                        <label>Descripción</label>
-                        <textarea></textarea>
-                    <!--"!"Describa brevemente el contenido del documento-->
-                    </article>
-                    <article>
-                        <a href=""><img src="img/Agregar_documento.png" width="50"></a>
-                        <!--Duplicar opciones para cargar documento-->
-                    </article>
-                </td>
+              <!-- Documentos -->
+              <td>
+                <article style="display: flex; flex-direction: column; gap: 8px;">
+                  <input type="file" title="Ingrese documentos históricos en PDF o TXT" style="font-size: 0.8rem; width: 100%;">
+                  <label style="font-size: 0.85rem; color: #555; text-align: left;">Descripción</label>
+                  <textarea rows="2" title="Describa brevemente el contenido del documento" style="width: 100%; padding: 6px; border-radius: 4px; border: 1px solid #ccc; font-family: inherit; color: #333; resize: vertical;"></textarea>
+                  <a href="#" title="Agregar otro documento" style="align-self: center; margin-top: 5px;">
+                    <i class="fa-solid fa-file-circle-plus action-icon" style="font-size: 1.8rem;"></i>
+                  </a>
+                </article>
+              </td>
             </tr>
-        </tbody>
-    </table>
-   
-<br>
-    <div class="button-container1">
-      <!-- Botón de Regresar -->
-      <button class="btn" onclick="listadopozo()" id="backBtn">
-          Regresar
-      </button>
+          </tbody>
+        </table>
+      </div>
 
-      <!-- Botón de Avanzar -->
-      <button class="btn" onclick="modificaciondatos()" >
-          Continuar
-      </button>
-  </div>
-    <footer>
-      <small>
-        <div class="leyenda"> &copy; Software desarrollado por el Intituto Interamericano de Tecnología y Ciencias del Agua.</span>
-      </small>
+      <div class="button-container1">
+        <!-- Botón de Regresar (Estilo secundario transparente) -->
+        <button class="btn" onclick="listadopozo()" id="backBtn">
+          <i class="fa-solid fa-arrow-left"></i> Regresar
+        </button>
+        <!-- Botón de Guardar (Estilo primario sólido) -->
+        <button class="btn" onclick="modificaciondatos()" id="forwardBtn">
+          <i class="fa-solid fa-floppy-disk"></i> Continuar
+        </button>
+      </div>
+
+    </div> <!-- /.panel -->
+
+  </div> <!-- /.page-content -->
+
+  <footer>
+    <small>
+      <i class="fa-regular fa-copyright"></i> 
+      Software desarrollado por el Instituto Interamericano de Tecnología y Ciencias del Agua.
+    </small>
   </footer>
-      <!--Colocar el texto centrado y en la parte inferior de la pantlla-->
 
+  <!-- Unificación de lógica de JavaScript al final del documento -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // 1. Llamada a la API REST para cargar el Dropdown de pozos
+        fetch('http://localhost:8080/api/lista_pozos')
+            .then(response => response.json())
+            .then(data => {
+                const dropdown = document.getElementById("dropdown");
+                dropdown.innerHTML = '<option value="">Seleccione un pozo</option>';
+                data.forEach(item => {
+                    const option = document.createElement("option");
+                    option.value = item.l_poz_clave;
+                    option.textContent = item.l_poz_clave;
+                    dropdown.appendChild(option);
+                });
+            })
+            .catch(error => {
+                console.error('Error al cargar datos:', error);
+                document.getElementById("dropdown").innerHTML = '<option value="">Error de conexión</option>';
+            });
+
+        // 2. Control de Sliders unificado
+        function bindSlider(sliderId, outputId) {
+            const slider = document.getElementById(sliderId);
+            const output = document.getElementById(outputId);
+            
+            if (slider && output) {
+                output.textContent = slider.value;
+                slider.addEventListener('input', function() {
+                    output.textContent = this.value;
+                });
+            }
+        }
+
+        bindSlider("myRange", "valor");   // Profundidad
+        bindSlider("myRange1", "valor1"); // Diámetro perforación
+        bindSlider("myRange2", "valor2"); // Diámetro ADEME
+    });
+  </script>
 
 </body>
 </html>

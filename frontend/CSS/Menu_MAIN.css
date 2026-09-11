@@ -55,7 +55,7 @@ body {
   font-weight: 100;
   font-size: 2.3rem;
   margin: 25px 0 10px 0;
-  text-shadow: 4px 4px 6px rgb(0, 2, 27); /* Agrega la sombra aquí */
+  text-shadow: 2px 2px 4px rgb(0, 2, 27); /* Agrega la sombra aquí */
 }
 
 /* ==========================================
@@ -430,6 +430,13 @@ footer small {
   color: #ffffff; /* Texto general en blanco para buen contraste */
 }
 
+.panel-title {
+  font-size: 1.8rem;
+  font-weight: 100;
+  margin-bottom: 20px;
+  color: #ffffff; /* Título en blanco */
+}
+
 .panel-header {
   display: flex;
   justify-content: space-between;
@@ -529,6 +536,7 @@ footer small {
 .button-container1 {
   display: flex;
   justify-content: center;
+  gap: 12px;
   padding: 24px 0 4px 0;
 }
 
@@ -536,7 +544,7 @@ footer small {
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   padding: 10px 22px;
   font-size: 0.95rem;
   border: 1px solid rgba(255, 255, 255, 0.3);
@@ -686,4 +694,10 @@ footer small {
     font-size: 0.8rem;
     padding: 8px 6px;
   }
+}
+
+.panel-actions {
+  display: flex;
+  gap: 12px; 
+  align-items: center;
 }

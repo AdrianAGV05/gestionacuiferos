@@ -20,11 +20,6 @@
           <td>${item.lp_Profundidad_perforación} m</td>
           <td>${item.lp_Diámetro_perforación} in</td>
           <td>${item.lp_Diámetro_ADEME} in</td>
-          <td>
-            <a href="Modificar_pozo.html?id=${item.clave_pozo}" title="Editar pozo">
-              <i class="fa-solid fa-pen-to-square action-icon"></i>
-            </a>
-          </td>
         `;
         tableBody.appendChild(row);
       });

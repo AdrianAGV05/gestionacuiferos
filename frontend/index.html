@@ -4,83 +4,99 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Inicio - XibalbaData</title>
     
     <link rel="stylesheet" href="css/Menu_MAIN.css"> 
     
-    <title>XibalbaData</title>
-    
-    <script src="js/script.js" defer></script>
     <script src="https://kit.fontawesome.com/7f2bc339d8.js" crossorigin="anonymous"></script>
+    <script src="js/script.js" defer></script>
 </head>
 <body>
 
-<header class="main-header">
-  <div class="header-logo">
-    <h1>XibalbaData | IITCA</h1>
-  </div>
-  
-  <nav class="header-nav">
-    <a href="inicio_sesion.html" class="nav-btn">
-      Acceder <i class="fas fa-check"></i>
-    </a>
-    <a href="nvo-usuario-prueba.html" class="nav-btn">
-      Registrarse <i class="fa-solid fa-pencil"></i>
-    </a>
-    <button id="btn-modal-nosotros" class="nav-btn" onclick="activar()">
-      Nosotros <i class="fa-solid fa-circle-info"></i>
-    </button>
-    <button id="btn-modal-contacto" class="nav-btn" onclick="activar2()">
-      Contactanos <i class="fa-solid fa-phone"></i>
-    </button>
-  </nav>
-</header>
-  
-<div id="myModal" class="modal">
-  <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2>Acerca de XibalbaData</h2>
-      <p>Herramienta encargada de dar soporte a la toma de decisones respecto a recursos hídricos subterráneos, con base en la gestión eficiente de información.
-        <br>
-        Este sistema es capaz de capturar información de forma remota en tiempo real, procesarla y desplegarla en función de las necesidades del usuario.
-      </p>
-  </div>
-</div>
+  <!-- Contenedor principal para empujar el footer al fondo -->
+  <div class="page-content">
 
-<div id="myModal2" class="modal">
+    <header class="main-header">
+      <a href="index.html" class="logo-box" title="Inicio">
+        <img src="img/iitca_logo.png" class="logo-img" alt="Logo IITCA">
+      </a>
+      
+      <nav class="header-actions">
+        <a href="inicio_sesion.html" class="nav-btn">
+          <i class="fa-solid fa-user-check"></i> Acceder
+        </a>
+        <a href="nvo-usuario-prueba.html" class="nav-btn">
+          <i class="fa-solid fa-user-plus"></i> Registrarse
+        </a>
+        <button id="btn-modal-nosotros" class="nav-btn" onclick="activar()" style="background-color: transparent; color: #004982;">
+          <i class="fa-solid fa-circle-info"></i> Nosotros
+        </button>
+        <button id="btn-modal-contacto" class="nav-btn" onclick="activar2()" style="background-color: transparent; color: #004982;">
+          <i class="fa-solid fa-phone"></i> Contáctanos
+        </button>
+      </nav>
+    </header>
+      
+    <h1 class="main-title">XibalbaData | IITCA</h1>
+
+    <!-- Sección principal adaptada al panel estilo cristal -->
+    <div class="panel" style="text-align: center; max-width: 900px;">
+      
+      <div class="panel-header" style="justify-content: center; margin-bottom: 10px;">
+        <h2>Gestión de información</h2>
+      </div>
+      
+      <p style="margin-bottom: 30px; font-size: 1.05rem; color: #ffffff;">
+        El adecuado manejo de la información generada durante la extracción de aguas subterráneas permite el uso eficiente de recursos durante la operación y mantenimiento de sistemas de extracción.
+      </p>
+        
+      <div class="carousel">
+        <div class="carousel-images">
+            <img src="img/captura.jpg" alt="Captura" style="border-radius: 8px;">
+            <img src="img/procesamiento.jpg" alt="Procesamiento" style="border-radius: 8px;">
+            <img src="img/visualizacion.jpg" alt="Visualización" style="border-radius: 8px;">
+            <img src="img/gestiondatos.png" alt="Gestión de datos" style="border-radius: 8px;">
+        </div>
+        <button class="button-prev" onclick="moveSlide(-1)">&#10094;</button>
+        <button class="button-next" onclick="moveSlide(1)">&#10095;</button>
+      </div>    
+      
+    </div> <!-- /.panel -->
+
+  </div> <!-- /.page-content -->
+
+  <!-- Modales reubicados estructuralmente -->
+  <div id="myModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
-        <h2>Información de Contacto</h2>
-          <p>Dr. Jimmy Gonzalez Becerril.
-            <br>
-            Tel. 712 178 5135
-            <br>
-           Correo: jgonzalesb011@alumno.uaemex.mx
-          </p>
+        <h2 style="color: #004982; margin-bottom: 15px;">Acerca de XibalbaData</h2>
+        <p style="color: #333333;">
+          Herramienta encargada de dar soporte a la toma de decisiones respecto a recursos hídricos subterráneos, con base en la gestión eficiente de información.
+          <br><br>
+          Este sistema es capaz de capturar información de forma remota en tiempo real, procesarla y desplegarla en función de las necesidades del usuario.
+        </p>
     </div>
-</div>
+  </div>
 
-<section>
-    <h2>Gestión de información </h2>
-    <p>El adecuado manejo de la información generada durante la extracción de aguas subterráneas permite el uso eficiente de recursos durante la operación y mantenimiento de sistemas de extracción.</p>
-    <br>
-    
-    <div class="carousel">
-      <div class="carousel-images">
-          <img src="img/captura.jpg" alt="Imagen 1">
-          <img src="img/procesamiento.jpg" alt="Imagen 2">
-          <img src="img/visualizacion.jpg" alt="Imagen 3">
-          <img src="img/gestiondatos.png" alt="Imagen 4">
+  <div id="myModal2" class="modal">
+      <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2 style="color: #004982; margin-bottom: 15px;">Información de Contacto</h2>
+            <p style="color: #333333; line-height: 1.8;">
+              <b>Dr. Jimmy Gonzalez Becerril.</b>
+              <br>
+              <i class="fa-solid fa-phone" style="color: #004982; margin-right: 6px;"></i> Tel. 712 178 5135
+              <br>
+              <i class="fa-solid fa-envelope" style="color: #004982; margin-right: 6px;"></i> Correo: jgonzalesb011@alumno.uaemex.mx
+            </p>
       </div>
-      <button class="button-prev" onclick="moveSlide(-1)">&#10094;</button>
-      <button class="button-next" onclick="moveSlide(1)">&#10095;</button>
-    </div>    
-</section>
+  </div>
 
-<footer>
-  <small>
-    <div class="leyenda"> &copy; Software desarrollado por el Instituto Interamericano de Tecnología y Ciencias del Agua.</div>
-  </small>
-</footer>
+  <footer>
+    <small>
+      <i class="fa-regular fa-copyright"></i> Software desarrollado por el Instituto Interamericano de Tecnología y Ciencias del Agua.
+    </small>
+  </footer>
 
 </body>
 </html>

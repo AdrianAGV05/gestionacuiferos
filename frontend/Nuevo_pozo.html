@@ -1,166 +1,197 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Nuevo Pozo - XibalbaData</title>
+    
     <link rel="stylesheet" href="CSS/Menu_MAIN.css">
-    <script src="https://unpkg.com/sweetalert2@9.5.3/dist/sweetalert2.all.min.js"></script> 
-    <script src="js/script.js"></script>
+    
     <script src="https://kit.fontawesome.com/7f2bc339d8.js" crossorigin="anonymous"></script>
-    <title>Agregar Nuevo Pozo</title>
+    <script src="https://unpkg.com/sweetalert2@9.5.3/dist/sweetalert2.all.min.js"></script> 
+    <script src="js/script.js" defer></script>
 </head>
-
-<header>
-  <div >
-    <a href="Menu_MAIN.html">
-        <i class="fa-solid fa-house" style="color: aliceblue; margin-left: 1200px" ></i>
-      </a>
-      Inicio
-      <a href="index.html">   
-        <i class="fa-solid fa-right-from-bracket" style="color: aliceblue; "></i>
-      </a>
-      Salir
-  </div>
-</header>
-
 <body>
 
-    <table border="1" cellpadding="15" class="tabla">
-        <caption> <h2>Agregar nuevo pozo</h2> </caption>
-        <thead>
+  <div class="page-content">
+
+    <!-- Header estandarizado -->
+    <header class="main-header">
+      <a href="Menu_MAIN.html" class="logo-box" title="Ir al menú principal">
+        <img src="img/iitca_logo.png" class="logo-img">
+      </a>
+
+      <div class="header-actions">
+        <!-- Notificaciones estilizadas como botón -->
+        <div class="notification-container">
+          <button type="button" class="nav-btn notification-btn" onclick="toggleNotifications()">
+            <i class="fa-solid fa-bell"></i>
+          </button>
+
+          <!-- Buzón de notificaciones -->
+          <div class="notification-dropdown" id="notificationDropdown">
+            <div class="notification-item">Nueva notificación 1</div>
+            <div class="notification-item">Nueva notificación 2</div>
+            <div class="notification-item">Nueva notificación 3</div>
+          </div>
+        </div>
+
+        <a href="index.html" class="nav-btn logout-link">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          Cerrar Sesión
+        </a>
+      </div>
+    </header>
+
+    <h1 class="main-title">Agregar nuevo pozo</h1>
+
+    <div class="panel">
+      
+      <div class="panel-header">
+        <h2>Captura de parámetros</h2>
+      </div>
+
+      <div class="table-scroll">
+        <table class="tabla">
+          <colgroup>
+            <col width="15%">
+            <col width="25%">
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+          </colgroup>
+          <thead>
             <tr>
-                <th>Clave de pozo</th>
-                <th>Nombre del pozo</th>
-                <th>Profundidad de perforación</th>
-                <th>Diámetro de perforación</th>
-                <th>Diámetro de ADEME</th>
+              <th>Clave de pozo</th>
+              <th>Nombre del pozo</th>
+              <th>Profundidad de perforación</th>
+              <th>Diámetro de perforación</th>
+              <th>Diámetro de ADEME</th>
             </tr>
-        </thead>
-
-        <tbody>
+          </thead>
+          <tbody>
             <tr>
-                <td>
-                    <input type="text" id="clavePozo" required>
-                </td>
-
-                <td>
-                    <input type="text" id="nombrePozo" required>
-                </td>
-                <td>
-                    <h4>Metros:</h4>
-                    <input type="range" min="30" max="250" value="50" class="slider" id="profundidad">
-                    <p>Valor seleccionado: <span id="valorProfundidad">50</span></p>
-                </td>
-                <td>
-                    <h4>Pulgadas:</h4>
-                    <input type="range" min="10" max="40" value="20" class="slider" id="diametroPerforacion">
-                    <p>Valor seleccionado: <span id="valorDiametroPerforacion">20</span></p>
-                </td>
-                <td>
-                    <h4>Pulgadas:</h4>
-                    <input type="range" min="10" max="40" value="20" class="slider" id="diametroADEME">
-                    <p>Valor seleccionado: <span id="valorDiametroADEME">20</span></p>
-                </td>
+              <td>
+                <input type="text" id="clavePozo" placeholder="Ej. PZ-01" required style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc; font-family: inherit; color: #004982; outline: none;">
+              </td>
+              <td>
+                <input type="text" id="nombrePozo" placeholder="Nombre de identificación" required style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc; font-family: inherit; color: #004982; outline: none;">
+              </td>
+              <td>
+                <h4 style="margin-bottom: 5px; color: #333; font-weight: normal; font-size: 0.95rem;">Metros:</h4>
+                <input type="range" min="30" max="250" value="50" class="slider" id="profundidad" style="width: 100%;">
+                <p style="margin-top: 5px; font-size: 0.9rem; color: #555;">Valor: <b id="valorProfundidad" style="color: #004982;">50</b> m</p>
+              </td>
+              <td>
+                <h4 style="margin-bottom: 5px; color: #333; font-weight: normal; font-size: 0.95rem;">Pulgadas:</h4>
+                <input type="range" min="10" max="40" value="20" class="slider" id="diametroPerforacion" style="width: 100%;">
+                <p style="margin-top: 5px; font-size: 0.9rem; color: #555;">Valor: <b id="valorDiametroPerforacion" style="color: #004982;">20</b> in</p>
+              </td>
+              <td>
+                <h4 style="margin-bottom: 5px; color: #333; font-weight: normal; font-size: 0.95rem;">Pulgadas:</h4>
+                <input type="range" min="10" max="40" value="20" class="slider" id="diametroADEME" style="width: 100%;">
+                <p style="margin-top: 5px; font-size: 0.9rem; color: #555;">Valor: <b id="valorDiametroADEME" style="color: #004982;">20</b> in</p>
+              </td>
             </tr>
-        </tbody>
-    </table>
+          </tbody>
+        </table>
+      </div>
 
-    <br>
-    <div class="button-container1">
-      <!-- Botón de Regresar -->
-      <button class="btn" onclick="listadopozos()" id="backBtn">
-        Regresar
-    </button>
-    
-      <!-- Botón de Avanzar -->
-      <button class="btn" onclick="guardarPozo()" id="forwardBtn">
-          Agregar
-      </button>
-    </div>
+      <div class="button-container1">
+        <!-- Botón Regresar con estilo secundario -->
+        <button class="btn" onclick="listadopozos()" id="backBtn">
+          <i class="fa-solid fa-arrow-left"></i> Regresar
+        </button>
+        <!-- Botón Agregar principal -->
+        <button class="btn" onclick="guardarPozo()" id="forwardBtn">
+          <i class="fa-solid fa-floppy-disk"></i> Agregar Pozo
+        </button>
+      </div>
 
-   
+    </div> <!-- /.panel -->
 
-    <script>
-        // Actualizar el valor de los sliders en tiempo real
-        function actualizarValorSlider(sliderId, valorId) {
-            const slider = document.getElementById(sliderId);
-            const valor = document.getElementById(valorId);
-            valor.textContent = slider.value;
+  </div> <!-- /.page-content -->
 
-            slider.oninput = function() {
-                valor.textContent = this.value;
-            };
-        }
+  <footer>
+    <small>
+      <i class="fa-regular fa-copyright"></i> 
+      Software desarrollado por el Instituto Interamericano de Tecnología y Ciencias del Agua.
+    </small>
+  </footer>
 
-        // Llamar a la función para cada slider
-        actualizarValorSlider('profundidad', 'valorProfundidad');
-        actualizarValorSlider('diametroPerforacion', 'valorDiametroPerforacion');
-        actualizarValorSlider('diametroADEME', 'valorDiametroADEME');
+  <script>
+    // Actualizar el valor de los sliders en tiempo real
+    function actualizarValorSlider(sliderId, valorId) {
+        const slider = document.getElementById(sliderId);
+        const valor = document.getElementById(valorId);
+        valor.textContent = slider.value;
 
-        // Función para guardar el nuevo pozo
-        function guardarPozo() {
-            // Obtener los valores del formulario
-            const clavePozo = document.getElementById('clavePozo').value;
-            const nombrePozo = document.getElementById('nombrePozo').value;
-            const profundidad = document.getElementById('profundidad').value;
-            const diametroPerforacion = document.getElementById('diametroPerforacion').value;
-            const diametroADEME = document.getElementById('diametroADEME').value;
-    
+        slider.oninput = function() {
+            valor.textContent = this.value;
+        };
+    }
 
-            // Validar campos obligatorios
-            if (!clavePozo || !nombrePozo) {
-                Swal.fire({
-                    icon: 'error',
-                    title: '¡Error!',
-                    text: 'Por favor, complete todos los campos obligatorios.',
-                });
-                return;
-            }
+    // Llamar a la función para cada slider
+    actualizarValorSlider('profundidad', 'valorProfundidad');
+    actualizarValorSlider('diametroPerforacion', 'valorDiametroPerforacion');
+    actualizarValorSlider('diametroADEME', 'valorDiametroADEME');
 
-            // Crear el objeto de datos a enviar
-            const pozoData = {
-                l_poz_clave: clavePozo,
-                lp_Nombre: nombrePozo,
-                lp_Profundidad_perforación: parseInt(profundidad),
-                lp_Diámetro_perforación: parseInt(diametroPerforacion),
-                lp_Diámetro_ADEME: parseInt(diametroADEME)
-            };
+    // Función para guardar el nuevo pozo
+    function guardarPozo() {
+        const clavePozo = document.getElementById('clavePozo').value.trim();
+        const nombrePozo = document.getElementById('nombrePozo').value.trim();
+        const profundidad = document.getElementById('profundidad').value;
+        const diametroPerforacion = document.getElementById('diametroPerforacion').value;
+        const diametroADEME = document.getElementById('diametroADEME').value;
 
-            // Enviar los datos al servidor
-            fetch('http://localhost:8080/api/lista_pozos', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(pozoData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Mostrar mensaje de éxito
-                Swal.fire({
-                    icon: 'success',
-                    title: '¡Éxito!',
-                    text: 'El pozo se ha guardado correctamente.',
-                });
-                document.location = 'Listado_pozos.html'
-            })
-            .catch(error => {
-                console.error('Error al guardar el pozo:', error);
-                Swal.fire({
-                    icon: 'error',
-                    title: '¡Error!',
-                    text: 'Hubo un problema al guardar el pozo.',
-                });
+        // Validar campos obligatorios
+        if (!clavePozo || !nombrePozo) {
+            Swal.fire({
+                icon: 'error',
+                title: '¡Error!',
+                text: 'Por favor, complete todos los campos obligatorios (Clave y Nombre).',
             });
+            return;
         }
-    </script>
 
-<footer>
-  <small>
-    <div class="leyenda"> &copy; Software desarrollado por el Intituto Interamericano de Tecnología y Ciencias del Agua.</span>
-  </small>
-</footer>
-  <!--Colocar el texto centrado y en la parte inferior de la pantlla-->
+        // Crear el objeto de datos a enviar
+        const pozoData = {
+            l_poz_clave: clavePozo,
+            lp_Nombre: nombrePozo,
+            lp_Profundidad_perforación: parseInt(profundidad),
+            lp_Diámetro_perforación: parseInt(diametroPerforacion),
+            lp_Diámetro_ADEME: parseInt(diametroADEME)
+        };
+
+        // Enviar los datos al servidor
+        fetch('http://localhost:8080/api/lista_pozos', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(pozoData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Un pequeño ajuste: Redirigir HASTA QUE el usuario cierre la alerta de éxito
+            Swal.fire({
+                icon: 'success',
+                title: '¡Éxito!',
+                text: 'El pozo se ha guardado correctamente.',
+            }).then(() => {
+                document.location = 'Listado_pozos.html';
+            });
+        })
+        .catch(error => {
+            console.error('Error al guardar el pozo:', error);
+            Swal.fire({
+                icon: 'error',
+                title: '¡Error!',
+                text: 'Hubo un problema al guardar el pozo.',
+            });
+        });
+    }
+  </script>
 
 </body>
 </html>
