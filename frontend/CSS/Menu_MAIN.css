@@ -33,7 +33,11 @@ html {
 
 body {
   font-family: 'Garet', Arial, sans-serif;
-  background-color: #004982;
+  background-image: url('../img/fondo_iitca.png');
+  background-size: cover;          
+  background-position: center;     
+  background-repeat: no-repeat;   
+  background-attachment: fixed;   
   color: #333333; 
   line-height: 1.6;
   min-height: 100vh;
@@ -701,3 +705,77 @@ footer small {
   gap: 12px; 
   align-items: center;
 }
+
+
+
+/* ==========================================
+   FORMULARIOS EN CUADRÍCULA (GRID)
+   ========================================== */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 30px;
+  width: 100%;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 0.95rem;
+  color: #ffffff;
+  font-weight: 300;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-family: inherit;
+  color: #004982;
+  background-color: rgba(255, 255, 255, 0.95);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #b3e5fc;
+  box-shadow: 0 0 8px rgba(179, 229, 252, 0.5);
+}
+
+/* Grupo para Select + Botón Agregar */
+.input-with-action {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.input-with-action select {
+  flex: 1; /* El select toma todo el espacio posible */
+}
+
+.action-btn {
+  color: #004982;
+  font-size: 1.6rem;
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.1s ease;
+  display: flex;
+  align-items: center;
+}
+
+.action-btn:hover {
+  color: #00243f;
+  transform: scale(1.1);
+}
+
+.form-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
