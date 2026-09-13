@@ -95,7 +95,6 @@ function cargaoperadores() {
               fila.innerHTML = `
                   <td>${operador.o_nombre}</td>
                   <td>${operador.o_correo}</td>
-                  <td>${operador.o_contrasena}</td>
                   <td>${operador.o_telefono}</td>
                   <td>
                       <a href="Modificar_operador.html?id=${operador.id}" class="edit-operador">
@@ -150,7 +149,6 @@ function cargardatos() {
   .then(data => {
       document.getElementById("nombre").value = data.o_nombre;
       document.getElementById("email").value = data.o_correo;
-      document.getElementById("pwd").value = data.o_contrasena;
       document.getElementById("tel").value = data.o_telefono;
   })
   .catch(error => console.error('Error al cargar operador:', error));
