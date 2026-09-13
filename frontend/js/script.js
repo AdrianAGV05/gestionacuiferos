@@ -93,6 +93,7 @@ function cargaoperadores() {
           data.forEach(operador => {
               const fila = document.createElement("tr");
               fila.innerHTML = `
+                  <td>${operador.o_matricula || 'N/A'}</td>
                   <td>${operador.o_nombre}</td>
                   <td>${operador.o_correo}</td>
                   <td>${operador.o_telefono}</td>
@@ -170,6 +171,7 @@ function modificacionoperador() {
   
   const actualizaOperador = {
       o_nombre: document.getElementById('nombre').value,
+      o_matricula: document.getElementById('matricula').value,
       o_correo: document.getElementById('email').value,
       o_contrasena: document.getElementById('pwd').value,
       o_telefono: document.getElementById('tel').value

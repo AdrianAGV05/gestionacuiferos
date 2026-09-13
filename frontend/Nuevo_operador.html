@@ -53,13 +53,15 @@
       <div class="table-scroll">
         <table class="tabla">
           <colgroup>
+            <col width="15%">
             <col width="25%">
             <col width="30%">
             <col width="20%">
-            <col width="25%">
+            <col width="10%">
           </colgroup>
           <thead>
             <tr>
+              <th>Matrícula</th>
               <th>Nombre</th>
               <th>Correo electrónico</th>
               <th>Contraseña</th>
@@ -70,6 +72,9 @@
             <tr>
               <td>
                 <input type="text" id="nombre" name="nombre" placeholder="Nombre completo" required style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc; font-family: inherit; color: #004982; outline: none;">
+              </td>
+              <td>
+                <input type="text" id="matricula" name="matricula" placeholder="Matricula" required style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc; font-family: inherit; color: #004982; outline: none;">
               </td>
               <td>
                 <input type="email" id="correo" name="correo" placeholder="ejemplo@correo.com" required style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc; font-family: inherit; color: #004982; outline: none;">
@@ -111,12 +116,13 @@
     function guardarOperador() {
         // Obtener los valores de los campos y eliminar espacios en blanco
         const nombre = document.getElementById('nombre').value.trim();
+        const matricula = document.getElementById('matricula').value.trim();
         const correo = document.getElementById('correo').value.trim();
         const contrasena = document.getElementById('contrasena').value.trim();
         const telefono = document.getElementById('telefono').value.trim();
 
         // Validación visual usando SweetAlert
-        if (!nombre || !correo || !contrasena || !telefono) {
+        if (!nombre || !matricula || !correo || !contrasena || !telefono) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Campos incompletos',
@@ -128,6 +134,7 @@
         // Crear el objeto con los datos
         const nuevoOperador = {
             o_nombre: nombre,
+            o_matricula: matricula,
             o_correo: correo,
             o_contrasena: contrasena,
             o_telefono: telefono
