@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear nuevo usuario - XibalbaData</title>
+    
+    <link rel="stylesheet" href="CSS/Menu_MAIN.css">
+    
+    <script src="https://kit.fontawesome.com/7f2bc339d8.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert2@9.5.3/dist/sweetalert2.all.min.js"></script> 
+    <script src="js/script.js" defer></script>
+</head>
+<body>
+
+  <div class="page-content">
+
+    <header class="main-header">
+      <a href="Menu_MAIN.html" class="logo-box" title="Ir al menú principal">
+        <img src="img/iitca_logo.png" class="logo-img">
+      </a>
+
+      <div class="header-actions">
+        <!-- Notificaciones estilizadas como botón -->
+        <div class="notification-container">
+          <button type="button" class="nav-btn notification-btn" onclick="toggleNotifications()">
+            <i class="fa-solid fa-bell"></i>
+          </button>
+
+          <!-- Buzón de notificaciones -->
+          <div class="notification-dropdown" id="notificationDropdown">
+            <div class="notification-item">Nueva notificación 1</div>
+            <div class="notification-item">Nueva notificación 2</div>
+            <div class="notification-item">Nueva notificación 3</div>
+          </div>
+        </div>
+
+        <a href="index.html" class="nav-btn logout-link">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          Cerrar Sesión
+        </a>
+      </div>
+    </header>
+
+    <h1 class="main-title">Registro de personal</h1>
+
+    <!-- Panel de cristal ajustado para centrar el formulario -->
+    <div class="panel" style="max-width: 850px;">
+      
+      <div class="panel-header" style="justify-content: center; margin-bottom: 30px;">
+        <h2>Crear nuevo usuario</h2>
+      </div>
+
+      <!-- Formulario estructurado en CSS Grid -->
+      <form class="form-grid">
+        
+        <div class="form-group">
+          <label for="nombre">Nombre Completo</label>
+          <input type="text" id="nombre" name="nombre" required placeholder="Ingresa tu nombre completo">
+        </div>
+
+        <div class="form-group">
+          <label for="correo">Correo Electrónico</label>
+          <input type="email" id="correo" name="email" required placeholder="ejemplo@dominio.com">
+        </div>
+
+        <div class="form-group">
+          <label for="contrasena">Contraseña</label>
+          <input type="password" id="contrasena" name="contraseña" required placeholder="Ingresa contraseña">
+        </div>
+
+        <div class="form-group">
+          <label for="telefono">Número de Teléfono</label>
+          <input type="tel" id="telefono" name="telefono" required pattern="[0-9]{10}" placeholder="10 dígitos">
+        </div>
+
+        <div class="form-group">
+          <label for="tipoUsuario">Rol de Usuario</label>
+          <select id="tipoUsuario" name="tipoUsuario" required>
+              <option value="operador">Operador</option>
+              <option value="administrador">Administrador</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="Acudd">Acuífero</label>
+          <div class="input-with-action">
+            <select id="Acudd" name="Acudd">
+              <option value="">Cargando...</option>  
+            </select>
+            <a href="Captura_de_acuifero.html" class="action-btn" title="Agregar nuevo acuífero">
+              <i class="fa-solid fa-circle-plus"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="oodd">Organismo Operador</label>
+          <div class="input-with-action">
+            <select id="oodd" name="oodd">
+              <option value="">Cargando...</option>
+            </select>
+            <a href="Captura_de_OP.html" class="action-btn" title="Agregar nuevo organismo">
+              <i class="fa-solid fa-circle-plus"></i>
+            </a>
+          </div>
+        </div>
+
+      </form>
+
+      <div class="button-container1" style="margin-top: 35px;">
+        <button class="btn" onclick="window.history.back()" id="backBtn">
+          <i class="fa-solid fa-arrow-left"></i> Cancelar
+        </button>
+        <button class="btn" onclick="crearcuenta()" id="saveBtn">
+          <i class="fa-solid fa-user-check"></i> Crear Cuenta
+        </button>
+      </div>
+        
+    </div> <!-- /.panel -->
+
+  </div> <!-- /.page-content -->
+
+  <footer>
+    <small>
+      <i class="fa-regular fa-copyright"></i> 
+      Software desarrollado por el Instituto Interamericano de Tecnología y Ciencias del Agua.
+    </small>
+  </footer>
+
+  <!-- Scripts agrupados al final para mejor rendimiento -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Cargar Acuíferos
+        fetch('http://localhost:8080/api/acuifero')
+            .then(response => response.json())
+            .then(data => {
+                const Acudd = document.getElementById("Acudd");
+                Acudd.innerHTML = '<option value="">Seleccione un acuífero</option>'; 
+                data.forEach(item => {
+                    const option = document.createElement("option");
+                    option.value = item.acu_nombre;
+                    option.textContent = item.acu_nombre;
+                    Acudd.appendChild(option);
+                });
+            })
+            .catch(error => {
+                console.error('Error al cargar acuíferos:', error);
+                document.getElementById("Acudd").innerHTML = '<option value="">Error de conexión</option>';
+            });
+
+        // Cargar Organismos Operadores
+        fetch('http://localhost:8080/api/oo')
+            .then(response => response.json())
+            .then(data => {
+                const oodd = document.getElementById("oodd");
+                oodd.innerHTML = '<option value="">Seleccione un organismo</option>'; 
+                data.forEach(item => {
+                    const option = document.createElement("option");
+                    option.value = item.oo_nombre;
+                    option.textContent = item.oo_nombre;
+                    oodd.appendChild(option);
+                });
+            })
+            .catch(error => {
+                console.error('Error al cargar organismos:', error);
+                document.getElementById("oodd").innerHTML = '<option value="">Error de conexión</option>';
+            });
+    });
+  </script>
+
+</body>
+</html>

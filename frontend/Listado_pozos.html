@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="CSS/Menu_MAIN.css">
+  <title>Listado de Pozos</title>
+
+  <script src="https://kit.fontawesome.com/7f2bc339d8.js" crossorigin="anonymous"></script>
+  <script src="js/script.js" defer></script>
+  <script src="js/Listado_pozos.js" defer></script>
+</head>
+
+<body>
+
+  <div class="page-content">
+
+    <header class="main-header">
+      <a href="Menu_MAIN.html" class="logo-box" title="Ir al menú principal">
+        <img src="img/iitca_logo.png" class="logo-img">
+      </a>
+
+      <div class="header-actions">
+        <!-- Notificaciones estilizadas como botón -->
+        <div class="notification-container">
+          <button type="button" class="nav-btn notification-btn" onclick="toggleNotifications()">
+            <i class="fa-solid fa-bell"></i>
+          </button>
+
+          <!-- Buzón de notificaciones -->
+          <div class="notification-dropdown" id="notificationDropdown">
+            <div class="notification-item">Nueva notificación 1</div>
+            <div class="notification-item">Nueva notificación 2</div>
+            <div class="notification-item">Nueva notificación 3</div>
+          </div>
+        </div>
+
+        <a href="index.html" class="nav-btn logout-link">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          Cerrar Sesión
+        </a>
+      </div>
+    </header>
+
+    <h1 class="main-title">Listado de pozos</h1>
+
+    <div class="panel">
+
+      <div class="panel-header">
+        <h2>Pozos registrados</h2>
+        <div class="panel-actions">
+          <a href="Nuevo_pozo.html" class="add-btn">
+            <i class="fa-solid fa-square-plus"></i>
+            Agregar pozo
+          </a>
+          <a href="Modificar_pozo.html" class="add-btn">
+            <i class="fa-solid fa-pen-to-square"></i>
+            Editar pozos
+          </a>
+        </div>
+      </div>
+
+      <!-- Filtros de búsqueda -->
+
+
+      <div class="filters">
+        <div class="filter-group">
+          <label for="filtroProfundidadMin">Profundidad de perforación (m)</label>
+          <div class="filter-range">
+            <input type="number" id="filtroProfundidadMin" placeholder="Mín" min="0" step="any">
+            <span>a</span>
+            <input type="number" id="filtroProfundidadMax" placeholder="Máx" min="0" step="any">
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <label for="filtroDiamPerfMin">Diámetro de perforación (in)</label>
+          <div class="filter-range">
+            <input type="number" id="filtroDiamPerfMin" placeholder="Mín" min="0" step="any">
+            <span>a</span>
+            <input type="number" id="filtroDiamPerfMax" placeholder="Máx" min="0" step="any">
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <label for="filtroAdemeMin">Diámetro de ADEME (in)</label>
+          <div class="filter-range">
+            <input type="number" id="filtroAdemeMin" placeholder="Mín" min="0" step="any">
+            <span>a</span>
+            <input type="number" id="filtroAdemeMax" placeholder="Máx" min="0" step="any">
+          </div>
+        </div>
+
+        <div class="filter-actions">
+          <button type="button" class="btn-outline" id="limpiarFiltrosBtn">
+            <i class="fa-solid fa-xmark"></i>
+            Limpiar
+          </button>
+          <button type="button" class="btn" id="aplicarFiltrosBtn">
+            <i class="fa-solid fa-filter"></i>
+            Filtrar
+          </button>
+        </div>
+      </div>
+
+
+
+      <!-- Tabla de pozos -->
+
+
+      <div class="table-scroll">
+        <table class="tabla">
+          <colgroup>
+            <col width="10%">
+            <col width="12%">
+            <col width="25%">
+            <col width="24%">
+            <col width="22%">
+          </colgroup>
+          <thead>
+            <tr>
+              <th>Clave de pozo</th>
+              <th>Nombre del pozo</th>
+              <th>Ramal</th>
+              <th>Profundidad de perforación<br>en metros</th>
+              <th>Diámetro de perforación<br>en pulgadas</th>
+              <th>Diámetro de ADEME<br>en pulgadas</th>
+     
+            </tr>
+
+          </thead>
+          <tbody id="pozosTableBody">
+            <tr>
+              <td colspan="7" class="empty-state">Cargando pozos…</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="button-container1">
+        <button class="btn" onclick="menumain()" id="backBtn">
+          <i class="fa-solid fa-arrow-left"></i>
+          Regresar
+        </button>
+      </div>
+
+    </div>
+
+  </div><!-- /.page-content -->
+
+  <footer>
+    <small>
+      <i class="fa-regular fa-copyright"></i>
+      Software desarrollado por el Instituto Interamericano de Tecnología y Ciencias del Agua.
+    </small>
+  </footer>
+
+
+</body>
+</html>
