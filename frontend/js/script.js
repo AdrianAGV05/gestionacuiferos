@@ -112,27 +112,37 @@ function cargaoperadores() {
 }
 
 function borraoperador(idOperador) {
-  Swal.fire({
-      title: "¿Estas seguro?",
-      text: "Esta acción no se podra revertir!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Si, borrar!",
-      cancelButtonText: "No, cancelar!"
-  }).then((result) => {
-      if (result.value) {
-        fetch(`${API_BASE_URL}/operadores/${idOperador}`, {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' }
-        })
-        .then(response => response.json())
-        .then(() => {
-            Swal.fire("Borrado!", `El operador ha sido eliminado`, "success");
-            cargaoperadores();  
-        })
-        .catch(error => console.error('Error al borrar:', error));
-      }
-  });
+    Swal.fire({
+        title: "¿Estás seguro?",
+        text: "¡Esta acción no se podrá revertir!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Sí, borrar",
+        cancelButtonText: "No, cancelar",
+    }).then((result) => {
+        if (result.value || result.isConfirmed) {
+            fetch('http://localhost:8080/api/operadores/' + idOperador, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("No se pudo eliminar el registro en el servidor.");
+                }
+                // Si el backend devuelve texto o viene vacío:
+                return response.text();
+            })
+            .then(() => {
+                Swal.fire("¡Borrado!", "El operador ha sido eliminado correctamente.", "success");
+                //Se vuelve a consultar la lista DESPUÉS de que se borró
+                cargaoperadores();
+            })
+            .catch(error => {
+                console.error("Error al eliminar:", error);
+                Swal.fire("Error", "Ocurrió un problema al intentar eliminar el operador.", "error");
+            });
+        }
+    });
 }
 
 function cargardatos() {
