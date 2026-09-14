@@ -11,8 +11,8 @@
     <script src="https://unpkg.com/sweetalert2@9.5.3/dist/sweetalert2.all.min.js"></script> 
     <script src="js/script.js" defer></script>
 </head>
-<body onload="cargaoperadores()">
-
+<body onload="if (verificarSesion('administrador')) { cargaoperadores(); }">
+  
   <!-- Contenedor principal que empuja el footer al fondo -->
   <div class="page-content">
 

@@ -4,6 +4,109 @@
 // Declaramos la URL base de tu API una sola vez.
 const API_BASE_URL = 'http://localhost:8080/api';
 
+// ==========================================
+// INICIO DE SESIÓN
+// ==========================================
+
+// Función para procesar el login
+function iniciarSesion() {
+  const correo = document.getElementById('usuario').value.trim();
+  const contrasena = document.getElementById('password').value.trim();
+
+  if (!correo || !contrasena) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Campos vacíos',
+      text: 'Por favor ingresa tu correo y contraseña.'
+    });
+    return;
+  }
+
+  const credenciales = { correo, contrasena };
+
+  fetch('http://localhost:8080/api/usuarios/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(credenciales)
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error("Credenciales inválidas");
+    }
+    return response.json();
+  })
+  .then(usuario => {
+    // Guardar datos y rol en el almacenamiento del navegador
+    localStorage.setItem("usuario_id", usuario.id_us);
+    localStorage.setItem("usuario_nombre", usuario.nombre);
+    localStorage.setItem("usuario_correo", usuario.correo);
+    localStorage.setItem("usuario_rol", usuario.rol); // "administrador" u "operador"
+
+    Swal.fire({
+      icon: 'success',
+      title: `Nombre:, ${usuario.nombre}!`,
+      text: `Rol activo: ${usuario.rol}`,
+      timer: 1500,
+      showConfirmButton: false
+    }).then(() => {
+      document.location = 'Menu_MAIN.html';
+    });
+  })
+  .catch(error => {
+    console.error("Error al autenticar:", error);
+    Swal.fire({
+      icon: 'error',
+      title: 'Acceso denegado',
+      text: 'Correo o contraseña incorrectos.'
+    });
+  });
+}
+
+// Guardián de seguridad para proteger vistas según rol
+function verificarSesion(rolRequerido = null) {
+  const rolActual = localStorage.getItem("usuario_rol");
+
+  // 1. Si no hay sesión iniciada, expulsar directo al login
+  if (!rolActual) {
+    document.location = 'inicio_sesion.html';
+    return false;
+  }
+
+  // 2. Si requiere un rol específico y el usuario no lo cumple
+  if (rolRequerido && rolActual !== rolRequerido) {
+    // Ocultar inmediatamente el contenido sensible de la página
+    const panel = document.querySelector('.panel');
+    if (panel) {
+      panel.style.display = 'none';
+    }
+
+    Swal.fire({
+      icon: 'error',
+      title: 'Acceso Restringido',
+      text: 'No cuentas con permisos de administrador para visualizar o gestionar este módulo.',
+      width: '520px', // Aumenta el tamaño del cuadro
+      backdrop: 'rgba(0, 41, 72, 0.95)', // Fondo oscuro/azul institucional que cubre todo
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      confirmButtonText: '<i class="fa-solid fa-arrow-left"></i> Volver al Menú',
+      confirmButtonColor: '#004982'
+    }).then(() => {
+      document.location = 'Menu_MAIN.html';
+    });
+
+    return false;
+  }
+
+  return true;
+}
+
+// Función para cerrar sesión
+function cerrarSesion() {
+  localStorage.clear();
+  document.location = 'inicio_sesion.html';
+}
+
+
 
 // ==========================================
 // CARRUSEL DE IMÁGENES
@@ -191,24 +294,75 @@ function modificacionoperador() {
 }
 
 function crearcuenta() {
+  // 1. Capturar elementos por su ID exacto
+  const matriculaInput = document.getElementById('matricula');
+  const nombreInput = document.getElementById('nombre');
+  const correoInput = document.getElementById('correo');
+  const contrasenaInput = document.getElementById('contrasena');
+  const telefonoInput = document.getElementById('telefono');
+  const tipoUsuarioInput = document.getElementById('tipoUsuario');
+
+  const matricula = matriculaInput ? matriculaInput.value.trim() : '';
+  const nombre = nombreInput ? nombreInput.value.trim() : '';
+  const correo = correoInput ? correoInput.value.trim() : '';
+  const contrasena = contrasenaInput ? contrasenaInput.value.trim() : '';
+  const telefono = telefonoInput ? telefonoInput.value.trim() : '';
+  const tipoUsuario = tipoUsuarioInput ? tipoUsuarioInput.value : 'administrador';
+
+  // 2. Validación estricta en el front
+  if (!matricula || !nombre || !correo || !contrasena || !telefono) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Campos incompletos',
+      text: 'Por favor, llena todos los campos obligatorios antes de continuar.'
+    });
+    return;
+  }
+
+  // 3. Crear el JSON asegurando que us_contrasena lleve el valor capturado
   const nuevoUsuario = {
-      us_nombre: document.getElementById('nombre').value,
-      us_correo: document.getElementById('correo').value,
-      us_contrasena: document.getElementById('contrasena').value,
-      us_telefono: document.getElementById('telefono').value,
-      us_tipo: document.getElementById('tipoUsuario').value 
+    us_matricula: matricula,
+    us_nombre: nombre,
+    us_correo: correo,
+    us_contrasena: contrasena, // Aquí viaja la contraseña en texto plano para que el backend la encripte
+    us_telefono: parseInt(telefono, 10),
+    us_tipo: tipoUsuario
   };
 
-  fetch(`${API_BASE_URL}/usuarios`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(nuevoUsuario)
+  console.log("Enviando usuario al backend:", nuevoUsuario);
+
+  // 4. Petición POST al endpoint
+  fetch('http://localhost:8080/api/usuarios', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(nuevoUsuario)
   })
-  .then(response => response.json())
-  .then(() => {
-      alert('Datos enviados y en espera, la confirmación puede tardar entre uno y tres días hábiles');
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Error en la respuesta del servidor: ' + response.status);
+    }
+    return response.json();
   })
-  .catch(error => console.error('Error al crear cuenta:', error));
+  .then(data => {
+    Swal.fire({
+      icon: 'success',
+      title: '¡Cuenta creada con éxito!',
+      text: `El usuario ${nombre} ha sido registrado exitosamente.`,
+      confirmButtonColor: '#004982'
+    }).then(() => {
+      document.location = 'inicio_sesion.html';
+    });
+  })
+  .catch(error => {
+    console.error('Error al registrar usuario:', error);
+    Swal.fire({
+      icon: 'error',
+      title: 'Error al registrar',
+      text: 'No se pudo crear el usuario. Revisa la consola y los logs de Spring Boot.'
+    });
+  });
 }
 
 
