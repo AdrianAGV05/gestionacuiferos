@@ -353,7 +353,7 @@ function crearcuenta() {
       text: `El usuario ${nombre} ha sido registrado exitosamente.`,
       confirmButtonColor: '#004982'
     }).then(() => {
-      document.location = 'inicio_sesion.html';
+      document.location = 'Menu_MAIN.html';
     });
   })
   .catch(error => {

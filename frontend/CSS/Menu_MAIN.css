@@ -116,6 +116,7 @@ header {
   border-radius: 6px;
   border: 1px solid #004982;
   background-color: #004982;
+  height: 45px;
   color: #ffffff;
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.1s ease;
@@ -152,6 +153,7 @@ footer small {
   position: relative;
   display: inline-flex;
   align-items: center;
+  height: 45px;
 }
 
 .notification-count {
