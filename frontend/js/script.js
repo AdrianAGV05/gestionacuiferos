@@ -44,7 +44,7 @@ function iniciarSesion() {
 
     Swal.fire({
       icon: 'success',
-      title: `Nombre: ${usuario.nombre}!`,
+      title: `Nombre: ${usuario.nombre}`,
       text: `Rol activo: ${usuario.rol}`,
       timer: 1500,
       showConfirmButton: false
