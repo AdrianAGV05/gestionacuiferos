@@ -1,6 +1,7 @@
     // Guarda el listado completo tal como llega del servidor.
     // Los filtros trabajan sobre esta copia, sin volver a pedir datos a la API.
     const API_BASE_URL = 'https://xibalbadata-java-production.up.railway.app/api';
+    const iraMenu_Main = () => document.location = 'Menu_MAIN.html';
     let pozosData = [];
 
     function pintarFilas(lista) {
