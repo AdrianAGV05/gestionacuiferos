@@ -781,4 +781,139 @@ footer small {
   }
 
 
+/* ==========================================
+   DASHBOARDS Y HERRAMIENTAS INTERACTIVAS
+   ========================================== */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 280px 1fr; /* 280px para barra lateral, el resto para el contenido */
+  gap: 28px;
+  width: 95%;
+  max-width: 1500px;
+  margin: 15px auto 40px auto;
+  flex: 1;
+  align-items: start;
+}
+
+/* Cajas de selección múltiple */
+.custom-multi-select {
+  width: 100%;
+  height: 250px;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.5);
+  font-family: inherit;
+  color: #004982;
+  background-color: rgba(255, 255, 255, 0.95);
+  outline: none;
+  overflow-y: auto;
+}
+
+.custom-multi-select option {
+  padding: 8px 12px;
+  margin-bottom: 2px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+/* Textos de alerta (Precaución) */
+.alert-text {
+  color: #ffd54f; /* Amarillo visible sobre fondo azul */
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+/* Inputs incrustados dentro de las tablas interactivas */
+.input-table-style {
+  width: 100%;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+  font-family: inherit;
+  color: #333;
+  background: rgba(255,255,255,0.9);
+  outline: none;
+}
+
+.input-table-style:focus {
+  border-color: #00bcd4;
+  box-shadow: 0 0 5px rgba(0, 188, 212, 0.5);
+}
+
+/* Estructura para gráfica y tabla de resultados */
+.results-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr; /* Tabla ocupa 1 parte, gráfica ocupa 2 partes */
+  gap: 25px;
+  align-items: start;
+}
+
+/* Ocultar elementos dinámicos mediante JS */
+.hidden {
+  display: none !important;
+}
+
+/* ==========================================
+   RESPONSIVE PARA DASHBOARDS
+   ========================================== */
+@media (max-width: 1100px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr; /* Colapsa la barra lateral arriba */
+  }
   
+  .results-grid {
+    grid-template-columns: 1fr; /* Apila la gráfica debajo de la tabla */
+  }
+}
+
+/* ==========================================
+   7. CARRUSEL DE IMÁGENES
+   ========================================== */
+.carousel {
+  position: relative;
+  max-width: 800px;
+  margin: 20px auto;
+  overflow: hidden; /* Fundamental: oculta las imágenes que no están en turno */
+  border-radius: 8px; /* Opcional: bordes redondeados para estética */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.carousel-images {
+  display: flex;
+  flex-direction: row; /* Fuerza la alineación horizontal */
+  transition: transform 0.5s ease-in-out;
+  margin: 0; 
+  padding: 0;
+}
+
+.carousel-images img {
+  /* La magia está aquí: obliga a cada imagen a tomar el 100% del ancho sin encogerse */
+  flex: 0 0 100%;
+  width: 100%;
+  height: auto;
+  object-fit: cover; /* Evita que las imágenes se deformen */
+}
+
+/* Controles del carrusel */
+.button-prev, .button-next {
+  position: absolute;
+  top: 50%;
+  background-color: rgba(0, 73, 130, 0.7); /* Azul institucional transparente */
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 18px;
+  transform: translateY(-50%);
+  transition: background-color 0.2s ease;
+}
+
+.button-prev:hover, .button-next:hover {
+  background-color: #004982;
+}
+
+.button-prev { left: 0; border-radius: 0 4px 4px 0; }
+.button-next { right: 0; border-radius: 4px 0 0 4px; }

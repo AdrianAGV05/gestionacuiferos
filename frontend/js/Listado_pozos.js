@@ -1,5 +1,6 @@
     // Guarda el listado completo tal como llega del servidor.
     // Los filtros trabajan sobre esta copia, sin volver a pedir datos a la API.
+    const API_BASE_URL = 'https://xibalbadata-java-production.up.railway.app/api';
     let pozosData = [];
 
     function pintarFilas(lista) {
@@ -81,7 +82,7 @@
     }
 
     document.addEventListener("DOMContentLoaded", function () {
-      fetch('http://localhost:8080/api/lista_pozos')
+      fetch(`${API_BASE_URL}/lista_pozos`)
         .then(response => response.json())
         .then(data => {
           pozosData = data || [];

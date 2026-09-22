@@ -2,7 +2,7 @@
 // CONFIGURACIÓN GLOBAL
 // ==========================================
 // Declaramos la URL base de tu API una sola vez.
-const API_BASE_URL = 'http://localhost:8080/api';
+const API_BASE_URL = 'https://xibalbadata-java-production.up.railway.app/api';
 
 // ==========================================
 // INICIO DE SESIÓN
@@ -24,7 +24,7 @@ function iniciarSesion() {
 
   const credenciales = { correo, contrasena };
 
-  fetch('http://localhost:8080/api/usuarios/login', {
+  fetch(`${API_BASE_URL}/api/usuarios/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(credenciales)
@@ -44,7 +44,7 @@ function iniciarSesion() {
 
     Swal.fire({
       icon: 'success',
-      title: `Nombre:, ${usuario.nombre}!`,
+      title: `Nombre: ${usuario.nombre}!`,
       text: `Rol activo: ${usuario.rol}`,
       timer: 1500,
       showConfirmButton: false
@@ -225,7 +225,7 @@ function borraoperador(idOperador) {
         cancelButtonText: "No, cancelar",
     }).then((result) => {
         if (result.value || result.isConfirmed) {
-            fetch('http://localhost:8080/api/operadores/' + idOperador, {
+            fetch(`${API_BASE_URL}/api/operadores/${idOperador}`, {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' }
             })
@@ -332,7 +332,7 @@ function crearcuenta() {
   console.log("Enviando usuario al backend:", nuevoUsuario);
 
   // 4. Petición POST al endpoint
-  fetch('http://localhost:8080/api/usuarios', {
+  fetch(`${API_BASE_URL}/api/usuarios`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
