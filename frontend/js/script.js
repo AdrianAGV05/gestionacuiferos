@@ -325,6 +325,7 @@ function crearcuenta() {
     us_nombre: nombre,
     us_correo: correo,
     us_contrasena: contrasena, // Aquí viaja la contraseña en texto plano para que el backend la encripte
+    contrasena: contrasena, // Mantener la propiedad original si el backend la espera
     us_telefono: parseInt(telefono, 10),
     us_tipo: tipoUsuario
   };
