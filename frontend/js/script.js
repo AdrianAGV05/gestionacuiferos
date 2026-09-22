@@ -24,7 +24,7 @@ function iniciarSesion() {
 
   const credenciales = { correo, contrasena };
 
-  fetch(`${API_BASE_URL}/api/usuarios/login`, {
+  fetch(`${API_BASE_URL}usuarios/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(credenciales)
@@ -225,7 +225,7 @@ function borraoperador(idOperador) {
         cancelButtonText: "No, cancelar",
     }).then((result) => {
         if (result.value || result.isConfirmed) {
-            fetch(`${API_BASE_URL}/api/operadores/${idOperador}`, {
+            fetch(`${API_BASE_URL}/operadores/${idOperador}`, {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' }
             })
@@ -333,7 +333,7 @@ function crearcuenta() {
   console.log("Enviando usuario al backend:", nuevoUsuario);
 
   // 4. Petición POST al endpoint
-  fetch(`${API_BASE_URL}/api/usuarios`, {
+  fetch(`${API_BASE_URL}/usuarios`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
