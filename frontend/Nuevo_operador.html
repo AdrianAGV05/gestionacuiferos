@@ -53,14 +53,16 @@
       <div class="table-scroll">
         <table class="tabla">
           <colgroup>
+            <col width="15%">
             <col width="25%">
             <col width="30%">
             <col width="20%">
-            <col width="25%">
+            <col width="10%">
           </colgroup>
           <thead>
             <tr>
               <th>Nombre</th>
+              <th>Matrícula</th>
               <th>Correo electrónico</th>
               <th>Contraseña</th>
               <th>Número de teléfono</th>
@@ -70,6 +72,9 @@
             <tr>
               <td>
                 <input type="text" id="nombre" name="nombre" placeholder="Nombre completo" required style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc; font-family: inherit; color: #004982; outline: none;">
+              </td>
+              <td>
+                <input type="text" id="matricula" name="matricula" placeholder="Matrícula" required style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc; font-family: inherit; color: #004982; outline: none;">
               </td>
               <td>
                 <input type="email" id="correo" name="correo" placeholder="ejemplo@correo.com" required style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc; font-family: inherit; color: #004982; outline: none;">
@@ -109,62 +114,66 @@
 
   <script>
     function guardarOperador() {
-        // Obtener los valores de los campos y eliminar espacios en blanco
-        const nombre = document.getElementById('nombre').value.trim();
-        const correo = document.getElementById('correo').value.trim();
-        const contrasena = document.getElementById('contrasena').value.trim();
-        const telefono = document.getElementById('telefono').value.trim();
+      // 1. Obtener y limpiar valores
+      const matricula = document.getElementById('matricula').value.trim();
+      const nombre = document.getElementById('nombre').value.trim();
+      const correo = document.getElementById('correo').value.trim();
+      const contrasena = document.getElementById('contrasena').value.trim();
+      const telefono = document.getElementById('telefono').value.trim();
 
-        // Validación visual usando SweetAlert
-        if (!nombre || !correo || !contrasena || !telefono) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Campos incompletos',
-                text: 'Por favor, llene todos los campos antes de guardar.'
-            });
-            return;
-        }
+      // 2. Validación de campos obligatorios
+      if (!matricula || !nombre || !correo || !contrasena || !telefono) {
+          Swal.fire({
+              icon: 'warning',
+              title: 'Campos incompletos',
+              text: 'Por favor, llene todos los campos antes de guardar.'
+          });
+          return;
+      }
 
-        // Crear el objeto con los datos
-        const nuevoOperador = {
-            o_nombre: nombre,
-            o_correo: correo,
-            o_contrasena: contrasena,
-            o_telefono: telefono
-        };
+      // 3. Objeto JSON con los nombres exactos de tu modelo Java
+      const nuevoOperador = {
+          o_matricula: matricula,
+          o_nombre: nombre,
+          o_correo: correo,
+          o_contrasena: contrasena,
+          o_telefono: telefono
+      };
 
-        // Enviar los datos al servidor 
-        fetch('http://localhost:8080/api/operadores', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(nuevoOperador)
-        })
-        .then(response => {
-            if(!response.ok) throw new Error("Error en la petición");
-            return response.json();
-        })
-        .then(data => {
-            // Mostrar éxito y redirigir dinámicamente al cerrar
-            Swal.fire({
-                title: '¡Operador agregado con éxito!',
-                icon: 'success',
-                timer: 3000,
-                showConfirmButton: true
-            }).then(() => {
-                document.location = "Listado_operadores.html";
-            });
-        })
-        .catch(error => {
-            console.error('Error al insertar datos:', error);
-            Swal.fire({
-                icon: 'error',
-                title: 'Error de servidor',
-                text: 'Hubo un problema al guardar el operador. Intente nuevamente.'
-            });
-        });
-    }
+      // 4. Envío al endpoint
+      fetch('http://localhost:8080/api/operadores', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(nuevoOperador)
+      })
+      .then(response => {
+          if (!response.ok) {
+              throw new Error("Error en la respuesta del servidor");
+          }
+          return response.json();
+      })
+      .then(data => {
+          Swal.fire({
+              title: '¡Operador agregado con éxito!',
+              text: 'Se ha registrado como operador y usuario en el sistema.',
+              icon: 'success',
+              timer: 2500,
+              showConfirmButton: true
+          }).then(() => {
+              document.location = "Listado_operadores.html";
+          });
+      })
+      .catch(error => {
+          console.error('Error al insertar datos:', error);
+          Swal.fire({
+              icon: 'error',
+              title: 'Error de servidor',
+              text: 'Hubo un problema al guardar el operador. Revisa la consola o los logs.'
+          });
+      });
+}
   </script>
 
 </body>

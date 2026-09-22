@@ -11,8 +11,8 @@
     <script src="https://unpkg.com/sweetalert2@9.5.3/dist/sweetalert2.all.min.js"></script> 
     <script src="js/script.js" defer></script>
 </head>
-<body onload="cargaoperadores()">
-
+<body onload="if (verificarSesion('administrador')) { cargaoperadores(); }">
+  
   <!-- Contenedor principal que empuja el footer al fondo -->
   <div class="page-content">
 
@@ -58,17 +58,17 @@
       <div class="table-scroll">
         <table class="tabla">
           <colgroup>
+            <col width="15%">
             <col width="25%">
             <col width="30%">
-            <col width="15%">
             <col width="20%">
             <col width="10%">
           </colgroup>
           <thead>
             <tr>
+              <th>Matrícula</th>
               <th>Nombre</th>
               <th>Correo electrónico</th>
-              <th>Contraseña</th>
               <th>Número de teléfono</th>
               <th>Acciones</th>
             </tr>

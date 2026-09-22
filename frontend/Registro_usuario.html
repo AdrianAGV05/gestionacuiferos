@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="CSS/Menu_MAIN.css">
     
     <script src="https://kit.fontawesome.com/7f2bc339d8.js" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/sweetalert2@9.5.3/dist/sweetalert2.all.min.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
     <script src="js/script.js" defer></script>
 </head>
 <body>
@@ -17,43 +17,38 @@
 
     <header class="main-header">
       <a href="Menu_MAIN.html" class="logo-box" title="Ir al menú principal">
-        <img src="img/iitca_logo.png" class="logo-img">
+        <img src="img/iitca_logo.png" class="logo-img" alt="Logo IITCA">
       </a>
-
+      
       <div class="header-actions">
-        <!-- Notificaciones estilizadas como botón -->
-        <div class="notification-container">
-          <button type="button" class="nav-btn notification-btn" onclick="toggleNotifications()">
-            <i class="fa-solid fa-bell"></i>
-          </button>
-
-          <!-- Buzón de notificaciones -->
-          <div class="notification-dropdown" id="notificationDropdown">
-            <div class="notification-item">Nueva notificación 1</div>
-            <div class="notification-item">Nueva notificación 2</div>
-            <div class="notification-item">Nueva notificación 3</div>
-          </div>
-        </div>
-
+        <a href="Menu_MAIN.html" class="nav-btn">
+          <i class="fa-solid fa-house"></i>
+          Inicio
+        </a>
         <a href="index.html" class="nav-btn logout-link">
           <i class="fa-solid fa-right-from-bracket"></i>
-          Cerrar Sesión
+          Salir
         </a>
       </div>
     </header>
 
     <h1 class="main-title">Registro de personal</h1>
 
-    <!-- Panel de cristal ajustado para centrar el formulario -->
-    <div class="panel" style="max-width: 850px;">
+    <!-- Panel de cristal centrado -->
+    <div class="panel" style="max-width: 850px; margin: 20px auto 40px auto;">
       
       <div class="panel-header" style="justify-content: center; margin-bottom: 30px;">
         <h2>Crear nuevo usuario</h2>
       </div>
 
-      <!-- Formulario estructurado en CSS Grid -->
-      <form class="form-grid">
+      <!-- Formulario estructurado en CSS Grid (2 columnas) -->
+      <form class="form-grid" id="registroForm" onsubmit="event.preventDefault(); crearcuenta();">
         
+        <div class="form-group">
+          <label for="matricula">Matrícula</label>
+          <input type="text" id="matricula" name="matricula" required placeholder="Ej. 2020202">
+        </div>
+
         <div class="form-group">
           <label for="nombre">Nombre Completo</label>
           <input type="text" id="nombre" name="nombre" required placeholder="Ingresa tu nombre completo">
@@ -71,22 +66,22 @@
 
         <div class="form-group">
           <label for="telefono">Número de Teléfono</label>
-          <input type="tel" id="telefono" name="telefono" required pattern="[0-9]{10}" placeholder="10 dígitos">
+          <input type="tel" id="telefono" name="telefono" required placeholder="10 dígitos">
         </div>
 
         <div class="form-group">
           <label for="tipoUsuario">Rol de Usuario</label>
           <select id="tipoUsuario" name="tipoUsuario" required>
-              <option value="operador">Operador</option>
               <option value="administrador">Administrador</option>
+              <option value="operador">Operador</option>
           </select>
         </div>
 
         <div class="form-group">
-          <label for="Acudd">Acuífero</label>
+          <label for="Acudd">Acuífero (Opcional)</label>
           <div class="input-with-action">
             <select id="Acudd" name="Acudd">
-              <option value="">Cargando...</option>  
+              <option value="">Seleccione un acuífero...</option>  
             </select>
             <a href="Captura_de_acuifero.html" class="action-btn" title="Agregar nuevo acuífero">
               <i class="fa-solid fa-circle-plus"></i>
@@ -95,10 +90,10 @@
         </div>
 
         <div class="form-group">
-          <label for="oodd">Organismo Operador</label>
+          <label for="oodd">Organismo Operador (Opcional)</label>
           <div class="input-with-action">
             <select id="oodd" name="oodd">
-              <option value="">Cargando...</option>
+              <option value="">Seleccione un organismo...</option>
             </select>
             <a href="Captura_de_OP.html" class="action-btn" title="Agregar nuevo organismo">
               <i class="fa-solid fa-circle-plus"></i>
@@ -109,10 +104,10 @@
       </form>
 
       <div class="button-container1" style="margin-top: 35px;">
-        <button class="btn" onclick="window.history.back()" id="backBtn">
+        <button type="button" class="btn " onclick="window.history.back()" id="backBtn">
           <i class="fa-solid fa-arrow-left"></i> Cancelar
         </button>
-        <button class="btn" onclick="crearcuenta()" id="saveBtn">
+        <button type="button" class="btn" onclick="crearcuenta()" id="saveBtn">
           <i class="fa-solid fa-user-check"></i> Crear Cuenta
         </button>
       </div>
@@ -128,15 +123,18 @@
     </small>
   </footer>
 
-  <!-- Scripts agrupados al final para mejor rendimiento -->
+  <!-- Scripts para cargar selects dinámicos -->
   <script>
     document.addEventListener("DOMContentLoaded", function() {
         // Cargar Acuíferos
         fetch('http://localhost:8080/api/acuifero')
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) return [];
+                return response.json();
+            })
             .then(data => {
                 const Acudd = document.getElementById("Acudd");
-                Acudd.innerHTML = '<option value="">Seleccione un acuífero</option>'; 
+                Acudd.innerHTML = '<option value="">Seleccione un acuífero (opcional)</option>'; 
                 data.forEach(item => {
                     const option = document.createElement("option");
                     option.value = item.acu_nombre;
@@ -144,17 +142,19 @@
                     Acudd.appendChild(option);
                 });
             })
-            .catch(error => {
-                console.error('Error al cargar acuíferos:', error);
-                document.getElementById("Acudd").innerHTML = '<option value="">Error de conexión</option>';
+            .catch(() => {
+                document.getElementById("Acudd").innerHTML = '<option value="">Sin datos de acuífero</option>';
             });
 
         // Cargar Organismos Operadores
         fetch('http://localhost:8080/api/oo')
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) return [];
+                return response.json();
+            })
             .then(data => {
                 const oodd = document.getElementById("oodd");
-                oodd.innerHTML = '<option value="">Seleccione un organismo</option>'; 
+                oodd.innerHTML = '<option value="">Seleccione un organismo (opcional)</option>'; 
                 data.forEach(item => {
                     const option = document.createElement("option");
                     option.value = item.oo_nombre;
@@ -162,9 +162,8 @@
                     oodd.appendChild(option);
                 });
             })
-            .catch(error => {
-                console.error('Error al cargar organismos:', error);
-                document.getElementById("oodd").innerHTML = '<option value="">Error de conexión</option>';
+            .catch(() => {
+                document.getElementById("oodd").innerHTML = '<option value="">Sin datos de organismo</option>';
             });
     });
   </script>
