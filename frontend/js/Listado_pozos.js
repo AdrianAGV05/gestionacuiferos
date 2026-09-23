@@ -108,3 +108,22 @@
         });
       });
     });
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  const headerContainer = document.getElementById("header-container");
+  
+  if (headerContainer) {
+    fetch('components/header.html')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("No se pudo cargar el componente del header");
+        }
+        return response.text();
+      })
+      .then(html => {
+        headerContainer.innerHTML = html;
+      })
+      .catch(error => console.error("Error:", error));
+  }
+});
