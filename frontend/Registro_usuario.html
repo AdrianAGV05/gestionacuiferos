@@ -120,7 +120,7 @@
   <script>
     document.addEventListener("DOMContentLoaded", function() {
         // Cargar Acuíferos
-        fetch('http://localhost:8080/api/acuifero')
+        fetch(`${API_BASE_URL}/acuifero`)
             .then(response => {
                 if (!response.ok) return [];
                 return response.json();
@@ -140,7 +140,7 @@
             });
 
         // Cargar Organismos Operadores
-        fetch('http://localhost:8080/api/oo')
+        fetch(`${API_BASE_URL}/oo`)
             .then(response => {
                 if (!response.ok) return [];
                 return response.json();

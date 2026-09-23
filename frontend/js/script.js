@@ -39,6 +39,8 @@ function iniciarSesion() {
     // Guardar datos y rol en el almacenamiento del navegador
     localStorage.setItem("usuario_id", usuario.id_us);
     localStorage.setItem("usuario_nombre", usuario.nombre);
+    localStorage.setItem("usuario_matricula", usuario.matricula || 'N/A');
+    localStorage.setItem("usuario_telefono", usuario.telefono);
     localStorage.setItem("usuario_correo", usuario.correo);
     localStorage.setItem("usuario_rol", usuario.rol); // "administrador" u "operador"
 
@@ -605,5 +607,56 @@ window.addEventListener('click', function (event) {
     if (!icon.contains(event.target) && !dropdown.contains(event.target)) {
       dropdown.classList.remove('active');
     }
+  }
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  const headerContainer = document.getElementById("header-container");
+  
+  if (headerContainer) {
+    fetch('components/header.html')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("No se pudo cargar el componente del header");
+        }
+        return response.text();
+      })
+      .then(html => {
+        headerContainer.innerHTML = html;
+      })
+      .catch(error => console.error("Error:", error));
+  }
+});
+
+
+// ==========================================
+// LÓGICA DE PERFIL DE USUARIO
+// ==========================================
+
+function toggleUserProfile() {
+  const dropdown = document.getElementById('userProfileDropdown');
+  if (dropdown) {
+    dropdown.classList.toggle('active');
+    
+    // Si se abre el menú, inyecta los datos de la sesión actual
+    if (dropdown.classList.contains('active')) {
+      document.getElementById('display-nombre').textContent = localStorage.getItem('usuario_nombre') || 'N/A';
+      document.getElementById('display-matricula').textContent = localStorage.getItem('usuario_matricula') || 'N/A';
+      document.getElementById('display-rol').textContent = localStorage.getItem('usuario_rol') || 'N/A';
+    }
+  }
+}
+
+// Reemplaza tu listener actual de 'click' en la ventana por este, 
+// para que cierre tanto las notificaciones como el perfil al hacer clic fuera
+window.addEventListener('click', function (event) {
+  const notifDropdown = document.getElementById('notificationDropdown');
+  const userDropdown = document.getElementById('userProfileDropdown');
+  
+  // Si el clic ocurre fuera de cualquier contenedor de notificaciones/perfil
+  if (!event.target.closest('.notification-container')) {
+    if (notifDropdown) notifDropdown.classList.remove('active');
+    if (userDropdown) userDropdown.classList.remove('active');
   }
 });

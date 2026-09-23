@@ -154,6 +154,7 @@ footer small {
   display: inline-flex;
   align-items: center;
   height: 45px;
+  gap: 10px;
 }
 
 .notification-count {
@@ -190,6 +191,7 @@ footer small {
   padding: 12px 16px;
   border-bottom: 1px solid #eee;
   font-size: 0.95rem;
+  font-weight: 325;
   color: #333333;
 }
 
