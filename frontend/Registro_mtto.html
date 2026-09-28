@@ -1,156 +1,450 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="CSS/Menu_MAIN.css">
-    <script src="https://kit.fontawesome.com/7f2bc339d8.js" crossorigin="anonymous"></script>
-    <script src="js/script.js"></script>
-    <title>Registro mtto</title>
-</head>
-<header>
-  <a href="Menu_MAIN.html">
-    <i class="fa-solid fa-house" style="color: aliceblue; margin-left: 1200px" ></i>
-  </a>
-  inicio
-  <a >   
-    <i class="fa-solid fa-right-from-bracket"></i>
-  </a>
-  Salir
-</div>
-</header>
-<body>
+    <title>Registro de Mantenimiento - XibalbaData</title>
     
-    <table border=""1" cellpadding="15" class="tabla">
-        <caption>
-            <h2>Datos enviados por operador</h2>
-        </caption>
-        <thead>
-            <tr>
-                <th>Concepto</th>
-                <th>Datos capturados</th>
-            </tr>
-        </thead>
-        
-        <tbody>
-            <tr>
-                <td>
-                    Clave de pozo
-                </td>
-                <td>
-                    LN-138
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Tipo de motor
-                </td>
-                <td>
-                    Convencional
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Hp de motor
-                </td>
-                <td>
-                    100
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Kw de motor
-                </td>
-                <td>
-                    100
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Eficiencia del motor
-                </td>
-                <td>
-                    .954
-                </td>
-            </tr>            
-            <tr>
-                <td>
-                    Tipo de tablero
-                </td>
-                <td>
-                    Trifásico
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Capacidad de tablero amperes
-                </td>
-                <td>
-                    120
-                </td>
-            </tr>
-            <tr>
-                <td>Tipo de transformador</td>
-                <td>
-                    Elevado
-                </td>
-            </tr>
-            <tr>
-                <td>Capacidad de transformador kVA</td>
-                <td>
-                    300
-                </td>
-            </tr>
-            <tr>
-                <td>Calibre de cable sumergible</td>
-                <td>
-                    000
-                </td>
-            </tr>
-            <tr>
-                <td>Longitud de cable sumergible (metros)</td>
-                <td>
-                    75
-                </td>
-            </tr>
-            <tr>
-                <td>Diámetro de tubería (")</td>
-                <td>
-                    8
-                </td>
-            </tr>
-            <tr>
-                <td>Longitud de tubería (metros)</td>
-                <td>
-                    72
-                </td>
-            </tr>
-            <tr>
-                <td>Observaciones</td>
-                <td><textarea name="" id="" cols="10" rows="4"></textarea></td>
-            </tr>
+    <link rel="stylesheet" href="CSS/Menu_MAIN.css">
+    
+    <script src="https://kit.fontawesome.com/7f2bc339d8.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert2@9.5.3/dist/sweetalert2.all.min.js"></script> 
+    <script src="js/script.js" defer></script>
 
-        </tbody>
-    </table>
-   
-    <br>
-    <br>
-    <div class="button-container1">
-      <!-- Botón de Regresar -->
-      <button class="btn" onclick="gestiondemtto()" id="backBtn">
-          Regresar
-      </button>
-    </div>
-<br>
-<br>
+    <style>
+        /* Estilos del Grid y Tarjetas */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
 
-    <footer>
-      <small>
-        <div class="leyenda"> &copy; Software desarrollado por el Intituto Interamericano de Tecnología y Ciencias del Agua.</span>
-      </small>
+        .tarjeta {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .tarjeta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 73, 130, 0.1);
+        }
+
+        .tarjeta-titulo {
+            color: #004982;
+            font-size: 1.15rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #334155;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input, 
+        .form-group select,
+        .form-group textarea {
+            padding: 10px 12px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            font-family: inherit;
+            color: #004982;
+            outline: none;
+            transition: border-color 0.3s;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus, 
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #004982;
+            box-shadow: 0 0 5px rgba(0, 73, 130, 0.2);
+        }
+
+        .grid-2-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+    </style>
+</head>
+<body>
+
+  <div class="page-content">
+
+    <!-- Header estandarizado -->
+    <div id="header-container"></div>
+
+    <h1 class="main-title">Captura de Mantenimiento</h1>
+
+    <div class="panel">
+      
+      <div class="panel-header" style="border-bottom: none; margin-bottom: 0;">
+        <h2>Formulario de Registro</h2>
+      </div>
+
+      <!-- Contenedor Grid de Tarjetas -->
+      <div class="cards-grid">
+          
+        <!-- TARJETA 1: Motor y Datos Básicos -->
+        <div class="tarjeta">
+            <h3 class="tarjeta-titulo"><i class="fa-solid fa-gear"></i> 1. Motor e Identificación</h3>
+            
+            <div class="form-group">
+                <label for="clavePozo">Clave del Pozo</label>
+                <input type="text" id="clavePozo" placeholder="Ej. LN-138" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="motorTipo">Tipo de Motor</label>
+                <input type="text" id="motorTipo" placeholder="Ej. Convencional">
+            </div>
+
+            <div class="grid-2-col">
+                <div class="form-group">
+                    <label for="motorHp">Potencia (HP)</label>
+                    <input type="number" id="motorHp" placeholder="0">
+                </div>
+                <div class="form-group">
+                    <label for="motorKw">Potencia (KW)</label>
+                    <input type="number" id="motorKw" placeholder="0">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="motorEficiencia">Eficiencia del Motor (%)</label>
+                <input type="number" step="1" id="motorEficiencia" placeholder="Ej. 95">
+            </div>
+        </div>
+
+        <!-- TARJETA 2: Equipamiento Eléctrico -->
+        <div class="tarjeta">
+            <h3 class="tarjeta-titulo"><i class="fa-solid fa-bolt"></i> 2. Equipamiento Eléctrico</h3>
+            
+            <div class="grid-2-col">
+                <div class="form-group">
+                    <label for="tableroTipo">Tablero (Tipo)</label>
+                    <input type="text" id="tableroTipo" placeholder="Ej. Trifásico">
+                </div>
+                <div class="form-group">
+                    <label for="tableroCap">Capacidad (A)</label>
+                    <input type="number" id="tableroCap" placeholder="0">
+                </div>
+            </div>
+
+            <div class="grid-2-col">
+                <div class="form-group">
+                    <label for="transTipo">Transformador</label>
+                    <input type="text" id="transTipo" placeholder="Ej. Elevado">
+                </div>
+                <div class="form-group">
+                    <label for="transCap">Capacidad (kVA)</label>
+                    <input type="number" id="transCap" placeholder="0">
+                </div>
+            </div>
+
+            <div class="grid-2-col">
+                <div class="form-group">
+                    <label for="panelSolar">Panel Solar</label>
+                    <select id="panelSolar">
+                        <option value="No">No</option>
+                        <option value="Si">Sí</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="bancoBaterias">Banco de Baterías</label>
+                    <select id="bancoBaterias">
+                        <option value="No">No</option>
+                        <option value="Si">Sí</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="sistemaTierras">Sistema de Tierras</label>
+                <select id="sistemaTierras">
+                    <option value="No">No</option>
+                    <option value="Si">Sí</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="transSeco">Transformador Seco</label>
+                <input type="text" id="transSeco" placeholder="Especificar detalles">
+            </div>
+        </div>
+
+        <!-- TARJETA 3: Tubería y Medidores -->
+        <div class="tarjeta">
+            <h3 class="tarjeta-titulo"><i class="fa-solid fa-ruler-combined"></i> 3. Tubería y Medidores</h3>
+            
+            <div class="grid-2-col">
+                <div class="form-group">
+                    <label for="diametroTuberia">Diámetro Tubería (in)</label>
+                    <input type="number" id="diametroTuberia" placeholder="0">
+                </div>
+                <div class="form-group">
+                    <label for="longitudTuberia">Longitud Tubería (m)</label>
+                    <input type="number" id="longitudTuberia" placeholder="0">
+                </div>
+            </div>
+
+            <div class="grid-2-col">
+                <div class="form-group">
+                    <label for="medidorPresion">Presión</label>
+                    <input type="number" step="0.01" id="medidorPresion" placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label for="medidorFlujo">Flujo</label>
+                    <input type="number" step="0.01" id="medidorFlujo" placeholder="0.00">
+                </div>
+            </div>
+
+            <div class="grid-2-col">
+                <div class="form-group">
+                    <label for="medidorNE">Medidor N.E.</label>
+                    <select id="medidorNE">
+                        <option value="No">No</option>
+                        <option value="Si">Sí</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="medidorND">Medidor N.D.</label>
+                    <select id="medidorND">
+                        <option value="No">No</option>
+                        <option value="Si">Sí</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid-2-col">
+                <div class="form-group">
+                    <label for="poliducto">Poliducto</label>
+                    <select id="poliducto">
+                        <option value="No">No</option>
+                        <option value="Si">Sí</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="sanitaria">Inst. Sanitaria</label>
+                    <select id="sanitaria">
+                        <option value="No">No</option>
+                        <option value="Si">Sí</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- TARJETA 4: Cableado y Observaciones -->
+        <div class="tarjeta">
+            <h3 class="tarjeta-titulo"><i class="fa-solid fa-plug"></i> 4. Cableado y Notas</h3>
+            
+            <div class="grid-2-col">
+                <div class="form-group">
+                    <label for="calibreSumergible">Calibre Sumergible</label>
+                    <input type="text" id="calibreSumergible" placeholder="Ej. 000">
+                </div>
+                <div class="form-group">
+                    <label for="longitudSumergible">Long. Sumergible (m)</label>
+                    <input type="number" id="longitudSumergible" placeholder="0">
+                </div>
+            </div>
+
+            <div class="form-group" style="background: #f8fafc; padding: 10px; border-radius: 8px;">
+                <label style="color:#004982;">Cable Transformador - Arrancador</label>
+                <div class="grid-2-col" style="margin-top: 10px;">
+                    <select id="cableTrans" class="form-group">
+                        <option value="">Seleccione material</option>
+                        <option value="Aluminio">Aluminio</option>
+                        <option value="Cobre">Cobre</option>
+                    </select>
+                    <select id="calibreArrancador" class="form-group">
+                        <option value="">Seleccione calibre</option>
+                        <option value="0">0</option>
+                        <option value="00">00</option>
+                        <option value="000">000</option>
+                    </select>
+                </div>
+                <input type="number" step="0.01" id="longitudArrancador" placeholder="Longitud (m)" style="width: 100%; margin-top: 5px;">
+            </div>
+
+            <div class="form-group" style="background: #f8fafc; padding: 10px; border-radius: 8px;">
+                <label style="color:#004982;">Cable Arrancador - Bomba</label>
+                <div class="grid-2-col" style="margin-top: 10px;">
+                    <select id="cableBomba" class="form-group">
+                        <option value="">Seleccione material</option>
+                        <option value="Aluminio">Aluminio</option>
+                        <option value="Cobre">Cobre</option>
+                    </select>
+                    <select id="calibreBomba" class="form-group">
+                        <option value="">Seleccione calibre</option>
+                        <option value="0">0</option>
+                        <option value="00">00</option>
+                        <option value="000">000</option>
+                    </select>
+                </div>
+                <input type="number" step="0.01" id="longitudBomba" placeholder="Longitud (m)" style="width: 100%; margin-top: 5px;">
+            </div>
+
+            <div class="form-group">
+                <label for="observaciones">Observaciones</label>
+                <textarea id="observaciones" rows="3" placeholder="Escriba aquí los detalles adicionales..."></textarea>
+            </div>
+        </div>
+
+      </div> <!-- /.cards-grid -->
+
+      <!-- Botones de Acción -->
+      <div class="button-container1">
+        <button class="btn" onclick="gestiondemtto()" id="backBtn">
+          <i class="fa-solid fa-arrow-left"></i> Regresar
+        </button>
+        <button class="btn" onclick="guardarMantenimiento()" id="forwardBtn">
+          <i class="fa-solid fa-floppy-disk"></i> Guardar Registro
+        </button>
+      </div>
+
+    </div> <!-- /.panel -->
+
+  </div> <!-- /.page-content -->
+
+  <footer>
+    <small>
+      <div class="leyenda"> &copy; Software desarrollado por el Instituto Interamericano de Tecnología y Ciencias del Agua.</div>
+    </small>
   </footer>
-      <!--Colocar el texto centrado y en la parte inferior de la pantlla-->
 
+  <script>
+    // Helpers: devuelven null si el campo está vacío o no es número válido
+    const val = id => document.getElementById(id).value;
+    const txt = id => val(id).trim();
+    const entero = id => { const n = parseInt(val(id), 10); return Number.isNaN(n) ? null : n; };
+    const decimal = id => { const n = parseFloat(val(id)); return Number.isNaN(n) ? null : n; };
+
+    // Fecha local sin zona horaria ("2026-09-28T12:30:00") para LocalDateTime
+    function fechaLocalISO() {
+        const date = new Date();
+        const p = n => String(n).padStart(2, '0');
+        return `${date.getFullYear()}-${p(date.getMonth() + 1)}-${p(date.getDate())}T${p(date.getHours())}:${p(date.getMinutes())}:${p(date.getSeconds())}`;
+    }
+
+    function guardarMantenimiento() {
+        // Validación básica
+        const clavePozo = txt('clavePozo');
+        if (!clavePozo) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Campo requerido',
+                text: 'La clave del pozo es obligatoria para el registro.'
+            });
+            return;
+        }
+
+        // Construir el objeto con los nombres exactos del backend
+        const mantenimientoData = {
+            mtto_clave_pozo: clavePozo,
+            mtto_motor_tipo: txt('motorTipo'),
+            mtto_motor_hp: entero('motorHp'),
+            mtto_motor_kw: entero('motorKw'),
+            mtto_motor_eficiencia: entero('motorEficiencia'), // Integer en el backend
+
+            mtto_tablero_tipo: txt('tableroTipo'),
+            mtto_tablero_capacidad: entero('tableroCap'),
+            mtto_transformador_tipo: txt('transTipo'),
+            mtto_transformador_capacidad: entero('transCap'),
+
+            mtto_panel_solar: val('panelSolar'),
+            mtto_banco_baterias: val('bancoBaterias'),
+            mtto_sistema_tierras: val('sistemaTierras'),
+            mtto_trans_seco: txt('transSeco'),
+
+            mtto_tuberia_diametro: entero('diametroTuberia'),
+            mtto_tuberia_longitud: entero('longitudTuberia'),
+            mtto_medidor_presion: decimal('medidorPresion'),
+            mtto_medidor_flujo: decimal('medidorFlujo'),
+            mtto_medidor_NE: val('medidorNE'),
+            mtto_medidor_ND: val('medidorND'), // Corregido: antes mtt_medidor_ND
+            mtto_poliducto: val('poliducto'),
+            mtto_sanitaria: val('sanitaria'),
+
+            mtto_calibre_sumergible: txt('calibreSumergible'),
+            mtto_longitud_sumergible: entero('longitudSumergible'),
+
+            mtto_cable_transformador: val('cableTrans'),
+            mtto_calibre_arrancador: val('calibreArrancador'),
+            mtto_longitud_arrancador: decimal('longitudArrancador'),
+
+            mtto_cable_bomba: val('cableBomba'),
+            mtto_calibre_bomba: val('calibreBomba'),
+            mtto_longitud_bomba: decimal('longitudBomba'),
+
+            mtto_observaciones: txt('observaciones'),
+
+            // --- CAMPOS DE CONTROL --- //
+            mtto_operador: 1, // ID temporal, luego lo podemos ligar al localStorage
+            mtto_fecha_captura: fechaLocalISO() // Sin "Z", compatible con LocalDateTime
+        };
+
+        const baseUrl = typeof API_BASE_URL !== 'undefined' ? API_BASE_URL : 'http://localhost:8080/api';
+        const btn = document.getElementById('forwardBtn');
+        btn.disabled = true; // Evita doble envío
+
+        fetch(`${baseUrl}/mantenimiento`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(mantenimientoData)
+        })
+        .then(async response => {
+            if (!response.ok) {
+                const body = await response.text();
+                console.error('Status:', response.status, 'Body:', body);
+                throw new Error(body || 'Error en el servidor');
+            }
+            return response.json();
+        })
+        .then(() => {
+            Swal.fire({
+                icon: 'success',
+                title: '¡Guardado!',
+                text: 'El registro de mantenimiento se guardó correctamente.',
+                confirmButtonColor: '#004982'
+            }).then(() => {
+                gestiondemtto();
+            });
+        })
+        .catch(error => {
+            console.error(error);
+            btn.disabled = false;
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Hubo un problema al guardar los datos.'
+            });
+        });
+    }
+  </script>
 
 </body>
 </html>

@@ -163,7 +163,7 @@ const confirmacion3 = () => mostrarAlerta('Alerta Resuelta', 'success', 2500);
 const modificaciondatos = () => mostrarAlerta('Datos modificados con exito', 'success', 2500);
 const notfoperadorr = () => {
     mostrarAlerta('Se envio una notificación al operador', 'success', 3000);
-    setTimeout(() => { document.location = "Gestion_de_mtto.html"; }, 3500);
+    setTimeout(() => { document.location = "tabla_mantenimiento.html"; }, 3500);
 };
 
 
@@ -177,7 +177,7 @@ const listadopozos = () => document.location = 'Listado_pozos.html';
 const listadopozo = () => document.location = 'Listado_pozos.html';
 const listadoOperadores = () => document.location = 'Listado_operadores.html';
 const gestiondeOperacion = () => document.location = 'Gestion_de_Operacion.html';
-const gestiondemtto = () => document.location = 'Gestion_de_mtto.html';
+const gestiondemtto = () => document.location = 'tabla_mantenimiento.html';
 const selectacuyop = () => document.location = 'nvo-usuario-prueba.html';
 const gestiondeAlerta = () => document.location = "Gestion_de_alerta.html";
 
